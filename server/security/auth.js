@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
-    callbackURL: "http://ec2-3-23-88-112.us-east-2.compute.amazonaws.com:8080/login-success",  // changed to redirect to deployment
+    callbackURL: "/login-success",  // changed to redirect to deployment
     passReqToCallback: true
   },
   function(request, accessToken, refreshToken, profile, cb) {
