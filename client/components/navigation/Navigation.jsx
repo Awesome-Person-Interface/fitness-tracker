@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import useStyles from '../styles';
 import AccountMenu from './AccountMenu.jsx';
@@ -19,7 +19,11 @@ function Navigation(props) {
     <AppBar position="static" >
       <Container maxWidth="100%" className={nav_classes.navBar}>
         <Toolbar sx={{justifyContent: "space-between"}}>
-          <Container sx={{display: 'flex', flexDirection: 'row'}}>
+          <Stack
+            sx={{display: 'flex', flexDirection: 'row'}}
+            direction="row"
+            spacing={4}
+          >
             <img src='https://i.imgur.com/ZX5wc9L.png' style={{width: "20%", height: "20%"}}/>
             <Button
               className={nav_classes.navButtons}
@@ -69,7 +73,7 @@ function Navigation(props) {
             >
               Meal Plans
             </Button>
-          </Container>
+          </Stack>
           <Container>
             <IconButton onClick={props.handleThemeChange} color="inherit">
               <Brightness4Icon />
