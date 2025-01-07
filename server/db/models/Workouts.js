@@ -6,8 +6,8 @@ const WorkoutSchema = new Schema({
 	routine_name: String,
 	exercises: Array,
 });
-// Create the Workouts model
-const Workouts = mongoose.model('Workout', RoutineSchema);
+// Create the Workouts model using the schema
+const Workouts = mongoose.model('Workout', WorkoutSchema);
 
 module.exports = {
   Workouts,

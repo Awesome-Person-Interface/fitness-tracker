@@ -9,13 +9,13 @@ const UserSchema = new Schema({
   nutrition: Array,
   username: { type: String, required: false },
   phone_num: { type: String, required: false },
-  recov_email: { type: String, required: false }
+  recov_email: { type: String, required: false },
 });
 // Attach findOrCreate plugin to the UserSchema
 UserSchema.plugin(findOrCreate);
-
+// Create the Users model using the schema
 const Users = mongoose.model('User', UserSchema);
 
 module.exports = {
   Users,
-}
+};
