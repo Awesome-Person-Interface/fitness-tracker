@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {User, Routines, Meals, db} from '../server/db/index.js'
+import {User, Workouts, Meals, db} from '../server/db/index.js'
 import exampleWorkouts from './exampleWorkouts.js'
 import exampleNutrition from './exampleNutrition.js';
 
@@ -35,13 +35,13 @@ db.on('open', () => {
   }
 
   function randomRoutineName() {
-    const routines = ['Chest Day', 'Leg Day', 'Arm Day', 'Upper Body', 'Abdominals']
+    const workouts = ['Chest Day', 'Leg Day', 'Arm Day', 'Upper Body', 'Abdominals']
 
-    let max = routines.length;
+    let max = workouts.length;
     
     let rand = Math.floor(Math.random() * max);
 
-    return routines[rand];
+    return workouts[rand];
   }
 
   const userOne = {
@@ -95,21 +95,21 @@ db.on('open', () => {
 
     User.create(user)
       .then( (userCreated) => {
-        return Routines.create({
+        return Workouts.create({
           user_id: user._id,
           routine_name: randomRoutineName(),
           exercises: randomWorkouts()
         })
       })
       .then( (routineCreated1) => {
-        return Routines.create({
+        return Workouts.create({
           user_id: user._id,
           routine_name: randomRoutineName(),
           exercises: randomWorkouts()
         })
       })
       .then( (routineCreated2) => {
-        return Routines.create({
+        return Workouts.create({
           user_id: user._id,
           routine_name: randomRoutineName(),
           exercises: randomWorkouts()

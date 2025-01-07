@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import {User, Routines, Meals, db} from '../server/db/index.js'
+import {User, Workouts, Meals, db} from '../server/db/index.js'
 
 db.on('open', () => {
 
   User.deleteMany({})
     .then(() => {
-      return Routines.deleteMany({})
+      return Workouts.deleteMany({})
     })
     .then(() => {
       return Meals.deleteMany({});
@@ -22,6 +22,6 @@ db.on('open', () => {
     })
 
   db.dropCollection('users');
-  db.dropCollection('routines');
+  db.dropCollection('workouts');
   db.dropCollection('meals');
 })
