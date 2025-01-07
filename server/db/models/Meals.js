@@ -10,6 +10,4 @@ const MealSchema = new Schema({
 // Create the Meals using the schema
 const Meals = mongoose.model('Meal', MealSchema);
 
-module.exports = {
-  Meals,
-}
+export default Meals;

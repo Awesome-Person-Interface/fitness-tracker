@@ -16,6 +16,4 @@ UserSchema.plugin(findOrCreate);
 // Create the Users model using the schema
 const Users = mongoose.model('User', UserSchema);
 
-module.exports = {
-  Users,
-};
+export default Users;

@@ -9,6 +9,4 @@ const WorkoutSchema = new Schema({
 // Create the Workouts model using the schema
 const Workouts = mongoose.model('Workout', WorkoutSchema);
 
-module.exports = {
-  Workouts,
-};
+export default Workouts;
