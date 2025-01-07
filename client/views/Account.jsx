@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AccountPage() {
+function Account() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
@@ -16,4 +16,4 @@ function AccountPage() {
   );
 }
 
-export default AccountPage;
+export default Account;
