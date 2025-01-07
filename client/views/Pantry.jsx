@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Nutrition() {
+function Pantry() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
@@ -18,4 +18,4 @@ function Nutrition() {
   );
 }
 
-export default Nutrition;
+export default Pantry;
