@@ -2,9 +2,8 @@
  *                              IMPORTS & INITIALIZATION
  * ----------------------------------------------------------------------------------*/
 import express from 'express';
-import { User } from '../db/index.js'  // must be imported for database connection
-import dotenv from 'dotenv';
 import verify from '../security/verify.js';
+import { User } from '../db/index.js'  // must be imported for database connection
 
 const account = express.Router();
 // ----------------------------------------------------------------------------------- //

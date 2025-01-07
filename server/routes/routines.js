@@ -2,11 +2,11 @@
  *                              IMPORTS & INITIALIZATION
  * ----------------------------------------------------------------------------------*/
 import express from 'express';
-import { Routines } from '../db/index.js'  // must be imported for database connection
 import axios from 'axios';             // must be imported for external requests
 import dotenv from 'dotenv';
 import verify from '../security/verify.js';
 dotenv.config();
+import { Workouts } from '../db/index.js'  // must be imported for database connection
 
 const routines = express.Router();
 // ----------------------------------------------------------------------------------- //
@@ -28,7 +28,7 @@ const routines = express.Router();
 
 routines.post('/create', verify, (req, res) => {
 
-  Routines.create(
+  Workouts.create(
     {
       user_id: req.user._id,
       routine_name: req.body.routine_name,
@@ -49,11 +49,11 @@ routines.post('/create', verify, (req, res) => {
 })
 
 routines.get('/', verify, (req, res) => {
-  res.status(200).send({view: 'Routines'});
+  res.status(200).send({view: 'Workouts'});
 })
 
 routines.get('/all', verify, (req, res) => {
-  Routines.find({user_id: req.user._id})
+  Workouts.find({user_id: req.user._id})
     .then((foundRoutines) => {
       if (!foundRoutines){
         res.sendStatus(404);
@@ -69,7 +69,7 @@ routines.get('/all', verify, (req, res) => {
 
 routines.patch('/update/:id', verify, (req, res) => {
 
-  Routines.findOneAndUpdate(
+  Workouts.findOneAndUpdate(
     {_id: req.params.id},
     {routine_name: req.body.name}
   )
@@ -87,7 +87,7 @@ routines.patch('/update/:id', verify, (req, res) => {
 })
 
 routines.delete('/delete/:id', verify, (req, res) => {
-  Routines.findOneAndDelete({_id: req.params.id})
+  Workouts.findOneAndDelete({_id: req.params.id})
     .then((isComplete) => {
       res.sendStatus(200);
     })

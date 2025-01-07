@@ -2,11 +2,10 @@
  *                              IMPORTS & INITIALIZATION
  * ----------------------------------------------------------------------------------*/
 import express from 'express';
-import { User } from '../db/index.js'  // must be imported for database connection
 import axios from 'axios';             // must be imported for external requests
 import dotenv from 'dotenv';
 import verify from '../security/verify.js';
-import { Meals } from '../db/index.js';
+import { User, Meals } from '../db/index.js'  // must be imported for database connection
 import meals from './meals.js';
 dotenv.config();
 

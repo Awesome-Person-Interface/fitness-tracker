@@ -2,13 +2,13 @@
  *                              IMPORTS & INITIALIZATION
  * ----------------------------------------------------------------------------------*/
 import express from 'express';
-import { User, Routines, Meals } from '../db/index.js'
 import dotenv from 'dotenv';
 import workouts from './workouts.js';               // workouts router
 import nutrition from './nutrition.js';             // nutrition router
 import routines from './routines.js';
 import account from './account.js';
 import verify from '../security/verify.js';
+import { User, Workouts, Meals } from '../db/index.js'
 
 dotenv.config();
 const users = express.Router();
@@ -84,7 +84,7 @@ users.delete('/delete', verify, (req, res) => {
 
   User.findByIdAndDelete(filter)
     .then(() => {
-      return Routines.deleteMany({user_id: req.user._id})
+      return Workouts.deleteMany({user_id: req.user._id})
     })
     .then(() => {
       return Meals.deleteMany({user_id: req.user._id})
