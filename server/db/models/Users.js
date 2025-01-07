@@ -14,6 +14,6 @@ const UserSchema = new Schema({
 // Attach findOrCreate plugin to the UserSchema
 UserSchema.plugin(findOrCreate);
 // Create the Users model using the schema
-const Users = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
-export default Users;
+export default User;

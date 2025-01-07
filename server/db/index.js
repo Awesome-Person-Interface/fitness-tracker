@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Meals from './models/Meals.js';
-import Users from './models/Users.js';
+import User from './models/Users.js';
 import Workouts from './models/Workouts.js';
 
 // establish connection to mongoose
@@ -18,7 +18,7 @@ const db = mongoose.connection;
 // we still need to export this and the connection to mongoose
 export {
   Meals,
-  Users,
+  User,
   Workouts,
   db,
 };
