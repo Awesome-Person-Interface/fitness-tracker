@@ -111,7 +111,7 @@ const useStyles = makeStyles(() => ({
     background: 'linear-gradient(45deg, #556270 30%, #FF6B6B 90%)',
   },
   navButtons: {
-    whiteSpace: 'nowrap',
+    whiteSpace: 'wrap',
     margin: '0 15px',
     minWidth: '125px',
     padding: '8px 15px',
