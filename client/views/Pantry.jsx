@@ -1,20 +1,16 @@
 import React from 'react';
+import Navigation from '../components/navigation/Navigation.jsx';
+import Nutrition from '../components/nutrition/Nutrition.jsx';
 
-function Pantry() {
+function Pantry({ handleThemeChange, user, fetchUser, routines }) {
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <IconButton onClick={handleThemeChange} color="inherit">
-        <Brightness4Icon />
-      </IconButton>
-			<div id="root-app">
-				<Navigation updateView={updateView}/>
+    <div id="root-app">
+      <Navigation handleThemeChange={handleThemeChange} />
 
-				<br></br>
-				<div><Nutrition state={darkMode} fetchUser={fetchUser} user={user} routines={routines}/></div>
+      <br></br>
+      <div><Nutrition fetchUser={fetchUser} user={user} routines={routines}/></div>
 
-			</div>
-    </ThemeProvider>
+    </div>
   );
 }
 

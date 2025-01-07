@@ -1,18 +1,16 @@
 import React from 'react';
+import Navigation from '../components/navigation/Navigation.jsx';
+import CurrentMealPlans from '../components/nutrition/CurrentMealPlans.jsx';
 
-function MealPlans() {
+function MealPlans({ handleThemeChange }) {
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <IconButton onClick={handleThemeChange} color="inherit">
-        <Brightness4Icon />
-      </IconButton>
-			<div id="root-app">
-				<Navigation updateView={updateView}/>
-				<br></br>
-				<div><CurrentMealPlans state={darkMode} user={user} updateView={updateView} fetchUser={fetchUser}/></div>
-			</div>
-    </ThemeProvider>
+    <div id="root-app">
+      <Navigation handleThemeChange={handleThemeChange}/>
+      <br></br>
+      <div>
+        <CurrentMealPlans />
+      </div>
+    </div>
   );
 }
 

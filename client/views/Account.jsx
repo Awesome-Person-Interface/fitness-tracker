@@ -1,18 +1,14 @@
 import React from 'react';
+import Navigation from '../components/navigation/Navigation.jsx';
+import AccountPage from '../components/navigation/AccountPage.jsx';
 
-function Account() {
+function Account({ handleThemeChange, user, fetchUser }) {
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <IconButton onClick={handleThemeChange} color="inherit">
-        <Brightness4Icon />
-      </IconButton>
-			<div id="root-app">
-				<Navigation updateView={updateView}/>
-				<br></br>
-				<div><AccountPage state={darkMode} user={user} updateView={updateView} fetchUser={fetchUser}/></div>
-			</div>
-    </ThemeProvider>
+		<div id="root-app">
+			<Navigation handleThemeChange={handleThemeChange} />
+			<br></br>
+			<div><AccountPage user={user} fetchUser={fetchUser}/></div>
+		</div>
   );
 }
 

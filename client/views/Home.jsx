@@ -1,14 +1,11 @@
 import React from 'react';
+import Navigation from '../components/navigation/Navigation.jsx';
+import Dashboard from '../components/dashboard/Dashboard.jsx';
 
-function Home() {
- return (
-  <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-    <CssBaseline />
-    <IconButton onClick={handleThemeChange} color="inherit">
-      <Brightness4Icon />
-    </IconButton>
+function Home({ handleThemeChange, user }) {
+  return (
     <div id="root-app">
-      <Navigation updateView={updateView}/>
+      <Navigation handleThemeChange={handleThemeChange} />
       {user ?
       <div>
         <Dashboard user={user}/>
@@ -20,8 +17,7 @@ function Home() {
       </div>
       }
     </div>
-  </ThemeProvider>
- );
+  );
 }
 
 export default Home;

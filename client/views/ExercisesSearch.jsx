@@ -1,20 +1,16 @@
 import React from 'react';
+import Navigation from '../components/navigation/Navigation.jsx';
+import WorkoutSearch from '../components/workouts/WorkoutSearch.jsx';
 
-function ExercisesSearch() {
+function ExercisesSearch({ handleThemeChange, user, fetchUser }) {
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <IconButton onClick={handleThemeChange} color="inherit">
-        <Brightness4Icon />
-      </IconButton>
-      <div id="root-app">
-        <Navigation updateView={updateView}/>
-        <br></br>
-        <div>
-          <WorkoutSearch user={user} fetchUser={fetchUser}/>
-        </div>
+    <div id="root-app">
+      <Navigation handleThemeChange={handleThemeChange} />
+      <br></br>
+      <div>
+        <WorkoutSearch user={user} fetchUser={fetchUser}/>
       </div>
-    </ThemeProvider>
+    </div>
   );
 }
 
