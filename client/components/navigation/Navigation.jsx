@@ -5,6 +5,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 import useStyles from '../styles';
 import AccountMenu from './AccountMenu.jsx';
 
@@ -18,15 +21,62 @@ function Navigation(props) {
         <Toolbar sx={{justifyContent: "space-between"}}>
           <Container sx={{display: 'flex', flexDirection: 'row'}}>
             <img src='https://i.imgur.com/ZX5wc9L.png' style={{width: "20%", height: "20%"}}/>
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Dashboard" sx={{color: 'white'}}>Dashboard</Button>
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Routines" sx={{color: 'white'}}>Routines</Button>
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Workouts" sx={{color: 'white'}}>Your Exercises</Button>
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Workouts-Search" sx={{color: 'white', whiteSpace: 'nowrap'}}>Find Exercises</Button>
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Nutrition" sx={{color: 'white'}}>Nutrition</Button>	
-            <Button type="button" onClick={(e) => props.updateView(e)}  className={nav_classes.navButtons} name="Meal Plans" sx={{color: 'white'}}>Meal Plans</Button>	
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/homepage"
+            >
+              Home
+            </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/workouts"
+            >
+              Workouts
+            </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/exercises"
+            >
+              Exercises
+            </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/exercises-search"
+            >
+              Search Exercises
+            </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/pantry"
+            >
+              Pantry
+            </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/meal-plans"
+            >
+              Meal Plans
+            </Button>
+          </Container>
+          <Container>
+            <IconButton onClick={props.handleThemeChange} color="inherit">
+              <Brightness4Icon />
+            </IconButton>
           </Container>
           <Container sx={{justifyItems: "right"}}>
-              <AccountMenu updateView={props.updateView}/>
+              <AccountMenu />
           </Container>
         </Toolbar>
       </Container>

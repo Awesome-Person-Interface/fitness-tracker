@@ -75,11 +75,11 @@ export default function AccountMenu(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={() => {props.updateView({target: {name: "Account Page"}})}}>
+        <MenuItem href="/account" >
           <Avatar><AccountCircleIcon sx={{fontSize: '36px'}} /></Avatar> Profile
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => {props.updateView({target: {name: "Logout"}})}}>
+        <MenuItem>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
