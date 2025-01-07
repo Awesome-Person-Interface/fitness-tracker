@@ -176,8 +176,8 @@ export default function AccountPage(props){
                         {props.user.recov_email} 
                         <IconButton onClick={isEditing ? () =>{handleSaveClick('email')} : handleEditClick}>
                           {isEditing ? <SaveIcon /> : <EditIcon />}
-                        </IconButton>  
-                      </div>                
+                        </IconButton>
+                      </div>
                     )
                   }
                 </TableCell>
@@ -187,7 +187,7 @@ export default function AccountPage(props){
       </TableContainer>
       <Divider sx={{paddingTop: "10px"}}/>
       <br></br>
-      <Button className={classes.deleteAccButton} type="button" onClick={(e) => props.updateView(e)} name="Delete Account" sx={{color: 'white'}}>Delete Account</Button>
+      <Button className={classes.deleteAccButton} type="button" name="Delete Account" sx={{color: 'white'}}>Delete Account</Button>
     </div>
   )
 

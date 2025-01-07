@@ -17,11 +17,12 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import path from 'path';
 import { db } from './db/index.js'         // must be imported for database connection
 import auth from './security/auth.js';     // must be imported for Passport to function
 import dotenv from 'dotenv';
-import users from './routes/users.js';     
-import verify from './security/verify.js';     
+import users from './routes/users.js';
+import verify from './security/verify.js';
 dotenv.config();
 
 const app = express();              // create Express instance named 'app'
@@ -30,7 +31,7 @@ const port = 8080;                  // random port, can change as necessary
 // =================================================================================== //
 
 
-
+const DIST_DIR = path.resolve('client', 'dist');
 
 
 /* ===================================================================================
@@ -73,12 +74,12 @@ app.use('/homepage', verify, express.static('client/dist'));
  *  GET   /homepage                 => redirect on login success, serves client files
  * ----------------------------------------------------------------------------------- */
 
-app.get('/', passport.authenticate('google', { 
-  scope: ['email', 'openid'], 
-  prompt: 'select_account consent' 
+app.get('/', passport.authenticate('google', {
+  scope: ['email', 'openid'],
+  prompt: 'select_account consent'
 }));
 
-app.get('/login-success', 
+app.get('/login-success',
   passport.authenticate('google', {
     successRedirect: '/homepage',
     failureRedirect: '/'
@@ -88,6 +89,10 @@ app.get('/login-success',
 app.get('/homepage', verify, (req, res) => {
   res.status(200).redirect('/homepage');
 })
+
+app.get('*', verify, (req, res) => {
+  res.sendFile('index.html', { root: DIST_DIR });
+});
 
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
