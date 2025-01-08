@@ -8,6 +8,7 @@ import nutrition from './nutrition.js';             // nutrition router
 import routines from './routines.js';
 import account from './account.js';
 import events from './events.js';
+import recipes from './recipes.js';
 import verify from '../security/verify.js';
 import { User, Workouts, Meals } from '../db/index.js'
 
