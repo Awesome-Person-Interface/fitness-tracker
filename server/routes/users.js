@@ -35,6 +35,7 @@ users.use('/nutrition', nutrition);
 users.use('/routines', routines);
 users.use('/account', account);
 users.use('/events', events);
+users.use('/recipes', recipes);
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
