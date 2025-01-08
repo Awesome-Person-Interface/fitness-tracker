@@ -11,14 +11,14 @@ import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
-const localizer = dayjsLocalizer(dayjs);
+const djLocalizer = dayjsLocalizer(dayjs);
 
 const startEvents = [
   {
     id: 1,
     title: 'Breakfast',
-    start: new Date(2025, 0, 5, 7, 30),
-    end: new Date(2025, 0, 5, 8),
+    start: dayjs(new Date(2025, 0, 5, 7, 30)).$d,
+    end: dayjs(new Date(2025, 0, 5, 8)).$d,
     allDay: false,
     desc: 'Two banana pancakes & a cup of coffee.',
     category: 'Breakfast',
@@ -39,8 +39,8 @@ function CalendarView({ handleThemeChange }) {
   }, [setSelectedEvent]);
 
   const { defaultDate, scrollToTime } = useMemo(() => ({
-    defaultDate: Date.now(),
-    scrollToTime: new Date(1970, 1, 1, 6),
+    defaultDate: dayjs(Date.now()).$d,
+    scrollToTime: dayjs(new Date(1970, 1, 1, 6)).$d,
   }), []);
 
   const handleCloseDialog = () => {
@@ -78,7 +78,7 @@ function CalendarView({ handleThemeChange }) {
             defaultDate={defaultDate}
             defaultView={Views.MONTH}
             events={events}
-            localizer={localizer}
+            localizer={djLocalizer}
             onSelectEvent={handleSelectEvent}
             onSelectSlot={handleSelectSlot}
             selectable
