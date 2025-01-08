@@ -11,7 +11,7 @@ const IngredientSchema = new Schema({
   // Use the iIngredientSchema for the ingredients field in recipes
   // Declaring an array of objects that follow the IngredientSchema
 const RecipeSchema = new Schema({
-  name: { type: String, },
+  name: { type: String, required: true},
   serves: { type: String, },
   time: { type: String, },
   ingredients: [IngredientSchema],
