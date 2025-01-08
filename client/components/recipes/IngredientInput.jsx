@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   TextField,
+  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
@@ -33,15 +34,13 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
     setFormValues(formCopy);
   }
   return (
-  <Grid container spacing={1}>
-    <Grid>
+  <Grid>
+    <Stack direction="row" spacing={1}>
       <TextField
         label="Amount"
         id="amount"
         onChange={handleIngredientChange}
         />
-    </Grid>
-    <Grid>
     <InputLabel>
       <Select
         value={formValues.ingredients[index].unit}
@@ -59,15 +58,13 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
         })}
       </Select>
     </InputLabel>
-    </Grid>
-    <Grid>
       <TextField
       label="Ingredient"
       onChange={handleIngredientChange}
       id="name"
       value={value}
       />
-    </Grid>
+      </Stack>
   </Grid>
   )
 };

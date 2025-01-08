@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-  FormControl,
   Button,
   Dialog,
   DialogActions,
@@ -45,12 +44,27 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
   }
     // Function to handle state changes for name, serves, and time
     const handleFormChange = (element) => {
-      // Grab the value and the id 
+      // Grab the value and the id
       const { value, id } = element.target;
       const formCopy = { ...formValues };
       formCopy[id] = value;
       setFormValues(formCopy);
     }
+    // Function to save the user's recipe to the database
+    const handleSaveClick = () => {
+      // Build config to send to the server
+      const config = {
+        recipe: formValues,
+      }
+    // Make axios POST request to /user/recipes
+    axios.post('/user/recipes', config)
+      .then(() => {
+        // Close the form
+        setMakingRecipe(false);
+      }).catch((err) => {
+        console.error('Recipe failed to POST: ', err);
+      })
+    };
   return (
       <Dialog
         open={makingRecipe}
@@ -64,32 +78,33 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
-          <Grid>
-            <Stack direction="row" spacing={4}>
-              <TextField
-                variant="standard"
-                label="Recipe name"
-                value={formValues.name}
-                id="name"
-                onChange={handleFormChange}
-              />
-              <TextField
-                variant="standard"
-                label="Serves"
-                value={formValues.serves}
-                id="serves"
-                onChange={handleFormChange}
-              />
-              <TextField
-                variant="standard"
-                label="Cook Time"
-                value={formValues.time}
-                id="time"
-                onChange={handleFormChange}
-              />
-            </Stack>
-            </Grid>
             <Grid>
+              <Stack direction="row" spacing={4}>
+                <TextField
+                  required
+                  variant="standard"
+                  label="Recipe name"
+                  value={formValues.name}
+                  id="name"
+                  onChange={handleFormChange}
+                />
+                <TextField
+                  variant="standard"
+                  label="Serves"
+                  value={formValues.serves}
+                  id="serves"
+                  onChange={handleFormChange}
+                />
+                <TextField
+                  variant="standard"
+                  label="Cook Time"
+                  value={formValues.time}
+                  id="time"
+                  onChange={handleFormChange}
+                />
+              </Stack>
+            </Grid>
+            <Grid container spacing={1.5}>
               {formValues.ingredients.map((ingredient, index) => {
                 return <IngredientInput
                   key={index * 2}
@@ -109,7 +124,9 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => { setMakingRecipe(false); }}>Cancel</Button>
-          <Button>Save</Button>
+          <Button
+            onClick={handleSaveClick}
+          >Save</Button>
         </DialogActions>
       </Dialog>
   )
