@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {
   FormControl,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -17,10 +18,12 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
   return (
       <Dialog
         open={makingRecipe}
-        maxWidth='lg'
+        maxWidth='md'
         fullWidth
         >
-        <DialogTitle>
+        <DialogTitle
+          sx={{ }}
+        >
           Build a Recipe
         </DialogTitle>
         <DialogContent>
@@ -34,6 +37,10 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
             </Grid>
           </FormControl>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={() => { setMakingRecipe(false); }}>Cancel</Button>
+          <Button>Save</Button>
+        </DialogActions>
       </Dialog>
   )
 }
