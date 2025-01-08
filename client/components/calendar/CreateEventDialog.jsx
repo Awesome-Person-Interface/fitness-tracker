@@ -21,7 +21,7 @@ function CreateEventDialog({ dateSlot, handleCloseDialog }) {
       open={!!dateSlot.start}
       onClose={handleCloseDialog}
       fullWidth={true}
-      maxWidth="lg"
+      maxWidth="sm"
     >
       <DialogTitle>Create Event</DialogTitle>
       {
