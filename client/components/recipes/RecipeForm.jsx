@@ -18,13 +18,23 @@ import IngredientInput from './IngredientInput.jsx';
 function RecipesForm({ makingRecipe, setMakingRecipe }) {
   const [formValues, setFormValues] = useState(
     { name: '',
-      ingredients: ['', '', ''],
+      ingredients: [{
+        name: '',
+        unit: '',
+      }, {
+        name: '',
+        unit: '',
+      }, {
+        name: '',
+        unit: '',
+      },
+    ],
   });
   const addIngredient = () => {
     // Make a copy of the formValues
     const formCopy = {...formValues};
     // Add an empty string to the end of the ingredients array
-    formCopy.ingredients.push('');
+    formCopy.ingredients.push({ ingredient: '', unit: '', });
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
   }
@@ -61,7 +71,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
               {formValues.ingredients.map((ingredient, index) => {
                 return <IngredientInput
                   key={index * 2}
-                  value={ingredient}
+                  value={ingredient.name}
                   index={index}
                   formValues={formValues}
                   setFormValues={setFormValues}
