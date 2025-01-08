@@ -16,7 +16,18 @@ import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
 function RecipesForm({ makingRecipe, setMakingRecipe }) {
-  const [formValues, setFormValues] = useState({ name: '' });
+  const [formValues, setFormValues] = useState(
+    { name: '',
+      ingredients: ['', '', ''],
+  });
+  const addIngredient = () => {
+    // Make a copy of the formValues
+    const formCopy = {...formValues};
+    // Add an empty string to the end of the ingredients array
+    formCopy.ingredients.push('');
+    // Set formValues in state to the formCopy
+    setFormValues(formCopy);
+  }
   return (
       <Dialog
         open={makingRecipe}
@@ -29,20 +40,24 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
           Build a Recipe
         </DialogTitle>
         <DialogContent>
-          <FormControl>
-          <Grid>
-            <Stack>
-              <IngredientInput />
-            </Stack>
-              </Grid>
-            <Grid container spacing={12}>
-              <Grid>
-            <TextField
-             label="Recipe Name"
-            />
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid>
+              {formValues.ingredients.map((ingredient, step = 0) => {
+                step++;
+                return <IngredientInput key={step}value={ingredient} />
+              })}
+              <Button
+                variant="text"
+                onClick={addIngredient}
+              >+ Add Ingredient
+              </Button>
             </Grid>
-          </FormControl>
+            <Grid>
+            <TextField
+              label="Recipe name"
+            />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => { setMakingRecipe(false); }}>Cancel</Button>
