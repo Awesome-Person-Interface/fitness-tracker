@@ -9,6 +9,8 @@ import {
   Button,
 } from '@mui/material';
 
+import EventForm from './EventForm.jsx';
+
 function CreateEventDialog({ dateSlot, handleCloseDialog }) {
   /*
     start: The date at the start of the dateSlot selected
@@ -28,8 +30,8 @@ function CreateEventDialog({ dateSlot, handleCloseDialog }) {
         dateSlot.start
           ? (
             <DialogContent>
-              <DialogContentText>{`Start: ${start}`}</DialogContentText>
-              <DialogContentText>{`End: ${end}`}</DialogContentText>
+              <DialogContentText>Fill out the form below to create an event:</DialogContentText>
+              <EventForm />
             </DialogContent>
           )
           : (
