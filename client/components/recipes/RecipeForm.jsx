@@ -10,8 +10,10 @@ import {
   DialogTitle,
   Typography,
   TextField,
+  Stack,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import IngredientInput from './IngredientInput.jsx';
 
 function RecipesForm({ makingRecipe, setMakingRecipe }) {
   const [formValues, setFormValues] = useState({ name: '' });
@@ -28,6 +30,11 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
         </DialogTitle>
         <DialogContent>
           <FormControl>
+          <Grid>
+            <Stack>
+              <IngredientInput />
+            </Stack>
+              </Grid>
             <Grid container spacing={12}>
               <Grid>
             <TextField

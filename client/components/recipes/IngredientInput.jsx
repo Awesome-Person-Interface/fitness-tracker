@@ -16,4 +16,6 @@ function IngredientInput() {
     </Select>
   </InputLabel>
   )
-}
+};
+
+export default IngredientInput;
