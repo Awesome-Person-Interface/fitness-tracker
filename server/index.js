@@ -46,7 +46,7 @@ const DIST_DIR = path.resolve('client', 'dist');
  * ----------------------------------------------------------------------------------- */
 
 app.use(session(
-  { 
+  {
     secret: process.env.SERVER_SESSION_SECRET,
     resave: false,
     saveUninitialized: false
