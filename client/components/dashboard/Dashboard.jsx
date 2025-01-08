@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardWorkouts from './DashboardWorkouts.jsx';
 import DashboardMeals from './DashboardMeals.jsx';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { DateCalendar, LocalizationProvider, AdapterDayjs } from '@mui/x-date-pickers';
 import { Divider,
    Grid2,
    Container,
@@ -16,21 +16,26 @@ export default function Dashboard(props) {
       <h1 style={{textAlign: "center"}}>Dashboard</h1>
     <Grid container spacing={2}>
       <Grid size={5}
-      direction="column"
+      // direction="column"
       alignItems="flex-end"
       justifyContent="space-between"
       >
         <Container>
           <Box>
             This is the space for Goals
+            {/* <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            >
+
             <DateCalendar>
               
             </DateCalendar>
+            </LocalizationProvider> */}
           </Box>
         </Container>
       </Grid>
       <Grid size={6}
-    direction="column"
+    // direction="column"
     alignItems="flex-end"
     justifyContent="space-between"
     >
