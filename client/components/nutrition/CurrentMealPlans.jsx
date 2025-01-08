@@ -105,7 +105,7 @@ export default function CurrentMealPlans(props) {
 /*
                       { meal.routine_name.length > 0 ?
                         <TableRow sx={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                          <TableCell align="center">
+                          <TableCell align="center" >
                             Meal created for "{meal.routine_name}"
                           </TableCell>
                         </TableRow>
