@@ -19,10 +19,11 @@ const startEvents = [
 
 function CalendarView({ handleThemeChange }) {
   const [events, setEvents] = useState(startEvents);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [dateSlot, setDateSlot] = useState({});
 
   const handleSelectSlot = useCallback((event) => {
-    setOpenDialog(true);
+    console.log(event);
+    setDateSlot(event);
   }, []);
 
   const handleSelectEvent = useCallback((event) => {
@@ -36,7 +37,7 @@ function CalendarView({ handleThemeChange }) {
   }), []);
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setDateSlot({});
   };
 
   return (
@@ -65,7 +66,7 @@ function CalendarView({ handleThemeChange }) {
         </Grid>
       </Grid>
       <CreateEventDialog
-        openDialog={openDialog}
+        dateSlot={dateSlot}
         handleCloseDialog={handleCloseDialog}
       />
     </div>
