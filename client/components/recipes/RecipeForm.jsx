@@ -18,14 +18,19 @@ import IngredientInput from './IngredientInput.jsx';
 function RecipesForm({ makingRecipe, setMakingRecipe }) {
   const [formValues, setFormValues] = useState(
     { name: '',
+      serves: '',
+      time: '',
       ingredients: [{
         name: '',
+        amount: '',
         unit: '',
       }, {
         name: '',
+        amount: '',
         unit: '',
       }, {
         name: '',
+        amount: '',
         unit: '',
       },
     ],
@@ -38,6 +43,14 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
   }
+    // Function to handle state changes for name, serves, and time
+    const handleFormChange = (element) => {
+      // Grab the value and the id 
+      const { value, id } = element.target;
+      const formCopy = { ...formValues };
+      formCopy[id] = value;
+      setFormValues(formCopy);
+    }
   return (
       <Dialog
         open={makingRecipe}
@@ -56,14 +69,23 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
               <TextField
                 variant="standard"
                 label="Recipe name"
+                value={formValues.name}
+                id="name"
+                onChange={handleFormChange}
               />
               <TextField
                 variant="standard"
                 label="Serves"
+                value={formValues.serves}
+                id="serves"
+                onChange={handleFormChange}
               />
               <TextField
                 variant="standard"
                 label="Cook Time"
+                value={formValues.time}
+                id="time"
+                onChange={handleFormChange}
               />
             </Stack>
             </Grid>

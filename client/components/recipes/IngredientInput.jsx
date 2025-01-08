@@ -26,17 +26,12 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
   }
   // Function to handle the choice of unit in the select field
   const handleUnitClick = (element) => {
-    console.log('Element: ', element);
-    console.log('Target: ', element.target);
-    console.log('Dataset: ', element.dataset);
     // Grab the value from the element
     const { value } = element.target.dataset;
-    console.log('Value: ', value);
     const formCopy = { ...formValues };
     formCopy.ingredients[index].unit = value;
     setFormValues(formCopy);
   }
-  console.log('FormValues: ', formValues);
   return (
   <Grid container spacing={1}>
     <Grid>

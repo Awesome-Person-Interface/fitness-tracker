@@ -13,7 +13,6 @@ function MealPlans({ handleThemeChange }) {
   // Function to toggle makeRecipe to true
   const makeRecipe = () => {
     setMakingRecipe(true);
-    console.log('Making recipe: ', makingRecipe);
   }
   return (
     <div id="root-app">
@@ -26,7 +25,7 @@ function MealPlans({ handleThemeChange }) {
         Create Recipe
       </Button>
       {makingRecipe
-      ? <RecipesForm 
+      ? <RecipesForm
           makingRecipe={makingRecipe}
           setMakingRecipe={setMakingRecipe}
           />
