@@ -5,10 +5,22 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Paper,
+   Box,
+   Typography,
+   Accordion,
+   AccordionDetails,
+   AccordionSummary,
+   AccordionActions,
+       } from '@mui/material';
 
 export default function DashboardMeals(props) {
   return (
+    <Accordion>
+      <AccordionSummary>
+        <Typography>Nutrition</Typography>
+      </AccordionSummary>
+
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -23,8 +35,8 @@ export default function DashboardMeals(props) {
         <TableBody>
           {props.nutrition.map((foodItem) => (
             <TableRow
-              key={foodItem.foodName}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            key={foodItem.foodName}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {foodItem.foodName}
@@ -42,5 +54,6 @@ export default function DashboardMeals(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Accordion>
   );
 }

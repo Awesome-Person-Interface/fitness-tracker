@@ -10,6 +10,12 @@ const UserSchema = new Schema({
   username: { type: String, required: false },
   phone_num: { type: String, required: false },
   recov_email: { type: String, required: false },
+  weight: { type: Number, required: false },
+  liftWeight: { type: Number, required: false },
+  speed: { type: Number, required: false },
+  goalWeight: { type: Number, required: false },
+  goalLiftWeight: { type: Number, required: false },
+  goalSpeed: { type: Number, required: false },
 });
 // Attach findOrCreate plugin to the UserSchema
 UserSchema.plugin(findOrCreate);

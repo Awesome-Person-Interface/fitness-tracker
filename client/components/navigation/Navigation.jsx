@@ -73,6 +73,14 @@ function Navigation(props) {
             >
               Meal Plans
             </Button>
+            <Button
+              className={nav_classes.navButtons}
+              sx={{color: 'white'}}
+              component={Link}
+              to="/calendar"
+            >
+              Calendar
+            </Button>
           </Stack>
           <Container>
             <IconButton onClick={props.handleThemeChange} color="inherit">
