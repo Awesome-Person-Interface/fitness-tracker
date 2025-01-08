@@ -11,17 +11,15 @@ import Grid from '@mui/material/Grid2';
 
 const measurements = ['tsp', 'tbsp', 'cup', 'oz', 'fl oz' ]
 function IngredientInput({ value, index, formValues, setFormValues}) {
-  // State value to hold the chosen measurement
-  const [measurement, setMeasurement] = useState('');
-
   // Function to handle changes in ingredient fields
   const handleIngredientChange = (element) => {
     // Grab the value from the element
     const { value } = element.target
     // Make a copy of formValues
     const formCopy = { ...formValues };
-    // Push the new value onto the ingredients at the current index
-    formCopy.ingredients[index] = value;
+    // On the formCopy ingredients property
+      // Change the name property on the ingredient object at the current index (index comes from state)
+    formCopy.ingredients[index].name = value;
     // Set the formValues in state to new value
     setFormValues(formCopy);
   }
@@ -31,13 +29,11 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
     <Grid>
       <TextField
         label="Amount"
-        value={value}
-        onChange={handleIngredientChange}
         />
     </Grid>
     <Grid>
     <InputLabel>
-      <Select value={measurement}>
+      <Select value={''}>
         {measurements.map((measurement) => {
           return (
             <MenuItem
@@ -52,7 +48,11 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
     </InputLabel>
     </Grid>
     <Grid>
-      <TextField label="Ingredient" />
+      <TextField
+      label="Ingredient"
+      onChange={handleIngredientChange}
+      value={value}
+      />
     </Grid>
   </Grid>
   )
