@@ -58,8 +58,9 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
       }
     // Make axios POST request to /user/recipes
     axios.post('/user/recipes', config)
-      .then(({ data }) => {
-        console.log('Recipe added to the database: ', data);
+      .then(() => {
+        // Close the form
+        setMakingRecipe(false);
       }).catch((err) => {
         console.error('Recipe failed to POST: ', err);
       })
