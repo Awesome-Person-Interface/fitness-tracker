@@ -2,7 +2,13 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Calendar, dayjsLocalizer, Views } from 'react-big-calendar';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid2';
+import {
+  Box,
+  Typography,
+  Button,
+} from '@mui/material';
 import Navigation from '../components/navigation/Navigation.jsx';
+import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
 const localizer = dayjsLocalizer(dayjs);
@@ -11,25 +17,26 @@ const startEvents = [
   {
     id: 1,
     title: 'Breakfast',
-    start: new Date(2025, 0, 5),
-    end: new Date(2025, 0, 6),
+    start: new Date(2025, 0, 5, 7, 30),
+    end: new Date(2025, 0, 5, 8),
     allDay: false,
+    desc: 'Two banana pancakes & a cup of coffee.',
+    category: 'Breakfast',
   }
 ];
 
 function CalendarView({ handleThemeChange }) {
   const [events, setEvents] = useState(startEvents);
   const [dateSlot, setDateSlot] = useState({});
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const handleSelectSlot = useCallback((event) => {
-    console.log(event);
     setDateSlot(event);
-  }, []);
+  }, [setDateSlot]);
 
   const handleSelectEvent = useCallback((event) => {
-    window.alert(event.title);
-    console.log(event);
-  }, []);
+    setSelectedEvent(event);
+  }, [setSelectedEvent]);
 
   const { defaultDate, scrollToTime } = useMemo(() => ({
     defaultDate: Date.now(),
@@ -40,13 +47,31 @@ function CalendarView({ handleThemeChange }) {
     setDateSlot({});
   };
 
+  const handleSelectEventClose = () => {
+    setSelectedEvent(null);
+  };
+
   return (
     <div id="root-app">
       <Navigation handleThemeChange={handleThemeChange} />
       <br></br>
       <Grid container spacing={2}>
         <Grid size={4}>
-
+          {
+            selectedEvent
+              ? (
+                <Box>
+                  <EventDetails selectedEvent={selectedEvent}/>
+                  <Button
+                    onClick={handleSelectEventClose}
+                  >
+                    Clear
+                  </Button>
+                </Box>
+              ) : (
+                <div>No event selected</div>
+              )
+          }
         </Grid>
         <Grid size={8}>
           <Calendar
