@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { Calendar, dayjsLocalizer, Views } from 'react-big-calendar';
 import dayjs from 'dayjs';
+import Grid from '@mui/material/Grid2';
 import Navigation from '../components/navigation/Navigation.jsx';
 
 const localizer = dayjsLocalizer(dayjs);
@@ -39,20 +40,27 @@ function CalendarView({ handleThemeChange }) {
     <div id="root-app">
       <Navigation handleThemeChange={handleThemeChange} />
       <br></br>
-      <Calendar
-        defaultDate={defaultDate}
-        defaultView={Views.WEEK}
-        events={events}
-        localizer={localizer}
-        onSelectEvent={handleSelectEvent}
-        onSelectSlot={handleSelectSlot}
-        selectable
-        scrollToTime={scrollToTime}
-        style={{
-          // Must set a minHeight for the calendar events to be visible
-          minHeight: 600,
-        }}
-      />
+      <Grid container spacing={2}>
+        <Grid size={4}>
+
+        </Grid>
+        <Grid size={8}>
+          <Calendar
+            defaultDate={defaultDate}
+            defaultView={Views.MONTH}
+            events={events}
+            localizer={localizer}
+            onSelectEvent={handleSelectEvent}
+            onSelectSlot={handleSelectSlot}
+            selectable
+            scrollToTime={scrollToTime}
+            style={{
+              // Must set a minHeight for the calendar events to be visible
+              minHeight: 550,
+            }}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
 }
