@@ -31,7 +31,7 @@ function CreateEventDialog({ dateSlot, handleCloseDialog }) {
           ? (
             <DialogContent>
               <DialogContentText>Fill out the form below to create an event:</DialogContentText>
-              <EventForm />
+              <EventForm eventDetails={dateSlot} create={true} />
             </DialogContent>
           )
           : (
