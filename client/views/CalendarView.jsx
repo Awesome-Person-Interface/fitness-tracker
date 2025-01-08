@@ -3,6 +3,7 @@ import { Calendar, dayjsLocalizer, Views } from 'react-big-calendar';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid2';
 import Navigation from '../components/navigation/Navigation.jsx';
+import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
 const localizer = dayjsLocalizer(dayjs);
 
@@ -18,13 +19,11 @@ const startEvents = [
 
 function CalendarView({ handleThemeChange }) {
   const [events, setEvents] = useState(startEvents);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleSelectSlot = useCallback(({ start, end }) => {
-    const title = window.prompt('New Event name');
-    if (title) {
-      setEvents((prev) => [...prev, { start, end, title }]);
-    }
-  }, [setEvents]);
+  const handleSelectSlot = useCallback((event) => {
+    setOpenDialog(true);
+  }, []);
 
   const handleSelectEvent = useCallback((event) => {
     window.alert(event.title);
@@ -35,6 +34,10 @@ function CalendarView({ handleThemeChange }) {
     defaultDate: Date.now(),
     scrollToTime: new Date(1970, 1, 1, 6),
   }), []);
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <div id="root-app">
@@ -61,6 +64,10 @@ function CalendarView({ handleThemeChange }) {
           />
         </Grid>
       </Grid>
+      <CreateEventDialog
+        openDialog={openDialog}
+        handleCloseDialog={handleCloseDialog}
+      />
     </div>
   );
 }
