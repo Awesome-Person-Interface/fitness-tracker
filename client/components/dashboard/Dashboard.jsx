@@ -1,12 +1,19 @@
 import React from 'react';
 import DashboardWorkouts from './DashboardWorkouts.jsx';
 import DashboardMeals from './DashboardMeals.jsx';
-import { DateCalendar, LocalizationProvider, AdapterDayjs } from '@mui/x-date-pickers';
+import { DateCalendar,
+   LocalizationProvider,
+  DemoContainer,
+  DatePicker,
+
+  } from '@mui/x-date-pickers';
 import { Divider,
    Grid2,
    Container,
    Box,
    } from '@mui/material';
+   import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+   import dayjs from 'dayjs'
 
 const Grid = Grid2;
 export default function Dashboard(props) {
@@ -23,14 +30,11 @@ export default function Dashboard(props) {
         <Container>
           <Box>
             This is the space for Goals
-            {/* <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            >
-
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar>
               
             </DateCalendar>
-            </LocalizationProvider> */}
+            </LocalizationProvider>
           </Box>
         </Container>
       </Grid>
