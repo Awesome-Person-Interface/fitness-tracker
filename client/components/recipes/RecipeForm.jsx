@@ -58,9 +58,14 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
             </Stack>
             </Grid>
             <Grid>
-              {formValues.ingredients.map((ingredient, step = 0) => {
-                step++;
-                return <IngredientInput key={step}value={ingredient} />
+              {formValues.ingredients.map((ingredient, index) => {
+                return <IngredientInput
+                  key={index * 2}
+                  value={ingredient}
+                  index={index}
+                  formValues={formValues}
+                  setFormValues={setFormValues}
+                  />
               })}
               <Button
                 variant="text"
