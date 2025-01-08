@@ -5,7 +5,7 @@ import express from 'express';
 import axios from 'axios';             // must be imported for external requests
 import dotenv from 'dotenv';
 import verify from '../security/verify.js';
-import { User, Meals } from '../db/index.js'  // must be imported for database connection
+import { User, Events } from '../db/index.js'  // must be imported for database connection
 
 dotenv.config();
 

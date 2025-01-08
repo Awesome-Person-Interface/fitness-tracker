@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Meals from './models/Meals.js';
 import User from './models/Users.js';
 import Workouts from './models/Workouts.js';
+import Events from './models/Events.js';
 
 // establish connection to mongoose
 // before we can do this, we need to declare a database name and a path
@@ -20,5 +21,6 @@ export {
   Meals,
   User,
   Workouts,
+  Events,
   db,
 };
