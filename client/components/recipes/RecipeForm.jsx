@@ -64,32 +64,32 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
-          <Grid>
-            <Stack direction="row" spacing={4}>
-              <TextField
-                variant="standard"
-                label="Recipe name"
-                value={formValues.name}
-                id="name"
-                onChange={handleFormChange}
-              />
-              <TextField
-                variant="standard"
-                label="Serves"
-                value={formValues.serves}
-                id="serves"
-                onChange={handleFormChange}
-              />
-              <TextField
-                variant="standard"
-                label="Cook Time"
-                value={formValues.time}
-                id="time"
-                onChange={handleFormChange}
-              />
-            </Stack>
-            </Grid>
             <Grid>
+              <Stack direction="row" spacing={4}>
+                <TextField
+                  variant="standard"
+                  label="Recipe name"
+                  value={formValues.name}
+                  id="name"
+                  onChange={handleFormChange}
+              / >
+                <TextField
+                  variant="standard"
+                  label="Serves"
+                  value={formValues.serves}
+                  id="serves"
+                  onChange={handleFormChange}
+                />
+                <TextField
+                  variant="standard"
+                  label="Cook Time"
+                  value={formValues.time}
+                  id="time"
+                  onChange={handleFormChange}
+                />
+              </Stack>
+            </Grid>
+            <Grid container spacing={1.5}>
               {formValues.ingredients.map((ingredient, index) => {
                 return <IngredientInput
                   key={index * 2}
