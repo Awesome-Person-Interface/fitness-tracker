@@ -7,6 +7,7 @@ import workouts from './workouts.js';               // workouts router
 import nutrition from './nutrition.js';             // nutrition router
 import routines from './routines.js';
 import account from './account.js';
+import events from './events.js';
 import verify from '../security/verify.js';
 import { User, Workouts, Meals } from '../db/index.js'
 
@@ -27,11 +28,13 @@ const users = express.Router();
 * app.use('/nutrition', nutrition)   => handles requests for '/user/nutrition/::'
 * app.use('/routines', routines)     => handles requests for '/user/routines/::'
 * app.use('/account', account)       => handles requests for '/user/account/::'
+* app.use('/events', events)         => handles requests for '/user/events/::'
 * ----------------------------------------------------------------------------------- */
 users.use('/workouts', workouts);
 users.use('/nutrition', nutrition);
 users.use('/routines', routines);
 users.use('/account', account);
+users.use('/events', events);
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
