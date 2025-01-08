@@ -3,6 +3,7 @@ import Meals from './models/Meals.js';
 import User from './models/Users.js';
 import Workouts from './models/Workouts.js';
 import Events from './models/Events.js';
+import Recipes from './models/Recipes.js';
 
 // establish connection to mongoose
 // before we can do this, we need to declare a database name and a path
@@ -22,5 +23,6 @@ export {
   User,
   Workouts,
   Events,
+  Recipes,
   db,
 };
