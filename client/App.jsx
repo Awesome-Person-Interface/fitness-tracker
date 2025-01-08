@@ -15,6 +15,7 @@ import Login from './views/Login.jsx';
 import MealPlans from './views/MealPlans.jsx';
 import Pantry from './views/Pantry.jsx';
 import Workouts from './views/Workouts.jsx';
+import CalendarView from './views/CalendarView.jsx';
 
 import { ThemeProvider, CssBaseline, Switch, IconButton } from '@mui/material';
 import { lightTheme, darkTheme } from './components/styles.js';
@@ -67,6 +68,7 @@ export default function App() {
 					<Route path="meal-plans" element={<MealPlans handleThemeChange={handleThemeChange} />} />
 					<Route path="pantry" element={<Pantry handleThemeChange={handleThemeChange} fetchUser={fetchUser} user={user} routines={routines} />} />
 					<Route path="workouts" element={<Workouts handleThemeChange={handleThemeChange} user={user} fetchUser={fetchUser} routines={routines} />} />
+					<Route path="calendar" element={<CalendarView handleThemeChange={handleThemeChange} />} />
 				</Routes>
 			</ThemeProvider>
 		</BrowserRouter>
