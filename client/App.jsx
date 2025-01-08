@@ -67,6 +67,7 @@ export default function App() {
 					<Route path="meal-plans" element={<MealPlans handleThemeChange={handleThemeChange} />} />
 					<Route path="pantry" element={<Pantry handleThemeChange={handleThemeChange} fetchUser={fetchUser} user={user} routines={routines} />} />
 					<Route path="workouts" element={<Workouts handleThemeChange={handleThemeChange} user={user} fetchUser={fetchUser} routines={routines} />} />
+					<Route path="calendar" element={<Calendar />} />
 				</Routes>
 			</ThemeProvider>
 		</BrowserRouter>
