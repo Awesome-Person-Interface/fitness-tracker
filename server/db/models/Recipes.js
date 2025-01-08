@@ -4,8 +4,8 @@ const { Schema } = mongoose;
 // Initialize the ingredients schema
 const IngredientSchema = new Schema({
   name: {type: String, default: null },
-  serves: {type: String, default: null},
-  time: { type: String, default: null },
+  amount: {type: String, default: null},
+  unit: { type: String, default: null },
 });
 // Initialize the recipes schema
   // Use the iIngredientSchema for the ingredients field in recipes
