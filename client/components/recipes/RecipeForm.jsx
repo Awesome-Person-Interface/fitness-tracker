@@ -31,7 +31,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
   return (
       <Dialog
         open={makingRecipe}
-        maxWidth='md'
+        maxWidth='sm'
         fullWidth
         >
         <DialogTitle
@@ -41,6 +41,22 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
+          <Grid>
+            <Stack direction="row" spacing={4}>
+              <TextField
+                variant="standard"
+                label="Recipe name"
+              />
+              <TextField
+                variant="standard"
+                label="Serves"
+              />
+              <TextField
+                variant="standard"
+                label="Cook Time"
+              />
+            </Stack>
+            </Grid>
             <Grid>
               {formValues.ingredients.map((ingredient, step = 0) => {
                 step++;
@@ -51,11 +67,6 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
                 onClick={addIngredient}
               >+ Add Ingredient
               </Button>
-            </Grid>
-            <Grid>
-            <TextField
-              label="Recipe name"
-            />
             </Grid>
           </Grid>
         </DialogContent>
