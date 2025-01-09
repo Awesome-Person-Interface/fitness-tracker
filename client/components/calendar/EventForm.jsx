@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import {
   Typography,
+  Stack,
+  Switch,
 } from '@mui/material';
 import {
   LocalizationProvider,
@@ -13,29 +15,49 @@ import dayjs from 'dayjs';
 function EventForm({ update, create, eventDetails }) {
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
-  console.log('Start:', start);
-  console.log('End:', end);
+  const [allDay, setAllDay] = useState(false);
+
+  const handleAllDayToggle = ({ target }) => {
+    setAllDay(target.checked);
+  };
+
+  console.log(allDay);
+
   return (
-    <Grid container spacing={2}>
-      <Grid size={6}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            label="Start Time"
-            value={start}
-            onChange={(newTime) => setStart(newTime)}
-          />
-        </LocalizationProvider>
+    <Stack spacing={2}>
+      <Grid container spacing={2}>
+        <Grid size={6}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label="Start Time"
+              value={start}
+              onChange={(newTime) => setStart(newTime)}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid size={6}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label="End Time"
+              value={end}
+              onChange={(newTime) => setEnd(newTime)}
+            />
+          </LocalizationProvider>
+        </Grid>
       </Grid>
-      <Grid size={6}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            label="End Time"
-            value={end}
-            onChange={(newTime) => setEnd(newTime)}
+      <Grid container spacing={2}>
+        <Grid size={6}>
+
+        </Grid>
+        <Grid size={6}>
+          <Typography variant="subtitle2">All Day Event?</Typography>
+          <Switch
+            checked={allDay}
+            onChange={handleAllDayToggle}
           />
-        </LocalizationProvider>
+        </Grid>
       </Grid>
-    </Grid>
+    </Stack>
   );
 }
 
