@@ -18,15 +18,27 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
 function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog }) {
+  // State 
+  const [catMenuAnchorEl, setCatMenuAnchorEl] = useState(null);
+  const catMenuOpen = Boolean(catMenuAnchorEl);
+
+  /*
+    State tracking the fields in the form:
+      - start -> Date in the dayjs format
+      - end -> Date in the dayjs format
+      - category -> String
+      - allDay -> Boolean
+      - title -> String
+      - desc -> String
+  */
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
   const [category, setCategory] = useState('Category');
-  const [anchorEl, setAnchorEl] = useState(null);
-  const menuOpen = Boolean(anchorEl);
   const [allDay, setAllDay] = useState(false);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
 
+  // Categories used in the dropdown menu
   const { categories } = useMemo(() => ({
       categories: [
         'Workout',
@@ -37,43 +49,62 @@ function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog 
       ],
     }), []);
 
+  // Handles the toggling of the allDay switch
   const handleAllDayToggle = ({ target }) => {
     setAllDay(target.checked);
   };
 
-  const handleMenuOpenClick = ({ currentTarget }) => {
-    setAnchorEl(currentTarget);
+  // Handles clicking to open the category menu
+  const handleCatMenuOpenClick = ({ currentTarget }) => {
+    setCatMenuAnchorEl(currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  // Handles the event of the category menu closing
+  const handleCatMenuClose = () => {
+    setCatMenuAnchorEl(null);
   };
 
+  // Handles changing the category state and closing the category menu
   const handleCategoryChange = ({ target }) => {
     setCategory(target.innerText);
-    setAnchorEl(null);
+    setCatMenuAnchorEl(null);
   };
 
+  // Sends a POST request to create an Event object in the Database
   const postEvent = () => {
-    // Create the body to send with the axios POST request
-    const body = {
-      event: {
-        title,
-        start: start.$d,
-        end: end.$d,
-        allDay,
-        desc,
-        category,
-      },
-    };
-    axios.post('/user/events', body)
-      .then(getEvents)
-      .then(handleCloseDialog)
-      .catch((err) => {
-        console.error('Failed to postEvent:', err);
-      });
+    // Check if the category has been selected
+    if (category === 'Category') {
+      return;
+    }
+    // Check if the Title has been set
+    else if (title === '') {
+      return;
+    }
+
+    else {
+      // Create the body to send with the axios POST request
+      const body = {
+        event: {
+          title,
+          start: start.$d,
+          end: end.$d,
+          allDay,
+          desc,
+          category,
+        },
+      };
+      axios.post('/user/events', body)
+        // Success, fetch all events for the user & close the dialog menu
+        .then(getEvents)
+        .then(handleCloseDialog)
+        // Failure, log the error
+        .catch((err) => {
+          console.error('Failed to postEvent:', err);
+        });
+    }
   };
 
+  // Handles the create button click to POST event data
   const handleCreateClick = () => {
     postEvent();
   };
@@ -106,14 +137,14 @@ function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog 
         <Grid size={6}>
           <Button
             variant="contained"
-            onClick={handleMenuOpenClick}
+            onClick={handleCatMenuOpenClick}
           >
             {category}
           </Button>
           <Menu
-            anchorEl={anchorEl}
-            open={menuOpen}
-            onClose={handleMenuClose}
+            anchorEl={catMenuAnchorEl}
+            open={catMenuOpen}
+            onClose={handleCatMenuClose}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'center',
@@ -150,7 +181,7 @@ function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog 
           <TextField
             required
             label="Title"
-            helperText="Appears On Calendar Tag"
+            helperText="Short Calendar Tag"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
           />

@@ -132,7 +132,7 @@ function CalendarView({ handleThemeChange }) {
                 - DAY
                 - AGENDA
             */
-            defaultView={Views.AGENDA}
+            defaultView={Views.MONTH}
 
             /*
               Must be an array of event objects with the following keys:
