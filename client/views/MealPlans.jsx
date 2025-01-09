@@ -9,11 +9,23 @@ import RecipesForm from '../components/recipes/RecipeForm.jsx';
 function MealPlans({ handleThemeChange }) {
   // Set a state value to indicate if a custom recipe/meal is being created
   const [makingRecipe, setMakingRecipe] = useState(false);
+  // Set a state value to hold the recipes
+  const [recipes, setRecipes] = useState([])
 
   // Function to toggle makeRecipe to true
   const makeRecipe = () => {
     setMakingRecipe(true);
   }
+  // GET the recipes from the database
+  const getRecipes = () => {
+    // Make axios GET req to /user/recipes
+    axios.get('/user/recipes')
+      .then(({ data }) => {
+        setRecipes(data);
+      }).catch((err) => {
+        console.error('Error GETting the recipes from the server: ', err);
+      });
+  };
   return (
     <div id="root-app">
       <Navigation handleThemeChange={handleThemeChange}/>
@@ -26,7 +38,7 @@ function MealPlans({ handleThemeChange }) {
       </Button>
       {makingRecipe
       ? <RecipesForm
-          makingRecipe={makingRecipe}
+   .       makingRecipe={makingRecipe}
           setMakingRecipe={setMakingRecipe}
           />
       : <CurrentMealPlans />}
