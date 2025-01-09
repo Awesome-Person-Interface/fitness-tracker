@@ -16,6 +16,8 @@ function IngredientList({ ingredients }) {
           return (
             <Ingredient
               key={ingredient._id}
+              amount={ingredient.amount}
+              unit={ingredient.unit}
               name={ingredient.name}
             />
           )

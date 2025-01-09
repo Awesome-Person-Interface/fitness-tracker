@@ -1,14 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 import {
+  Checkbox,
+  Divider,
   Stack,
   Typography,
-  Divider,
 } from '@mui/material';
 
-function Ingredient({ name }) {
+function Ingredient({ amount, unit, name }) {
   return (
-    <Typography>{name}</Typography>
+    <>
+      <Stack direction="row" spacing={2}>
+        <Checkbox />
+        <Typography
+        >{`${amount} ${unit} ${name}`}</Typography>
+      </Stack>
+        <Divider />
+    </>
+
   )
 };
 
