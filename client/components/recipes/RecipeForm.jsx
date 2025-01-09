@@ -14,7 +14,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
-function RecipesForm({ makingRecipe, setMakingRecipe }) {
+function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
   // Set state value for holding the forms values
   const [formValues, setFormValues] = useState(
     { name: '',
@@ -67,6 +67,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
       }
     // Make axios POST request to /user/recipes
     axios.post('/user/recipes', config)
+      .then(getRecipes)
       .then(() => {
         // Close the form
         setMakingRecipe(false);
