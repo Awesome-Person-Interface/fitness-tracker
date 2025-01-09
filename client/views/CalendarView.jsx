@@ -1,4 +1,5 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import { Calendar, dayjsLocalizer, Views } from 'react-big-calendar';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid2';
@@ -50,6 +51,20 @@ function CalendarView({ handleThemeChange }) {
   const handleSelectEventClose = () => {
     setSelectedEvent(null);
   };
+
+  const getEvents = () => {
+    axios.get('/user/events')
+      .then(({ data }) => {
+        console.log('Events:', data);
+      })
+      .catch((err) => {
+        console.error('Failed to getEvents:', err);
+      });
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <div id="root-app">
