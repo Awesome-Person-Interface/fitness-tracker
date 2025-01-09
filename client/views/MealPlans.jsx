@@ -50,6 +50,7 @@ function MealPlans({ handleThemeChange }) {
       <Typography variant="h5">Your Recipes</Typography>
       <RecipesGrid
         recipes={recipes}
+        getRecipes={getRecipes}
       />
     </div>
   );
