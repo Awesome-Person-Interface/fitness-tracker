@@ -25,7 +25,7 @@ const events = express.Router();
 
 /*
   Method: POST
-  Endpoint: /users/events
+  Endpoint: /user/events
   REQ.BODY: { event }
   REQ.USER: { _id }
 */
@@ -54,7 +54,7 @@ events.post('/', (req, res) => {
 
 /*
   Method: GET
-  Endpoint: /users/events
+  Endpoint: /user/events
   REQ.USER: { _id }
 */
 events.get('/', (req, res) => {
