@@ -12,7 +12,13 @@ function DeleteEventDialog({
   openDeleteEventDialog,
   eventTitle,
   handleDeleteEventDialogClose,
+  deleteEvent,
 }) {
+  const handleDeleteEventClick = () => {
+    handleDeleteEventDialogClose();
+    deleteEvent();
+  };
+
   return (
     <Dialog
       open={openDeleteEventDialog}
@@ -33,7 +39,7 @@ function DeleteEventDialog({
           Cancel
         </Button>
         <Button
-          onClick={handleDeleteEventDialogClose}
+          onClick={handleDeleteEventClick}
         >
           Delete
         </Button>

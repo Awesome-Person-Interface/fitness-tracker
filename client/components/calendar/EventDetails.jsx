@@ -94,6 +94,7 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
         openDeleteEventDialog={openDeleteEventDialog}
         eventTitle={title}
         handleDeleteEventDialogClose={handleDeleteEventDialogClose}
+        deleteEvent={deleteEvent}
       />
     </Container>
   );
