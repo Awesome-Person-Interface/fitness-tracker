@@ -55,7 +55,7 @@ function CalendarView({ handleThemeChange }) {
   const getEvents = () => {
     axios.get('/user/events')
       .then(({ data }) => {
-        console.log('Events:', data);
+        setEvents(data);
       })
       .catch((err) => {
         console.error('Failed to getEvents:', err);
@@ -94,6 +94,8 @@ function CalendarView({ handleThemeChange }) {
             defaultView={Views.MONTH}
             events={events}
             localizer={djLocalizer}
+            startAccessor={(event) => new Date(event.start)}
+            endAccessor={(event) => new Date(event.end)}
             onSelectEvent={handleSelectEvent}
             onSelectSlot={handleSelectSlot}
             selectable
