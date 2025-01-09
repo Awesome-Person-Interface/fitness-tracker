@@ -42,7 +42,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
     // Make a copy of the formValues
     const formCopy = {...formValues};
     // Add an empty string to the end of the ingredients array
-    formCopy.ingredients.push({ ingredient: '', unit: '', });
+    formCopy.ingredients.push({ name: '', amount: '', unit: '', });
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
   }
@@ -120,7 +120,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
               <TextField
                 id="notes"
                 value={formValues.notes}
-                placeholder="Leave any notes or special instructions for this recipe here."
+                placeholder="Leave any notes, instructions, or description of this recipe here!"
                 multiline
                 fullWidth
                 minRows={2}

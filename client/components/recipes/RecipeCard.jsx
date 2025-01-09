@@ -46,6 +46,9 @@ function RecipeCard({ recipe, getRecipes }) {
           >
             {recipe.name}
           </Typography>
+          <Typography variant="body">
+            {recipe.notes ? recipe.notes : 'No notes for this recipe'}
+          </Typography>
           <Typography
             variant="subtitle1"
           >Ingredients
