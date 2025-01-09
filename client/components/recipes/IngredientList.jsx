@@ -5,15 +5,20 @@ import {
   ListItem,
   Stack,
   IconButton,
+  Divider,
 } from '@mui/material';
+import Ingredient from './Ingredient.jsx';
 
-function IngredientList() {
+function IngredientList({ ingredients }) {
   return (
     <List>
-      {ingredients.map((ingredient) => {
-        return (
-          <ListItem>{ingredient.name}</ListItem>
-        )
+        {ingredients.map((ingredient) => {
+          return (
+            <Ingredient
+              key={ingredient._id}
+              name={ingredient.name}
+            />
+          )
       })}
     </List>
   )
