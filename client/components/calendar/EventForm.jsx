@@ -17,7 +17,7 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
-function EventForm({ update, create, eventDetails }) {
+function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog }) {
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
   const [category, setCategory] = useState('Category');
@@ -67,9 +67,8 @@ function EventForm({ update, create, eventDetails }) {
       },
     };
     axios.post('/user/events', body)
-      .then(() => {
-        console.log('Event Posted to Database');
-      })
+      .then(getEvents)
+      .then(handleCloseDialog)
       .catch((err) => {
         console.error('Failed to postEvent:', err);
       });
