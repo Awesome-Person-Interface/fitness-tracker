@@ -16,12 +16,22 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientList from './IngredientList.jsx';
 
-function RecipeCard({ recipe }) {
+function RecipeCard({ recipe, getRecipes }) {
   // State vale for tracking if a recipe is being deleted
   const [deletingRecipe, setDeletingRecipe] = useState(false);
   // Function to delete the recipe from the database
   const deleteRecipe = () => {
-
+    // Grab the recipe id
+    const { _id } = recipe;
+    // Make axios DELETE request
+    axios.delete(`/user/recipes/${_id}`)
+      .then(getRecipes)
+      .then(() => {
+        setDeletingRecipe(false);
+      })
+      .catch((err) => {
+        console.error('Error deleting the recipe: ', err);
+      })
   }
   return (
     <Grid
@@ -60,11 +70,16 @@ function RecipeCard({ recipe }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => { setDeletingRecipe(false) }}
+          <Button
+            onClick={() => { setDeletingRecipe(false) }}
           >
             Cancel
           </Button>
-          <Button>Delete</Button>
+          <Button
+            onClick={deleteRecipe}
+          >
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </Grid>

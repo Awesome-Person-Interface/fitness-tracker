@@ -11,7 +11,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import RecipeCard from './RecipeCard.jsx';
 
-function RecipesGrid({ recipes }) {
+function RecipesGrid({ recipes, getRecipes }) {
   return (
     <Grid
       container
@@ -22,6 +22,7 @@ function RecipesGrid({ recipes }) {
           <RecipeCard
             key={recipe._id}
             recipe={recipe}
+            getRecipes={getRecipes}
           />
           )
       })}
