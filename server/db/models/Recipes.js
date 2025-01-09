@@ -15,6 +15,7 @@ const RecipeSchema = new Schema({
   serves: { type: String, },
   time: { type: String, },
   ingredients: [IngredientSchema],
+  image: { type: String, default: null},
 });
 // Create the recipes model using RecipeSchema
 const Recipes = mongoose.model('Recipe', RecipeSchema);
