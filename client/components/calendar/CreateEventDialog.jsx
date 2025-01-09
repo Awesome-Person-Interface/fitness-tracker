@@ -11,7 +11,7 @@ import {
 
 import EventForm from './EventForm.jsx';
 
-function CreateEventDialog({ dateSlot, handleCloseDialog }) {
+function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
   /*
     start: The date at the start of the dateSlot selected
     end: The date at the end of the dateSlot selected
@@ -32,7 +32,12 @@ function CreateEventDialog({ dateSlot, handleCloseDialog }) {
             <DialogContent>
               <DialogContentText>Fill out the form below to create an event:</DialogContentText>
               <br></br>
-              <EventForm eventDetails={dateSlot} create={true} />
+              <EventForm
+                eventDetails={dateSlot}
+                create={true}
+                getEvents={getEvents}
+                handleCloseDialog={handleCloseDialog}
+              />
             </DialogContent>
           )
           : (

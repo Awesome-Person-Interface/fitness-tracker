@@ -14,7 +14,8 @@ import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
 const djLocalizer = dayjsLocalizer(dayjs);
 
-const startEvents = [
+/* EXAMPLE EVENT DATA:
+[
   {
     id: 1,
     title: 'Breakfast',
@@ -25,9 +26,10 @@ const startEvents = [
     category: 'Breakfast',
   }
 ];
+*/
 
 function CalendarView({ handleThemeChange }) {
-  const [events, setEvents] = useState(startEvents);
+  const [events, setEvents] = useState([]);
   const [dateSlot, setDateSlot] = useState({});
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -110,6 +112,7 @@ function CalendarView({ handleThemeChange }) {
       <CreateEventDialog
         dateSlot={dateSlot}
         handleCloseDialog={handleCloseDialog}
+        getEvents={getEvents}
       />
     </div>
   );
