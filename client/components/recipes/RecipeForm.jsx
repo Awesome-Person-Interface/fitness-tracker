@@ -20,6 +20,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
     { name: '',
       serves: '',
       time: '',
+      notes: '',
       ingredients: [{
         name: '',
         amount: '',
@@ -112,6 +113,18 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
                   onChange={handleFormChange}
                 />
               </Stack>
+            </Grid>
+            <Grid size={10}>
+              <Typography>Notes:</Typography>
+              <TextField
+                id="notes"
+                value={formValues.notes}
+                placeholder="Leave any notes or special instructions for this recipe here."
+                multiline
+                fullWidth
+                minRows={2}
+                onChange={handleFormChange}
+                />
             </Grid>
             <Grid container spacing={1.5}>
               {formValues.ingredients.map((ingredient, index) => {
