@@ -2,6 +2,7 @@ import  React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Button,
+  Typography,
 } from '@mui/material';
 import Navigation from '../components/navigation/Navigation.jsx';
 import CurrentMealPlans from '../components/nutrition/CurrentMealPlans.jsx';
@@ -46,6 +47,7 @@ function MealPlans({ handleThemeChange }) {
           getRecipes={getRecipes}
           />)
       : <CurrentMealPlans />}
+      <Typography variant="h5">Your Recipes</Typography>
       <RecipesGrid
         recipes={recipes}
       />
