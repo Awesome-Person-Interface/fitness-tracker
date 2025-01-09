@@ -17,8 +17,8 @@ const startEvents = [
   {
     id: 1,
     title: 'Breakfast',
-    start: dayjs(new Date(2025, 0, 5, 7, 30)).$d,
-    end: dayjs(new Date(2025, 0, 5, 8)).$d,
+    start: dayjs(new Date(2025, 0, 5)).$d,
+    end: dayjs(new Date(2025, 0, 5)).$d,
     allDay: false,
     desc: 'Two banana pancakes & a cup of coffee.',
     category: 'Breakfast',

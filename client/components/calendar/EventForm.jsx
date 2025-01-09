@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Grid from '@mui/material/Grid2';
 import {
   Typography,
   Stack,
   Switch,
+  Button,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import {
   LocalizationProvider,
@@ -15,13 +18,37 @@ import dayjs from 'dayjs';
 function EventForm({ update, create, eventDetails }) {
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
+  const [category, setCategory] = useState('Category');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const menuOpen = Boolean(anchorEl);
   const [allDay, setAllDay] = useState(false);
+
+  const { categories } = useMemo(() => ({
+      categories: [
+        'Workout',
+        'Goal',
+        'Breakfast',
+        'Lunch',
+        'Dinner',
+      ],
+    }), []);
 
   const handleAllDayToggle = ({ target }) => {
     setAllDay(target.checked);
   };
 
-  console.log(allDay);
+  const handleMenuOpenClick = ({ currentTarget }) => {
+    setAnchorEl(currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCategoryChange = ({ target }) => {
+    setCategory(target.innerText);
+    setAnchorEl(null);
+  };
 
   return (
     <Stack spacing={2}>
@@ -32,6 +59,7 @@ function EventForm({ update, create, eventDetails }) {
               label="Start Time"
               value={start}
               onChange={(newTime) => setStart(newTime)}
+              disabled={allDay}
             />
           </LocalizationProvider>
         </Grid>
@@ -41,20 +69,52 @@ function EventForm({ update, create, eventDetails }) {
               label="End Time"
               value={end}
               onChange={(newTime) => setEnd(newTime)}
+              disabled={allDay}
             />
           </LocalizationProvider>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
         <Grid size={6}>
-
+          <Button
+            variant="contained"
+            onClick={handleMenuOpenClick}
+          >
+            {category}
+          </Button>
+          <Menu
+            anchorEl={anchorEl}
+            open={menuOpen}
+            onClose={handleMenuClose}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            {
+              categories.map((category) => (
+                <MenuItem
+                  key={category}
+                  onClick={handleCategoryChange}
+                >
+                  {category}
+                </MenuItem>
+              ))
+            }
+          </Menu>
         </Grid>
         <Grid size={6}>
-          <Typography variant="subtitle2">All Day Event?</Typography>
-          <Switch
-            checked={allDay}
-            onChange={handleAllDayToggle}
-          />
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+            <Switch
+              checked={allDay}
+              onChange={handleAllDayToggle}
+            />
+            <Typography>All Day?</Typography>
+          </Stack>
         </Grid>
       </Grid>
     </Stack>
