@@ -19,7 +19,6 @@ function MealPlans({ handleThemeChange }) {
   }
   // GET the recipes from the database
   const getRecipes = () => {
-    console.log('Get recipes invoked');
     // Make axios GET req to /user/recipes
     axios.get('/user/recipes')
       .then(({ data }) => {
