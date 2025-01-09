@@ -8,7 +8,11 @@ import {
   Button,
 } from '@mui/material';
 
-function DeleteEventDialog({ openDeleteEventDialog, eventName, handleDeleteEventDialogClose }) {
+function DeleteEventDialog({
+  openDeleteEventDialog,
+  eventTitle,
+  handleDeleteEventDialogClose,
+}) {
   return (
     <Dialog
       open={openDeleteEventDialog}
@@ -19,7 +23,7 @@ function DeleteEventDialog({ openDeleteEventDialog, eventName, handleDeleteEvent
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {`Are you sure you want to delete the event "${eventName}"? This action is permanent and cannot be undone.`}
+          {`Are you sure you want to delete the event "${eventTitle}"? This action is permanent and cannot be undone.`}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
