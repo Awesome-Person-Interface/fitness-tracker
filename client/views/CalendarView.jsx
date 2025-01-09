@@ -1,4 +1,5 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import { Calendar, dayjsLocalizer, Views } from 'react-big-calendar';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid2';
@@ -11,22 +12,24 @@ import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
-const localizer = dayjsLocalizer(dayjs);
+const djLocalizer = dayjsLocalizer(dayjs);
 
-const startEvents = [
+/* EXAMPLE EVENT DATA:
+[
   {
     id: 1,
     title: 'Breakfast',
-    start: new Date(2025, 0, 5, 7, 30),
-    end: new Date(2025, 0, 5, 8),
+    start: dayjs(new Date(2025, 0, 5)).$d,
+    end: dayjs(new Date(2025, 0, 5)).$d,
     allDay: false,
     desc: 'Two banana pancakes & a cup of coffee.',
     category: 'Breakfast',
   }
 ];
+*/
 
 function CalendarView({ handleThemeChange }) {
-  const [events, setEvents] = useState(startEvents);
+  const [events, setEvents] = useState([]);
   const [dateSlot, setDateSlot] = useState({});
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -39,8 +42,8 @@ function CalendarView({ handleThemeChange }) {
   }, [setSelectedEvent]);
 
   const { defaultDate, scrollToTime } = useMemo(() => ({
-    defaultDate: Date.now(),
-    scrollToTime: new Date(1970, 1, 1, 6),
+    defaultDate: dayjs(Date.now()).$d,
+    scrollToTime: dayjs(new Date(1970, 1, 1, 6)).$d,
   }), []);
 
   const handleCloseDialog = () => {
@@ -50,6 +53,20 @@ function CalendarView({ handleThemeChange }) {
   const handleSelectEventClose = () => {
     setSelectedEvent(null);
   };
+
+  const getEvents = () => {
+    axios.get('/user/events')
+      .then(({ data }) => {
+        setEvents(data);
+      })
+      .catch((err) => {
+        console.error('Failed to getEvents:', err);
+      });
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <div id="root-app">
@@ -78,7 +95,9 @@ function CalendarView({ handleThemeChange }) {
             defaultDate={defaultDate}
             defaultView={Views.MONTH}
             events={events}
-            localizer={localizer}
+            localizer={djLocalizer}
+            startAccessor={(event) => new Date(event.start)}
+            endAccessor={(event) => new Date(event.end)}
             onSelectEvent={handleSelectEvent}
             onSelectSlot={handleSelectSlot}
             selectable
@@ -93,6 +112,7 @@ function CalendarView({ handleThemeChange }) {
       <CreateEventDialog
         dateSlot={dateSlot}
         handleCloseDialog={handleCloseDialog}
+        getEvents={getEvents}
       />
     </div>
   );
