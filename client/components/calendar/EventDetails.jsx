@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import {
   Container,
@@ -11,8 +12,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-function EventDetails({ selectedEvent, handleSelectEventClose }) {
+import DeleteEventDialog from './DeleteEventDialog.jsx';
+import UpdateEventDialog from './UpdateEventDialog.jsx';
+
+function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
   const {
+    _id,
     title,
     start,
     end,
@@ -20,6 +25,35 @@ function EventDetails({ selectedEvent, handleSelectEventClose }) {
     desc,
     category,
   } = selectedEvent;
+
+  const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
+  const [openUpdateEventDialog, setOpenUpdateEventDialog] = useState(false);
+
+  const deleteEvent = () => {
+    axios.delete(`/user/events/${_id}`)
+      .then(handleSelectEventClose)
+      .then(getEvents)
+      .catch((err) => {
+        console.error('Failed to deleteEvent:', err);
+      })
+  }
+
+  const handleDeleteEventDialogOpen = () => {
+    setOpenDeleteEventDialog(true);
+  };
+
+  const handleDeleteEventDialogClose = () => {
+    setOpenDeleteEventDialog(false);
+  };
+
+  const handleUpdateEventDialogOpen = () => {
+    setOpenUpdateEventDialog(true);
+  };
+
+  const handleUpdateEventDialogClose = () => {
+    setOpenUpdateEventDialog(false);
+  };
+
   return (
     <Container
       sx={{
@@ -53,17 +87,33 @@ function EventDetails({ selectedEvent, handleSelectEventClose }) {
         <br></br>
         <Grid container spacing={2}>
           <Grid size={6}>
-            <IconButton>
+            <IconButton
+              onClick={handleUpdateEventDialogOpen}
+            >
               <EditIcon />
             </IconButton>
           </Grid>
           <Grid size={6}>
-            <IconButton>
+            <IconButton
+              onClick={handleDeleteEventDialogOpen}
+            >
               <DeleteForeverIcon />
             </IconButton>
           </Grid>
         </Grid>
       </Stack>
+      <DeleteEventDialog
+        openDeleteEventDialog={openDeleteEventDialog}
+        eventTitle={title}
+        handleDeleteEventDialogClose={handleDeleteEventDialogClose}
+        deleteEvent={deleteEvent}
+      />
+      <UpdateEventDialog
+        openUpdateEventDialog={openUpdateEventDialog}
+        handleUpdateEventDialogClose={handleUpdateEventDialogClose}
+        eventDetails={selectedEvent}
+        getEvents={getEvents}
+      />
     </Container>
   );
 }
