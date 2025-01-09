@@ -76,6 +76,33 @@ events.get('/', (req, res) => {
     })
 });
 
+/*
+  Method: DELETE
+  Endpoint: /user/events/:id
+  REQ.PARAMS: { id }
+*/
+events.delete('/:id', (req, res) => {
+  // Grab the event id from the request's path parameters
+  const { id } = req.params;
+  // Query the database to find the event using the id and delete it
+  Events.findByIdAndDelete(id)
+    // Success
+    .then((deletedEvent) => {
+      // If no event was deleted, send Status: 404
+      if (!deletedEvent) {
+        res.sendStatus(404);
+      } else {
+        // Otherwise, send Status: 200
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error & send Status: 500
+    .catch((err) => {
+      console.error(`DELETE :: INTERNAL :: delete event #${id}:`, err);
+      res.sendStatus(500);
+    });
+});
+
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
