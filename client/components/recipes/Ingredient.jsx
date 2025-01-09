@@ -17,7 +17,7 @@ function Ingredient({ amount, unit, name }) {
       <Typography
       >{`${amount} ${unit} ${name}`}</Typography>
     </ListItem>
-    <Grid>
+    <Grid size={6}>
       <Divider />
     </Grid>
     </Grid>
