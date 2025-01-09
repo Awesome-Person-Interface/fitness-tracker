@@ -38,18 +38,42 @@ events.post('/', (req, res) => {
   event.user_id = _id;
   // Create a new event object in the database
   Events.create(event)
-    // Success
+    // Success:
     .then(() => {
       // Send Status: 201
       res.sendStatus(201);
     })
-    // Failure
+    // Failure:
     .catch((err) => {
       // Log error
-      console.error(`POST :: INTERNAL :: create event for user #${_id}:`, error);
+      console.error(`POST :: INTERNAL :: create event for user #${_id}:`, err);
       // Send Status: 500
       res.sendStatus(500);
     });
+});
+
+/*
+  Method: GET
+  Endpoint: /users/events
+  REQ.USER: { _id }
+*/
+events.get('/', (req, res) => {
+  // Grab the _id from the request's user
+  const { _id } = req.user;
+  // Query the database for all of the events that belong to the user
+  Events.find({ user_id: _id })
+    // Success:
+    .then((eventsArr) => {
+      // Set Status: 200
+      res.status(200);
+      // Send back the events array
+      res.send(eventsArr);
+    })
+    // Failure:
+    .catch((err) => {
+      // Log error
+      console.error(`GET :: INTERNAL :: fill all events for user #${_id}:`, err);
+    })
 });
 
 // ----------------------------------------------------------------------------------- //
