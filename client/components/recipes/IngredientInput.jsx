@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
-const measurements = ['tsp', 'tbsp', 'cup', 'oz', 'fl oz' ]
+const measurements = ['tsp', 'tbsp', 'cups', 'qts', 'oz', 'lbs', 'fl oz' ]
 function IngredientInput({ value, index, formValues, setFormValues}) {
   // Function to handle changes in ingredient and amount fields
   const handleIngredientChange = (element) => {
