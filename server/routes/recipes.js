@@ -29,5 +29,18 @@ recipes.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+// For DELETE requests to /user/recipes/:id
+recipes.delete('/:id', (req, res) => {
+  // Grab the id from the req params
+  const { id } = req.params;
+  // Delete the recipe with the id from the database
+  Recipes.findByIdAndDelete(id)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.error('Error deleting recipe from database: ', err);
+      res.sendStatus(500);
+    });
+});
 
 export default recipes;
