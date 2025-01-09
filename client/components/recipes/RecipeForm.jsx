@@ -14,11 +14,13 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
-function RecipesForm({ makingRecipe, setMakingRecipe }) {
+function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
+  // Set state value for holding the forms values
   const [formValues, setFormValues] = useState(
     { name: '',
       serves: '',
       time: '',
+      notes: '',
       ingredients: [{
         name: '',
         amount: '',
@@ -34,11 +36,13 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
       },
     ],
   });
+  // Set state value for if a required textField should display an error
+  const [error, setError] = useState(false);
   const addIngredient = () => {
     // Make a copy of the formValues
     const formCopy = {...formValues};
     // Add an empty string to the end of the ingredients array
-    formCopy.ingredients.push({ ingredient: '', unit: '', });
+    formCopy.ingredients.push({ name: '', amount: '', unit: '', });
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
   }
@@ -52,12 +56,18 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
     }
     // Function to save the user's recipe to the database
     const handleSaveClick = () => {
+      // Make sure the name field is not empty
+      if (!formValues.name) {
+        setError(true);
+        return;
+      }
       // Build config to send to the server
       const config = {
         recipe: formValues,
       }
     // Make axios POST request to /user/recipes
     axios.post('/user/recipes', config)
+      .then(getRecipes)
       .then(() => {
         // Close the form
         setMakingRecipe(false);
@@ -81,6 +91,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
             <Grid>
               <Stack direction="row" spacing={4}>
                 <TextField
+                  error={error}
                   required
                   variant="standard"
                   label="Recipe name"
@@ -103,6 +114,18 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
                   onChange={handleFormChange}
                 />
               </Stack>
+            </Grid>
+            <Grid size={10}>
+              <Typography>Notes:</Typography>
+              <TextField
+                id="notes"
+                value={formValues.notes}
+                placeholder="Leave any notes, instructions, or description of this recipe here!"
+                multiline
+                fullWidth
+                minRows={2}
+                onChange={handleFormChange}
+                />
             </Grid>
             <Grid container spacing={1.5}>
               {formValues.ingredients.map((ingredient, index) => {
