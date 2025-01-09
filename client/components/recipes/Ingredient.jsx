@@ -2,22 +2,25 @@ import React from 'react';
 import axios from 'axios';
 import {
   Checkbox,
+  ListItem,
   Divider,
   Stack,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 function Ingredient({ amount, unit, name }) {
   return (
-    <>
-      <Stack direction="row" spacing={2}>
-        <Checkbox />
-        <Typography
-        >{`${amount} ${unit} ${name}`}</Typography>
-      </Stack>
-        <Divider />
-    </>
-
+    <Grid size={12}>
+    <ListItem disableGutters disablePadding>
+      <Checkbox />
+      <Typography
+      >{`${amount} ${unit} ${name}`}</Typography>
+    </ListItem>
+    <Grid>
+      <Divider />
+    </Grid>
+    </Grid>
   )
 };
 
