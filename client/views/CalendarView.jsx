@@ -110,6 +110,7 @@ function CalendarView({ handleThemeChange }) {
                 <EventDetails
                   selectedEvent={selectedEvent}
                   handleSelectEventClose={handleSelectEventClose}
+                  getEvents={getEvents}
                 />
               ) : (
                 <div>No event selected</div>
