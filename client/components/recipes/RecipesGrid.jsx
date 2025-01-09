@@ -21,9 +21,10 @@ function RecipesGrid({ recipes }) {
         return (
           <Grid
             key={recipe._id}
+            size={4}
             >
             <Card
-              sx={{ width: 1 }}
+              sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
               >
             <CardContent>
               <Typography
