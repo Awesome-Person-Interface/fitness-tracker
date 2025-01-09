@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import axios from 'axios';
 import Grid from '@mui/material/Grid2';
 import {
   Typography,
@@ -51,6 +52,31 @@ function EventForm({ update, create, eventDetails }) {
   const handleCategoryChange = ({ target }) => {
     setCategory(target.innerText);
     setAnchorEl(null);
+  };
+
+  const postEvent = () => {
+    // Create the body to send with the axios POST request
+    const body = {
+      event: {
+        title,
+        start: start.$d,
+        end: end.$d,
+        allDay,
+        desc,
+        category,
+      },
+    };
+    axios.post('/user/events', body)
+      .then(() => {
+        console.log('Event Posted to Database');
+      })
+      .catch((err) => {
+        console.error('Failed to postEvent:', err);
+      });
+  };
+
+  const handleCreateClick = () => {
+    postEvent();
   };
 
   return (
@@ -130,15 +156,26 @@ function EventForm({ update, create, eventDetails }) {
             onChange={({ target }) => setTitle(target.value)}
           />
         </Grid>
-        <Grid size={8}>
-        <TextField
-            required
+        <Grid size={6}>
+          <TextField
             label="Description"
             helperText="More details about the event go here."
             multiline
+            fullWidth
             value={desc}
             onChange={({ target }) => setDesc(target.value)}
           />
+        </Grid>
+        <Grid size={2}>
+            {create
+              ? (
+                <Button
+                  onClick={handleCreateClick}
+                >
+                  Create
+                </Button>
+              ) : null
+            }
         </Grid>
       </Grid>
     </Stack>
