@@ -15,6 +15,7 @@ import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
 function RecipesForm({ makingRecipe, setMakingRecipe }) {
+  // Set state value for holding the forms values
   const [formValues, setFormValues] = useState(
     { name: '',
       serves: '',
@@ -34,6 +35,8 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
       },
     ],
   });
+  // Set state value for if a required textField should display an error
+  const [error, setError] = useState(false);
   const addIngredient = () => {
     // Make a copy of the formValues
     const formCopy = {...formValues};
@@ -52,6 +55,11 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
     }
     // Function to save the user's recipe to the database
     const handleSaveClick = () => {
+      // Make sure the name field is not empty
+      if (!formValues.name) {
+        setError(true);
+        return;
+      }
       // Build config to send to the server
       const config = {
         recipe: formValues,
@@ -81,6 +89,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe }) {
             <Grid>
               <Stack direction="row" spacing={4}>
                 <TextField
+                  error={error}
                   required
                   variant="standard"
                   label="Recipe name"
