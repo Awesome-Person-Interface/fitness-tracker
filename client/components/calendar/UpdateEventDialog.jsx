@@ -10,11 +10,16 @@ import {
 
 import EventForm from './EventForm.jsx';
 
-function UpdateEventDialog({ openUpdateEventDialog, handleCloseUpdateEventDialog, eventDetails }) {
+function UpdateEventDialog({
+  openUpdateEventDialog,
+  handleUpdateEventDialogClose,
+  eventDetails,
+  getEvents,
+}) {
   return (
     <Dialog
       open={openUpdateEventDialog}
-      onClose={handleCloseUpdateEventDialog}
+      onClose={handleUpdateEventDialogClose}
       fullWidth={true}
       maxWidth="sm"
     >
@@ -26,12 +31,12 @@ function UpdateEventDialog({ openUpdateEventDialog, handleCloseUpdateEventDialog
             eventDetails={eventDetails}
             update={true}
             getEvents={getEvents}
-            handleCloseUpdateEventDialog={handleCloseUpdateEventDialog}
+            handleCloseDialog={handleUpdateEventDialogClose}
           />
         </DialogContent>
       <DialogActions>
         <Button
-          onClick={handleCloseUpdateEventDialog}
+          onClick={handleUpdateEventDialogClose}
         >
           Close
         </Button>

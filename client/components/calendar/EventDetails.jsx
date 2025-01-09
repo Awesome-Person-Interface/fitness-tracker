@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import DeleteEventDialog from './DeleteEventDialog.jsx';
+import UpdateEventDialog from './UpdateEventDialog.jsx';
 
 function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
   const {
@@ -25,7 +26,8 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
     category,
   } = selectedEvent;
 
-  const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false)
+  const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
+  const [openUpdateEventDialog, setOpenUpdateEventDialog] = useState(false);
 
   const deleteEvent = () => {
     axios.delete(`/user/events/${_id}`)
@@ -42,6 +44,14 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
 
   const handleDeleteEventDialogClose = () => {
     setOpenDeleteEventDialog(false);
+  };
+
+  const handleUpdateEventDialogOpen = () => {
+    setOpenUpdateEventDialog(true);
+  };
+
+  const handleUpdateEventDialogClose = () => {
+    setOpenUpdateEventDialog(false);
   };
 
   return (
@@ -77,7 +87,9 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
         <br></br>
         <Grid container spacing={2}>
           <Grid size={6}>
-            <IconButton>
+            <IconButton
+              onClick={handleUpdateEventDialogOpen}
+            >
               <EditIcon />
             </IconButton>
           </Grid>
@@ -95,6 +107,12 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
         eventTitle={title}
         handleDeleteEventDialogClose={handleDeleteEventDialogClose}
         deleteEvent={deleteEvent}
+      />
+      <UpdateEventDialog
+        openUpdateEventDialog={openUpdateEventDialog}
+        handleUpdateEventDialogClose={handleUpdateEventDialogClose}
+        eventDetails={selectedEvent}
+        getEvents={getEvents}
       />
     </Container>
   );

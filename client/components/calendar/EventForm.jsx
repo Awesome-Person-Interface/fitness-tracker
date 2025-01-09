@@ -17,7 +17,13 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
-function EventForm({ update, create, eventDetails, getEvents, handleCloseDialog }) {
+function EventForm({
+  update,
+  create,
+  eventDetails,
+  getEvents,
+  handleCloseDialog,
+}) {
   // State 
   const [catMenuAnchorEl, setCatMenuAnchorEl] = useState(null);
   const catMenuOpen = Boolean(catMenuAnchorEl);
