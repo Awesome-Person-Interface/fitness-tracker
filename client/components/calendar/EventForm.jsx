@@ -7,6 +7,7 @@ import {
   Button,
   Menu,
   MenuItem,
+  TextField,
 } from '@mui/material';
 import {
   LocalizationProvider,
@@ -22,6 +23,8 @@ function EventForm({ update, create, eventDetails }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const [allDay, setAllDay] = useState(false);
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
 
   const { categories } = useMemo(() => ({
       categories: [
@@ -115,6 +118,27 @@ function EventForm({ update, create, eventDetails }) {
             />
             <Typography>All Day?</Typography>
           </Stack>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid size={4}>
+          <TextField
+            required
+            label="Title"
+            helperText="Appears On Calendar Tag"
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+          />
+        </Grid>
+        <Grid size={8}>
+        <TextField
+            required
+            label="Description"
+            helperText="More details about the event go here."
+            multiline
+            value={desc}
+            onChange={({ target }) => setDesc(target.value)}
+          />
         </Grid>
       </Grid>
     </Stack>
