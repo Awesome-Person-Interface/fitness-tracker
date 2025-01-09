@@ -19,8 +19,8 @@ const events = express.Router();
  * -----------------------------------------------------------------------------------
  *  POST    /                         => enables user to create a new event
  *  GET     /                         => enables the user get all of their events
- *  PATCH   /:id                      => enables the user to update info for an event
  *  DELETE  /:id                      => enables user to delete an event
+ *  PATCH   /:id                      => enables the user to update info for an event
  * ----------------------------------------------------------------------------------- */
 
 /*
@@ -101,6 +101,20 @@ events.delete('/:id', (req, res) => {
       console.error(`DELETE :: INTERNAL :: delete event #${id}:`, err);
       res.sendStatus(500);
     });
+});
+
+/*
+  Method: PATCH
+  Endpoint: /user/events/:id
+  REQ.PARAMS: { id }
+  REQ.BODY: { event }
+*/
+events.patch('/:id', (req, res) => {
+  // Grab the event id from the request's path parameters
+  const { id } = req.params;
+  // Grab the event object from the request's body
+  const { event } = req.body;
+  
 });
 
 // ----------------------------------------------------------------------------------- //
