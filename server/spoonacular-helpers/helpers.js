@@ -1,69 +1,9 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
-import { Recipes } from '../db/index.js';
 
 dotenv.config();
 
 const SPOONACULAR_KEY = process.env.FOOD_API_KEY;
-const fakeResponses = [{
-  data: {
-    nutrition: {
-      nutrients: [
-        {
-          name: 'Mono Unsaturated Fat',
-          amount: 50,
-          unit: 'g',
-          percentOfDailyNeeds: 0.0
-      }, {
-          name: 'Calories',
-          amount: 1000,
-          unit: 'kcal',
-          percentOfDailyNeeds: 56.78
-      }, {
-          name: 'Poly Unsaturated Fat',
-          amount: 50,
-          unit: 'g',
-          percentOfDailyNeeds: 0.0
-      }, {
-        name: 'Sodium',
-        amount: 500,
-        unit: 'mg',
-        percentOfDailyNeeds: 31.27
-    },
-      ]
-    }
-  }
-},
-{
-  data: {
-    nutrition: {
-      nutrients: [
-        {
-          name: 'Mono Unsaturated Fat',
-          amount: 50,
-          unit: 'g',
-          percentOfDailyNeeds: 0.0
-      }, {
-          name: 'Calories',
-          amount: 1000,
-          unit: 'kcal',
-          percentOfDailyNeeds: 56.78
-      }, {
-          name: 'Poly Unsaturated Fat',
-          amount: 50,
-          unit: 'g',
-          percentOfDailyNeeds: 0.0
-      }, {
-        name: 'Sodium',
-        amount: 500,
-        unit: 'mg',
-        percentOfDailyNeeds: 31.27
-    },
-      ]
-    }
-  }
-}
-]
 // Helper function to grab ingredient nutrition/id from Spoonacular
 /***
  * I: Array of ingredient objects {name: 'ingredientName'}
@@ -73,7 +13,6 @@ const fakeResponses = [{
  */
 // Need to get the ingredient id and then the nutrition separately
 const getIngredientIds = function(ingredients) {
-  console.log('Invoked the helper from helper file');
   // Create an array to hold the API response
   const promiseArr = [];
   // Create an array to hold the ids we found
@@ -86,7 +25,6 @@ const getIngredientIds = function(ingredients) {
       query: ingredient.name,
       number: 5,
     }
-    console.log('Params in test POST: ', params);
     // Push the request response onto the promiseArr
     promiseArr.push(axios.get('https://api.spoonacular.com/food/ingredients/search', { params, }));
   })
@@ -94,7 +32,6 @@ const getIngredientIds = function(ingredients) {
   return Promise.all(promiseArr)
   .then((responses) => {
     // Responses is an array of responses
-    console.log('Helpers responses: ', responses);
     return findIngredientId(ingredients, responses);
   })
 };
@@ -113,8 +50,6 @@ const findIngredientId = function(ingredients, responses) {
     const ingredientName = ingredient.name.toLowerCase().trim();
     // Grab the results array from each response
     const { results } = responses[index].data;
-    console.log('NAMES: ', ingredientName, results[2].name.toLowerCase().trim());
-    console.log('Results: ', results);
     for (let i = 0; i < results.length; i++) {
       // Lowercase and trim response name property
       const resName = results[i].name.toLowerCase().trim();
@@ -135,7 +70,6 @@ const findIngredientId = function(ingredients, responses) {
  * E: n/a
  */
 const getIngredientInfo = function(ingredientIds, ingredients) {
-  console.log('Info invoked!!!');
   // Create storage array to hold the promise returned by the API
   const promiseArr = [];
   ingredientIds.forEach((id, index) => {
@@ -151,13 +85,12 @@ const getIngredientInfo = function(ingredientIds, ingredients) {
     // Make axios request with the config and push onto the promiseArr
     promiseArr.push(axios.get(`https://api.spoonacular.com/food/ingredients/${id}/information`, { params, }));
   })
-  Promise.all(promiseArr)
-    .then((values) => {
-      setTimeout(() => {
-        console.log('Promise array values', values[0].data.nutrition);
-      })
+  // Return the value returned by Promise.all()
+  return Promise.all(promiseArr)
+    .then((responses) => {
+      // Pass the response array into the calculateNutrients helper
+      return calculateNutrition(responses)
     })
-  return Promise.all(promiseArr);
 }
 
 // Helper to calculate the nutrition facts of a recipe and add it to the database
@@ -226,7 +159,5 @@ class Nutrient {
     this.amount += addNutrient.amount;
   };
 };
-
-console.log(calculateNutrition(fakeResponses));
 
 export { getIngredientIds, getIngredientInfo };

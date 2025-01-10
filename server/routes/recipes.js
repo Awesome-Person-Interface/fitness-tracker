@@ -14,8 +14,8 @@ recipes.post('/test', (req, res) => {
   .then((ids) => {
     // Get the ingredient info for the returned ids
     getIngredientInfo(ids, ingredients)
-    .then((results) => { 
-      res.status(200).send(results);
+    .then((nutritionObj) => {
+      res.status(200).send(nutritionObj);
     })
   }).catch((err) => {
     console.error('Error in the helper function: ', err);
@@ -37,14 +37,27 @@ recipes.get('/', (req, res) => {
 recipes.post('/', (req, res) => {
   // Grab the config from the req body
   const { recipe } = req.body;
-  // Add the recipe to the database
-  Recipes.create(recipe)
-    .then(() => {
-      res.sendStatus(201);
-    }).catch((err) => {
-      console.error('Error creating the recipe in the database: ', err);
-      res.sendStatus(500);
+  // Grab the ingredients list from recipe
+  const { ingredients } = recipe
+  // Pass the ingredients into the helper
+  getIngredientIds(ingredients)
+  .then((ids) => {
+    // Get the ingredient info for the returned ids
+    getIngredientInfo(ids, ingredients)
+    .then((nutritionObj) => {
+      // Add the nutrition object onto the recipe
+      recipe.nutrition = nutritionObj;
+    }).then(() => {
+      // Add the recipe to the database
+      Recipes.create(recipe)
+      .then((createdRec) => {
+        res.status(201).send(createdRec);
+      })
     });
+  }).catch((err) => {
+    console.error('Error creating the recipe in the database: ', err);
+    res.sendStatus(500);
+  })
 });
 // For DELETE requests to /user/recipes/:id
 recipes.delete('/:id', (req, res) => {
