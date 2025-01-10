@@ -49,13 +49,25 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
         <ClearIcon />
       </IconButton>
       <TextField
+        sx={{
+          width: 150,
+          "& .MuiInputBase-root": {
+            height: 50
+          }
+        }}
         label="Amount"
         id="amount"
         onChange={handleIngredientChange}
         />
-    <InputLabel>
       <Select
+        sx={{
+          width: 80,
+          "& .MuiSelect-root": {
+            height: 10
+          }
+        }}
         value={formValues.ingredients[index].unit}
+        placeholder="Unit"
         >
         {measurements.map((measurement) => {
           return (
@@ -69,12 +81,17 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
           )
         })}
       </Select>
-    </InputLabel>
       <TextField
-      label="Ingredient"
-      onChange={handleIngredientChange}
-      id="name"
-      value={value}
+        sx={{
+          width: 150,
+          "& .MuiInputBase-root": {
+            height: 50
+          }
+        }}
+        label="Ingredient"
+        onChange={handleIngredientChange}
+        id="name"
+        value={value}
       />
       </Stack>
   </Grid>
