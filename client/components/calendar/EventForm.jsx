@@ -89,7 +89,7 @@ function EventForm({
 
     else {
       // Create the body to send with the axios POST request
-      const body = {
+      const newEvent = {
         event: {
           title,
           start: start.$d,
@@ -99,7 +99,7 @@ function EventForm({
           category,
         },
       };
-      axios.post('/user/events', body)
+      axios.post('/user/events', newEvent)
         // Success, fetch all events for the user & close the dialog menu
         .then(getEvents)
         .then(handleCloseDialog)
@@ -113,6 +113,33 @@ function EventForm({
   // Handles the create button click to POST event data
   const handleCreateClick = () => {
     postEvent();
+  };
+
+  const patchEvent = () => {
+    const updateEvent = {
+      event: {
+        title,
+        start: start.$d,
+        end: end.$d,
+        allDay,
+        desc,
+        category,
+      },
+    };
+
+    axios.patch(`/user/events/${eventDetails._id}`, updateEvent)
+      // Success, fetch all events for the user & close the dialog menu
+      .then(getEvents)
+      .then(handleCloseDialog)
+      // Failure, log the error
+      .catch((err) => {
+        console.error('Failed to patchEvent:', err);
+      });
+  };
+
+  const handleUpdateClick = () => {
+    console.log('Click');
+    patchEvent();
   };
 
   return (
@@ -215,7 +242,7 @@ function EventForm({
             {update
               ? (
                 <Button
-                  // onClick={handleCreateClick}
+                  onClick={handleUpdateClick}
                 >
                   Update
                 </Button>
