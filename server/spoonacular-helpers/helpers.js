@@ -1,10 +1,69 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
+import { Recipes } from '../db/index.js';
 
 dotenv.config();
 
 const SPOONACULAR_KEY = process.env.FOOD_API_KEY;
-
+const fakeResponses = [{
+  data: {
+    nutrition: {
+      nutrients: [
+        {
+          name: 'Mono Unsaturated Fat',
+          amount: 50,
+          unit: 'g',
+          percentOfDailyNeeds: 0.0
+      }, {
+          name: 'Calories',
+          amount: 1000,
+          unit: 'kcal',
+          percentOfDailyNeeds: 56.78
+      }, {
+          name: 'Poly Unsaturated Fat',
+          amount: 50,
+          unit: 'g',
+          percentOfDailyNeeds: 0.0
+      }, {
+        name: 'Sodium',
+        amount: 500,
+        unit: 'mg',
+        percentOfDailyNeeds: 31.27
+    },
+      ]
+    }
+  }
+},
+{
+  data: {
+    nutrition: {
+      nutrients: [
+        {
+          name: 'Mono Unsaturated Fat',
+          amount: 50,
+          unit: 'g',
+          percentOfDailyNeeds: 0.0
+      }, {
+          name: 'Calories',
+          amount: 1000,
+          unit: 'kcal',
+          percentOfDailyNeeds: 56.78
+      }, {
+          name: 'Poly Unsaturated Fat',
+          amount: 50,
+          unit: 'g',
+          percentOfDailyNeeds: 0.0
+      }, {
+        name: 'Sodium',
+        amount: 500,
+        unit: 'mg',
+        percentOfDailyNeeds: 31.27
+    },
+      ]
+    }
+  }
+}
+]
 // Helper function to grab ingredient nutrition/id from Spoonacular
 /***
  * I: Array of ingredient objects {name: 'ingredientName'}
@@ -35,6 +94,7 @@ const getIngredientIds = function(ingredients) {
   return Promise.all(promiseArr)
   .then((responses) => {
     // Responses is an array of responses
+    console.log('Helpers responses: ', responses);
     return findIngredientId(ingredients, responses);
   })
 };
@@ -100,12 +160,73 @@ const getIngredientInfo = function(ingredientIds, ingredients) {
   return Promise.all(promiseArr);
 }
 
-// getIngredientInfo([1077], [{
-//   name: 'Milk',
-//   amount: '2',
-//   unit: 'cups',
-// }] )
+// Helper to calculate the nutrition facts of a recipe and add it to the database
+/***
+ * I: Array of responses from the database containing ingredient nutrition
+ * O: n/a
+ */
+/* Note: To access the nutrition facts on the response
+* Access the data property on the response (Object)
+* Access the nutrition property on data (Object)
+* Access the nutrients property on nutrition (Array of nutrition facts)
+* => Nutrition array holds objects of nutrients: Example object
+{ name: Calories, amount: 1135.62, unit": kcal, percentOfDailyNeeds: 56.78 },
+*/
+// Array to hold the nutrients I want from the database
+const wantedNuts = ['calories', 'fat', 'sodium', 'carbohydrates', 'sugar', 'protein'];
+const calculateNutrition = function(responses) {
+  // Initialize an object to hold nutrients
+  const nutrition = {
+    calories: null,
+    fat: null,
+    unsaturated: null,
+    sodium: null,
+    carbohydrates: null,
+    sugar: null,
+    protein: null,
+  };
+  // Iterate over all the responses and access the results
+  responses.forEach((response) => {
+    // Grab the nutrients array
+    const { nutrients } = response.data.nutrition;
+    nutrients.forEach((nutrient) => {
+      // Grab the nutrient name, lowerCase it and trim whitespace from ends
+      const name = nutrient.name.toLowerCase().trim();
+      // Check if the ingredient is in the wantedNuts array (different for unsaturated)
+      if(wantedNuts.includes(name)) {
+      // Check if the property already has value
+      if (nutrition[name]) {
+        // If yes => Use the Nutrient addAmount method
+          nutrition[name].addAmount(nutrient);
+        } else {
+          nutrition[name] = new Nutrient(nutrient);
+        }
+      } else if (name.split(' ').includes('unsaturated')) {
+        if (nutrition.unsaturated) {
+          nutrition.unsaturated.addAmount(nutrient);
+        } else {
+          nutrition.unsaturated = new Nutrient(nutrient);
+        }
+      }
+    });
+  });
+  return nutrition;
+}
 
+// Constructor to build a Nutrient object
+// Takes in a nutrient object
+class Nutrient {
+  constructor(nutrient) {
+    this.amount = nutrient.amount,
+    this.unit = nutrient.unit
+  }
+  // Method to add to the Nutrient amount
+  // Takes in another nutrientObject
+  addAmount(addNutrient) {
+    this.amount += addNutrient.amount;
+  };
+};
 
+console.log(calculateNutrition(fakeResponses));
 
 export { getIngredientIds, getIngredientInfo };

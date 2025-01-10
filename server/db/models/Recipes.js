@@ -15,10 +15,10 @@ const NutrientSchema = new Schema({
 // Initialize nutrition schema to go on the RecipeSchema 
 const NutritionSchema = new Schema({
   calories: NutrientSchema,
-  totalFat: NutrientSchema,
-  unSaturated: NutrientSchema,
+  fat: NutrientSchema,
+  unsaturated: NutrientSchema,
   sodium: NutrientSchema,
-  carbs: NutrientSchema,
+  carbohydrates: NutrientSchema,
   sugar: NutrientSchema,
   protein: NutrientSchema,
 });
