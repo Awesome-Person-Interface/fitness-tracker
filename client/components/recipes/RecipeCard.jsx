@@ -35,8 +35,13 @@ function RecipeCard({ recipe, getRecipes }) {
   }
   return (
     <Grid
+      container
       size={4}
+      spacing={1}
     >
+      <Grid
+      size={12}
+      >
       <Card
         sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
       >
@@ -53,7 +58,11 @@ function RecipeCard({ recipe, getRecipes }) {
             variant="subtitle1"
           >Ingredients
           </Typography>
+          <Grid
+            size={6}
+          >
           <IngredientList ingredients={recipe.ingredients}/>
+          </Grid>
         </CardContent>
         <CardActions>
           <Button
@@ -63,6 +72,7 @@ function RecipeCard({ recipe, getRecipes }) {
           </Button>
         </CardActions>
       </Card>
+      </Grid>
       <Dialog open={deletingRecipe}>
         <DialogTitle>
           {`Delete ${recipe.name}`}

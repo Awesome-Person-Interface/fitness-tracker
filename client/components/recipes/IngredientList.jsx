@@ -12,7 +12,7 @@ import Ingredient from './Ingredient.jsx';
 
 function IngredientList({ ingredients }) {
   return (
-    <Grid container spacing={0}>
+    <Box>
       {ingredients.map((ingredient) => {
         return (
           <Ingredient
@@ -23,7 +23,7 @@ function IngredientList({ ingredients }) {
           />
         )
       })}
-    </Grid>
+    </Box>
   )
 };
 
