@@ -175,6 +175,7 @@ function EventForm({
         <Grid size={6}>
           <Button
             variant="contained"
+            color={category === 'Category?' ? 'secondary' : 'primary'}
             onClick={handleCatMenuOpenClick}
           >
             {category}
@@ -240,10 +241,11 @@ function EventForm({
           ? <WorkoutOptions />
           : null
       }
-      
+
       {create
         ? (
           <Button
+            variant="contained"
             onClick={handleCreateClick}
           >
             Create
@@ -253,6 +255,7 @@ function EventForm({
       {update
         ? (
           <Button
+            variant="contained"
             onClick={handleUpdateClick}
           >
             Update
