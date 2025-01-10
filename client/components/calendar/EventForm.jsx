@@ -39,7 +39,7 @@ function EventForm({
   */
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
-  const [category, setCategory] = useState('Category');
+  const [category, setCategory] = useState('Category?');
   const [allDay, setAllDay] = useState(false);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -79,7 +79,7 @@ function EventForm({
   // Sends a POST request to create an Event object in the Database
   const postEvent = () => {
     // Check if the category has been selected
-    if (category === 'Category') {
+    if (category === 'Category?') {
       return;
     }
     // Check if the Title has been set
