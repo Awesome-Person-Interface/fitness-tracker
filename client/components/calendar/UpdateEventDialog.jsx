@@ -6,7 +6,10 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  IconButton,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import CloseIcon from '@mui/icons-material/Close';
 
 import EventForm from './EventForm.jsx';
 
@@ -24,25 +27,31 @@ function UpdateEventDialog({
       fullWidth={true}
       maxWidth="sm"
     >
-      <DialogTitle>Update Event</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Fill out the form below to update an event:</DialogContentText>
-          <br></br>
-          <EventForm
-            eventDetails={eventDetails}
-            update={true}
-            getEvents={getEvents}
-            handleCloseDialog={handleUpdateEventDialogClose}
-            changeSelectedEvent={changeSelectedEvent}
-          />
-        </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={handleUpdateEventDialogClose}
-        >
-          Close
-        </Button>
-      </DialogActions>
+      <DialogTitle>
+        <Grid container spacing={2}>
+          <Grid size={11}>
+            Update Event
+          </Grid>
+          <Grid size={1}>
+            <IconButton
+              onClick={handleUpdateEventDialogClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>Fill out the form below to update an event:</DialogContentText>
+        <br></br>
+        <EventForm
+          eventDetails={eventDetails}
+          update={true}
+          getEvents={getEvents}
+          handleCloseDialog={handleUpdateEventDialogClose}
+          changeSelectedEvent={changeSelectedEvent}
+        />
+      </DialogContent>
     </Dialog>
   );
 }
