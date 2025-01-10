@@ -23,6 +23,7 @@ function EventForm({
   eventDetails,
   getEvents,
   handleCloseDialog,
+  changeSelectedEvent,
 }) {
   // State 
   const [catMenuAnchorEl, setCatMenuAnchorEl] = useState(null);
@@ -129,6 +130,9 @@ function EventForm({
 
     axios.patch(`/user/events/${eventDetails._id}`, updateEvent)
       // Success, fetch all events for the user & close the dialog menu
+      .then(() => {
+        changeSelectedEvent(updateEvent.event);
+      })
       .then(getEvents)
       .then(handleCloseDialog)
       // Failure, log the error
@@ -138,7 +142,6 @@ function EventForm({
   };
 
   const handleUpdateClick = () => {
-    console.log('Click');
     patchEvent();
   };
 

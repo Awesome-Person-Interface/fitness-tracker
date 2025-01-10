@@ -15,6 +15,7 @@ function UpdateEventDialog({
   handleUpdateEventDialogClose,
   eventDetails,
   getEvents,
+  changeSelectedEvent,
 }) {
   return (
     <Dialog
@@ -32,6 +33,7 @@ function UpdateEventDialog({
             update={true}
             getEvents={getEvents}
             handleCloseDialog={handleUpdateEventDialogClose}
+            changeSelectedEvent={changeSelectedEvent}
           />
         </DialogContent>
       <DialogActions>

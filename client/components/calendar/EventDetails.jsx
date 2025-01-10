@@ -15,7 +15,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteEventDialog from './DeleteEventDialog.jsx';
 import UpdateEventDialog from './UpdateEventDialog.jsx';
 
-function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
+function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, changeSelectedEvent }) {
   const {
     _id,
     title,
@@ -113,6 +113,7 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents }) {
         handleUpdateEventDialogClose={handleUpdateEventDialogClose}
         eventDetails={selectedEvent}
         getEvents={getEvents}
+        changeSelectedEvent={changeSelectedEvent}
       />
     </Container>
   );
