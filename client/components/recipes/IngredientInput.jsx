@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-  Button,
+  IconButton,
   InputLabel,
   Select,
   MenuItem,
   TextField,
   Stack,
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import Grid from '@mui/material/Grid2';
 
 const measurements = ['tsp', 'tbsp', 'cups', 'qts', 'oz', 'lbs', 'fl oz' ]
@@ -33,17 +34,40 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
     formCopy.ingredients[index].unit = value;
     setFormValues(formCopy);
   }
+  // Function to remove ingredient input from the form
+  const deleteInput = () => {
+    const formCopy = { ...formValues };
+    formCopy.ingredients.splice(index, 1);
+    setFormValues(formCopy);
+  }
   return (
   <Grid>
     <Stack direction="row" spacing={1}>
+      <IconButton
+        onClick={deleteInput}
+      >
+        <ClearIcon />
+      </IconButton>
       <TextField
+        sx={{
+          width: 150,
+          "& .MuiInputBase-root": {
+            height: 50
+          }
+        }}
         label="Amount"
         id="amount"
         onChange={handleIngredientChange}
         />
-    <InputLabel>
       <Select
+        sx={{
+          width: 80,
+          "& .MuiSelect-root": {
+            height: 10
+          }
+        }}
         value={formValues.ingredients[index].unit}
+        placeholder="Unit"
         >
         {measurements.map((measurement) => {
           return (
@@ -57,12 +81,17 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
           )
         })}
       </Select>
-    </InputLabel>
       <TextField
-      label="Ingredient"
-      onChange={handleIngredientChange}
-      id="name"
-      value={value}
+        sx={{
+          width: 150,
+          "& .MuiInputBase-root": {
+            height: 50
+          }
+        }}
+        label="Ingredient"
+        onChange={handleIngredientChange}
+        id="name"
+        value={value}
       />
       </Stack>
   </Grid>
