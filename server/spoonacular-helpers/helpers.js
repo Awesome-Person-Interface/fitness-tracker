@@ -60,10 +60,52 @@ const findIngredientId = function(ingredients, responses) {
       const resName = results[i].name.toLowerCase().trim();
       if (ingredientName === resName) {
         ingredientIds.push(results[i].id);
+        return;
       }
     }
   });
   return ingredientIds;
 }
 
-export { getIngredientIds };
+// Helper to get ingredient nutrition with the id
+/***
+ * I: Array of ingredient ids, Array of ingredient objects
+ * O: Array of API responses
+ * C: n/a
+ * E: n/a
+ */
+const getIngredientInfo = function(ingredientIds, ingredients) {
+  console.log('Info invoked!!!');
+  // Create storage array to hold the promise returned by the API
+  const promiseArr = [];
+  ingredientIds.forEach((id, index) => {
+    // Destructure from the corresponding index of ingredients
+    const { amount, unit } = ingredients[index];
+    // Build config to send to API
+    const params = {
+      apiKey: SPOONACULAR_KEY,
+      amount,
+      unit,
+      number: 1
+    }
+    // Make axios request with the config and push onto the promiseArr
+    promiseArr.push(axios.get(`https://api.spoonacular.com/food/ingredients/${id}/information`, { params, }));
+  })
+  Promise.all(promiseArr)
+    .then((values) => {
+      setTimeout(() => {
+        console.log('Promise array values', values[0].data.nutrition);
+      })
+    })
+  return Promise.all(promiseArr);
+}
+
+// getIngredientInfo([1077], [{
+//   name: 'Milk',
+//   amount: '2',
+//   unit: 'cups',
+// }] )
+
+
+
+export { getIngredientIds, getIngredientInfo };

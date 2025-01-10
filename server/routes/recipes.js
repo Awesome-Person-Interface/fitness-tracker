@@ -1,13 +1,8 @@
 import express from 'express';
 import axios from 'axios';
-import dotenv from 'dotenv'
 import { Recipes } from '../db/index.js';
-import { getIngredientIds } from '../spoonacular-helpers/helpers.js';
+import { getIngredientIds, getIngredientInfo } from '../spoonacular-helpers/helpers.js';
 
-dotenv.config();
-
-// Grab the spoonacular api key from process.env
-const SPOONACULAR_KEY = process.env.FOOD_API_KEY;
 // Create a new instance of express router
 const recipes = express.Router();
 
@@ -17,8 +12,11 @@ recipes.post('/test', (req, res) => {
   // Pass the ingredients into the helper
   getIngredientIds(ingredients)
   .then((ids) => {
-    console.log('Ingredients returned by the helper: ', ids);
-    res.status(200).send(ids);
+    // Get the ingredient info for the returned ids
+    getIngredientInfo(ids, ingredients)
+    .then((results) => { 
+      res.status(200).send(results);
+    })
   }).catch((err) => {
     console.error('Error in the helper function: ', err);
     res.sendStatus(500);
