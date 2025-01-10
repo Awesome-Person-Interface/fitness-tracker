@@ -39,10 +39,10 @@ function EventForm({
   */
   const [start, setStart] = useState(dayjs(eventDetails.start));
   const [end, setEnd] = useState(dayjs(eventDetails.end));
-  const [category, setCategory] = useState('Category?');
-  const [allDay, setAllDay] = useState(false);
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [category, setCategory] = useState(eventDetails.category ? eventDetails.category : 'Category?');
+  const [allDay, setAllDay] = useState(eventDetails.allDay ? eventDetails.allDay : false);
+  const [title, setTitle] = useState(eventDetails.title ? eventDetails.title : '');
+  const [desc, setDesc] = useState(eventDetails.desc ? eventDetails.desc : '');
 
   // Categories used in the dropdown menu
   const { categories } = useMemo(() => ({
@@ -209,6 +209,15 @@ function EventForm({
                   onClick={handleCreateClick}
                 >
                   Create
+                </Button>
+              ) : null
+            }
+            {update
+              ? (
+                <Button
+                  // onClick={handleCreateClick}
+                >
+                  Update
                 </Button>
               ) : null
             }
