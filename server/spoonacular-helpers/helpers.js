@@ -15,8 +15,6 @@ const SPOONACULAR_KEY = process.env.FOOD_API_KEY;
 const getIngredientIds = function(ingredients) {
   // Create an array to hold the API response
   const promiseArr = [];
-  // Create an array to hold the ids we found
-  const ingredientIds = [];
   // Need to send request forEach ingredient name
   ingredients.forEach((ingredient) => {
     // Build a configuration
@@ -125,6 +123,8 @@ const calculateNutrition = function(responses) {
     nutrients.forEach((nutrient) => {
       // Grab the nutrient name, lowerCase it and trim whitespace from ends
       const name = nutrient.name.toLowerCase().trim();
+      // Change the name in the nutrient object to match the one we want
+      nutrient.name = name;
       // Check if the ingredient is in the wantedNuts array (different for unsaturated)
       if(wantedNuts.includes(name)) {
       // Check if the property already has value
@@ -135,6 +135,8 @@ const calculateNutrition = function(responses) {
           nutrition[name] = new Nutrient(nutrient);
         }
       } else if (name.split(' ').includes('unsaturated')) {
+        // Make the nutrients name unsaturated
+        nutrient.name = 'unsaturated';
         if (nutrition.unsaturated) {
           nutrition.unsaturated.addAmount(nutrient);
         } else {
@@ -143,13 +145,19 @@ const calculateNutrition = function(responses) {
       }
     });
   });
-  return nutrition;
+  // Create an array to push all nutrient objects onto
+  const nutrientsArr = []
+  for (let key in nutrition) {
+    nutrientsArr.push(nutrition[key]);
+  }
+  return nutrientsArr;
 }
 
 // Constructor to build a Nutrient object
 // Takes in a nutrient object
 class Nutrient {
   constructor(nutrient) {
+    this.name = nutrient.name,
     this.amount = nutrient.amount,
     this.unit = nutrient.unit
   }
