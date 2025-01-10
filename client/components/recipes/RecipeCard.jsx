@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import IngredientList from './IngredientList.jsx';
+import NutritionList from './NutritionList.jsx';
 
 function RecipeCard({ recipe, getRecipes }) {
   // State vale for tracking if a recipe is being deleted
@@ -62,6 +63,13 @@ function RecipeCard({ recipe, getRecipes }) {
             size={6}
           >
           <IngredientList ingredients={recipe.ingredients}/>
+          </Grid>
+          <Typography
+            variant="subtitle1"
+          >Nutrition
+          </Typography>
+          <Grid size={6}>
+            <NutritionList nutrition={recipe.nutrition}/>
           </Grid>
         </CardContent>
         <CardActions>
