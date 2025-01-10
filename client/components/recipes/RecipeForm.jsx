@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
@@ -10,6 +11,7 @@ import {
   Typography,
   TextField,
   Stack,
+  Snackbar,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
@@ -38,7 +40,13 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
   });
   // Set state value for if a required textField should display an error
   const [error, setError] = useState(false);
+  // Set state value for opening the Snackbar alert
+  const [alert, setAlert] = useState(false);
   const addIngredient = () => {
+    if (formValues.ingredients.length === 10) {
+      setAlert(true);
+      return;
+    }
     // Make a copy of the formValues
     const formCopy = {...formValues};
     // Add an empty string to the end of the ingredients array
@@ -151,6 +159,20 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
             onClick={handleSaveClick}
           >Save</Button>
         </DialogActions>
+        <Snackbar
+          open={alert}
+          autoHideDuration={6000}
+          onClose={() => { setAlert(false); }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+          <Alert
+            onClose={() => { setAlert(false); }}
+            severity="error"
+            variant="filled"
+          >
+            10 Ingredients is the max for now!
+          </Alert>
+        </Snackbar>
       </Dialog>
   )
 }
