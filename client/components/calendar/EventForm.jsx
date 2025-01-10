@@ -224,7 +224,7 @@ function EventForm({
             onChange={({ target }) => setTitle(target.value)}
           />
         </Grid>
-        <Grid size={6}>
+        <Grid size={8}>
           <TextField
             label="Description"
             helperText="More details about the event go here."
@@ -234,31 +234,30 @@ function EventForm({
             onChange={({ target }) => setDesc(target.value)}
           />
         </Grid>
-        <Grid size={2}>
-            {create
-              ? (
-                <Button
-                  onClick={handleCreateClick}
-                >
-                  Create
-                </Button>
-              ) : null
-            }
-            {update
-              ? (
-                <Button
-                  onClick={handleUpdateClick}
-                >
-                  Update
-                </Button>
-              ) : null
-            }
-        </Grid>
       </Grid>
       {
         category === 'Workout'
           ? <WorkoutOptions />
           : null
+      }
+      
+      {create
+        ? (
+          <Button
+            onClick={handleCreateClick}
+          >
+            Create
+          </Button>
+        ) : null
+      }
+      {update
+        ? (
+          <Button
+            onClick={handleUpdateClick}
+          >
+            Update
+          </Button>
+        ) : null
       }
     </Stack>
   );
