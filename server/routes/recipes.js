@@ -17,7 +17,7 @@ recipes.post('/test', (req, res) => {
   // Pass the ingredients into the helper
   getIngredientIds(ingredients)
   .then((ids) => {
-    console.log('Ingredients returned by the helper: ', ids[0].data);
+    console.log('Ingredients returned by the helper: ', ids);
     res.status(200).send(ids[0].data);
   }).catch((err) => {
     console.error('Error in the helper function: ', err);
