@@ -93,6 +93,10 @@ function CalendarView({ handleThemeChange }) {
       });
   };
 
+  const changeSelectedEvent = (event) => {
+    setSelectedEvent(event);
+  };
+
   // On component mount, retrieve all events for the user to populate the calendar
   useEffect(() => {
     getEvents();
@@ -111,6 +115,7 @@ function CalendarView({ handleThemeChange }) {
                   selectedEvent={selectedEvent}
                   handleSelectEventClose={handleSelectEventClose}
                   getEvents={getEvents}
+                  changeSelectedEvent={changeSelectedEvent}
                 />
               ) : (
                 <div>No event selected</div>

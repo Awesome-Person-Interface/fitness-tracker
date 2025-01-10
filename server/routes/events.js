@@ -114,7 +114,23 @@ events.patch('/:id', (req, res) => {
   const { id } = req.params;
   // Grab the event object from the request's body
   const { event } = req.body;
-  
+  // Query the database to find the event using its id and update using the event object
+  Events.findByIdAndUpdate(id, event)
+    // Success
+    .then((eventObj) => {
+      // Check if no eventObj was found
+      if (!eventObj) {
+        // If no object is found, send Status: 404
+        res.sendStatus(404);
+      } else {
+        // Otherwise, send Status: 200
+        res.sendStatus(200);
+      }
+    })
+    // Failure, log error and send Status: 500
+    .catch((err) => {
+      console.error(`PATCH :: INTERNAL :: update event #${id}:`, err)
+    });
 });
 
 // ----------------------------------------------------------------------------------- //
