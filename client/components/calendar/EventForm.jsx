@@ -17,6 +17,8 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
+import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
+
 function EventForm({
   update,
   create,
@@ -253,6 +255,11 @@ function EventForm({
             }
         </Grid>
       </Grid>
+      {
+        category === 'Workout'
+          ? <WorkoutOptions />
+          : null
+      }
     </Stack>
   );
 }
