@@ -123,7 +123,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
                 />
               </Stack>
             </Grid>
-            <Grid size={10}>
+            <Grid size={11}>
               <Typography>Notes:</Typography>
               <TextField
                 id="notes"
