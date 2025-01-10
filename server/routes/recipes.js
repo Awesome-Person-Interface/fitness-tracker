@@ -18,7 +18,7 @@ recipes.post('/test', (req, res) => {
   getIngredientIds(ingredients)
   .then((ids) => {
     console.log('Ingredients returned by the helper: ', ids);
-    res.status(200).send(ids[0].data);
+    res.status(200).send(ids);
   }).catch((err) => {
     console.error('Error in the helper function: ', err);
     res.sendStatus(500);
