@@ -79,7 +79,13 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
           </Grid>
         </Grid>
         <Typography variant="subtitle1">{`Date: ${dayjs(start).format('MMMM D[,] YYYY')}`}</Typography>
-        <Typography variant="subtitle1">{`Time: ${dayjs(start).format('h:mm A')} - ${dayjs(end).format('h:mm A')}`}</Typography>
+        {
+          allDay
+            ? null
+            : (
+              <Typography variant="subtitle1">{`Time: ${dayjs(start).format('h:mm A')} - ${dayjs(end).format('h:mm A')}`}</Typography>
+            )
+        }
         <Typography variant="subtitle1">{`Category: ${category}`}</Typography>
         <br></br>
         <Typography variant="subtitle1">Description:</Typography>
