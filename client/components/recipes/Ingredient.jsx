@@ -11,16 +11,17 @@ import Grid from '@mui/material/Grid2';
 
 function Ingredient({ amount, unit, name }) {
   return (
-    <Grid size={12}>
-    <ListItem disableGutters disablePadding>
-      <Checkbox />
-      <Typography
-      >{`${amount} ${unit} ${name}`}</Typography>
-    </ListItem>
-    <Grid size={12}>
-      <Divider />
-    </Grid>
-    </Grid>
+    <>
+      <ListItem disableGutters disablePadding>
+        <Checkbox />
+        <Typography
+        >{`${amount} ${unit} ${name}`}
+        </Typography>
+      </ListItem>
+      <Grid size={12}>
+        <Divider />
+      </Grid>
+    </>
   )
 };
 

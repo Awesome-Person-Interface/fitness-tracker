@@ -19,11 +19,15 @@ function RecipesGrid({ recipes, getRecipes }) {
     >
       {recipes.map((recipe) => {
         return (
-          <RecipeCard
+          <Grid
+            size={4}
             key={recipe._id}
-            recipe={recipe}
-            getRecipes={getRecipes}
-          />
+          >
+            <RecipeCard
+              recipe={recipe}
+              getRecipes={getRecipes}
+            />
+          </Grid>
           )
       })}
     </Grid>

@@ -35,14 +35,7 @@ function RecipeCard({ recipe, getRecipes }) {
       })
   }
   return (
-    <Grid
-      container
-      size={4}
-      spacing={1}
-    >
-      <Grid
-      size={12}
-      >
+    <>
       <Card
         sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
       >
@@ -55,32 +48,32 @@ function RecipeCard({ recipe, getRecipes }) {
           <Typography variant="body">
             {recipe.notes ? recipe.notes : 'No notes for this recipe'}
           </Typography>
-          <Typography
-            variant="subtitle1"
-          >Ingredients
-          </Typography>
-          <Grid
-            size={6}
-          >
-          <IngredientList ingredients={recipe.ingredients}/>
-          </Grid>
-          <Typography
-            variant="subtitle1"
-          >Nutrition
-          </Typography>
-          <Grid size={6}>
-            <NutritionList nutrition={recipe.nutrition}/>
+          <Grid container spacing={1}>
+            <Grid
+              size={6}
+            >
+              <Typography
+                variant="subtitle1"
+              >Ingredients
+              </Typography>
+              <IngredientList ingredients={recipe.ingredients}/>
+            </Grid>
+            <Grid size={6}>
+              <Typography
+                variant="subtitle1"
+                >Nutrition
+              </Typography>
+              <NutritionList nutrition={recipe.nutrition}/>
+            </Grid>
           </Grid>
         </CardContent>
         <CardActions>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
-          >
-            Delete
+          >Delete
           </Button>
         </CardActions>
       </Card>
-      </Grid>
       <Dialog open={deletingRecipe}>
         <DialogTitle>
           {`Delete ${recipe.name}`}
@@ -103,7 +96,7 @@ function RecipeCard({ recipe, getRecipes }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Grid>
+      </>
   )
 };
 
