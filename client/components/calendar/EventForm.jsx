@@ -19,6 +19,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
 import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
+import RecipeOptions from './event-form-options/RecipeOptions.jsx';
 
 function EventForm({
   update,
@@ -294,11 +295,23 @@ function EventForm({
       </Grid>
       {
         category === 'Workout'
-          ? <WorkoutOptions
-            changeTitle={changeTitle}
-            changeDesc={changeDesc}
-          />
-          : null
+          ? (
+            <WorkoutOptions
+              changeTitle={changeTitle}
+              changeDesc={changeDesc}
+            />
+          ) : null
+      }
+
+      {
+        category === 'Breakfast' || category === 'Lunch' || category === 'Dinner'
+          ? (
+            <RecipeOptions
+              changeTitle={changeTitle}
+              changeDesc={changeDesc}
+              category={category}
+            />
+          ) : null
       }
 
       {create
@@ -311,6 +324,7 @@ function EventForm({
           </Button>
         ) : null
       }
+
       {update
         ? (
           <Button
