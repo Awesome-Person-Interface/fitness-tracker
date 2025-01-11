@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   // display goal , but not at the top  or bottom of the graph, to leave room for improvement
   goalWeight: { type: Number, required: false, default: null },
   // progress array to keep track of update numbers over time perhaps  as tuples (field:[{type:Array}])
-  weightProgress: [{type: Array, required: false, default: [[1, 2], [2, 5.5], [3, 2], [5, 8.5], [8, 1.5], [10, 5]]}],
+  weightProgress: [{type: Array}],
   weightEndpoint: {type: Number},
   liftWeight: { type: Number, required: false, default: null },
   goalLiftWeight: { type: Number, required: false, default: null },

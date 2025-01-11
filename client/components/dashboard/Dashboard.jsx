@@ -68,6 +68,7 @@ const getUserGoals = () => {
     // replace the corresponding state arrays with the above arrays
     setDbWeightX(arrayX);
     setDbWeightSeries(arraySeries);
+    console.log(data.weightProgress)
 
 
   })
@@ -76,12 +77,15 @@ const getUserGoals = () => {
   });
 }
 useEffect(() => {
+
   getUserGoals()
 }, []);
 const updateGoals = () => {
   // set an object with groups as the property and an object as its value
   let req = {
-    goals: {}
+    goals: {
+      // weightProgress: [[1, 2], [2, 5.5], [3, 2], [5, 8.5], [8, 1.5], [10, 5]]
+    }
   }
   // if there are changes entered in state for weight
   if (weight !== '') {
@@ -134,17 +138,21 @@ const updateGoals = () => {
         </Container>
       </Grid>
 
-
+      {dbWeightX.length !== 0 && dbWeightSeries.length !== 0 
+        ?
       <LineChart
-  xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-  series={[
-    {
-      data: [2, 5.5, 2, 8.5, 1.5, 5],
-    },
-  ]}
-  width={500}
-  height={300}
-/>
+        xAxis={[{ data: dbWeightX }]}
+        series={[
+          {
+            data: dbWeightSeries,
+          },
+        ]}
+        width={500}
+        height={300}
+        />
+        :
+        <Typography>No goal info found</Typography>
+      }
 
 
       <div id="dash_container" style={{display: "flex", flexDirection: "column", paddingTop: "35px", justifyContent: "center"}}>
