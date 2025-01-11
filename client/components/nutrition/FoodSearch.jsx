@@ -76,7 +76,15 @@ export default function FoodSearch(props){
   return(
     <SearchBox >
 
-      <TextField value={searchField} sx={{margin: 'auto'}} variant="outlined" label="Search Foods" type="text" id='food-search' onChange={handleChange}/>
+      <TextField 
+        value={searchField}
+        sx={{margin: 'auto'}}
+        variant="outlined"
+        label="Search Foods"
+        type="text" id='food-search'
+        onChange={handleChange}
+        autofocus
+        />
 
       <CustomButt sx={{ "&:hover": { background: 'linear-gradient(45deg, #FF6B6B 30%, #556270 90%)'} }} variant="contained" type="submit" onClick={handleClick}>Add Food</CustomButt>
 
