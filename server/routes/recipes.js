@@ -58,7 +58,7 @@ recipes.delete('/:id', (req, res) => {
 });
 
 // PATCH requests to user/recipes/:ids
-recipes.use('/:id', (req, res) => {
+recipes.patch('/:id', (req, res) => {
   // Grab the id from path parameters and config from the body
   const { id } = req.params;
   const { recipe } = req.body;
