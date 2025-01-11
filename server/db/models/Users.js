@@ -13,12 +13,15 @@ const UserSchema = new Schema({
   weight: { type: Number, required: false, default: null },
   goalWeight: { type: Number, required: false, default: null },
   weightProgress: [{type: Number}],
+  weightEndpoint: {type: Number},
   liftWeight: { type: Number, required: false, default: null },
   goalLiftWeight: { type: Number, required: false, default: null },
   liftWeightProgress: [{type: Number}],
+  liftWeightEndpoint: {type: Number},
   speed: { type: Number, required: false, default: null },
   goalSpeed: { type: Number, required: false, default: null },
   speedProgress: [{type: Number}],
+  speedEndpoint: {type: Number},
 
 });
 // Attach findOrCreate plugin to the UserSchema
