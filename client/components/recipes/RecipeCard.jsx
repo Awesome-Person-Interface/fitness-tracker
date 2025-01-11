@@ -37,7 +37,7 @@ function RecipeCard({ recipe, getRecipes }) {
   return (
     <>
       <Card
-        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
+        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto', background: '#004d40' }}
       >
         <CardContent>
           <Typography
@@ -67,9 +67,10 @@ function RecipeCard({ recipe, getRecipes }) {
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ background: '#004d40'}}>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
+            sx={{ background: '#bdbdbd', color: '#212121' }}
           >Delete
           </Button>
         </CardActions>
