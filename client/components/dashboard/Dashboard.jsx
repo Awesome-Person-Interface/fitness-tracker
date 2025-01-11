@@ -50,7 +50,6 @@ export default function Dashboard(props) {
 const getUserGoals = () => {
   axios.get('/user/info')
   .then(({ data }) => {
-    console.log(data.weight);
     if(data.weight !== null){
       setDbWeight(data.weight);
     };
@@ -68,7 +67,6 @@ const getUserGoals = () => {
     // replace the corresponding state arrays with the above arrays
     setDbWeightX(arrayX);
     setDbWeightSeries(arraySeries);
-    console.log(data.weightProgress)
 
 
   })
@@ -113,7 +111,7 @@ const updateGoals = () => {
     setWeight('');
     setGoalWeight('');
   }).catch((err) =>
-  console.log('Could not patch goals', err)
+  console.error('Could not patch goals', err)
 );
 }
 
