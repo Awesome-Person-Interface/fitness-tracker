@@ -47,7 +47,7 @@ export default function PantryListItem(props){
   const handleRemove = () =>{
 
     axios.put(`/user/nutrition/delete`, { foodData: props.food.foodId})
-    .then(props.fetchUser())
+    .then(props.fetchUser)
     .catch((err)=>{
       console.error(err)
     })
