@@ -12,7 +12,11 @@ function MissingCatSnackbar({
     <Snackbar
       open={catMissing}
       onClose={handleCatMissingClose}
-      autoHideDuration={1500}
+      autoHideDuration={1000}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
     >
       <Alert
         onClose={handleCatMissingClose}
