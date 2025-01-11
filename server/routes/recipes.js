@@ -62,13 +62,26 @@ recipes.use('/:id', (req, res) => {
   // Grab the id from path parameters and config from the body
   const { id } = req.params;
   const { recipe } = req.body;
-  // Use mongoose to update the database
-  Recipes.findByIdAndUpdate(id, recipe)
-  .then(() => {
-    res.sendStatus(200);
+  // Grab the ingredients list from recipe
+  const { ingredients } = recipe
+  // Pass the ingredients into the helper
+  getIngredientIds(ingredients)
+  .then((ids) => {
+    // Get the ingredient info for the returned ids
+    getIngredientInfo(ids, ingredients)
+      .then((nutritionObj) => {
+      // Add the nutrition object onto the recipe
+      recipe.nutrition = nutritionObj;
+      }).then(() => {
+         // Use mongoose to update the database
+        Recipes.findByIdAndUpdate(id, recipe)
+        .then(() => {
+          res.sendStatus(200);
+        })
+      })
   }).catch((err) => {
     console.error('Error updating recipe: ', err);
-  })
 })
+});
 
 export default recipes;
