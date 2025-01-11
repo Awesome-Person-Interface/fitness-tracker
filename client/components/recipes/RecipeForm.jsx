@@ -50,18 +50,28 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
   // Set state value for opening the Snackbar alert
   const [alert, setAlert] = useState(false);
   // Set state value to hold the recipe
-  const [currRecipe, setCurrRecipe] = useState(recipe);
+  const [currRecipe, setCurrRecipe] = useState({ ...recipe });
   const addIngredient = () => {
     if (formValues.ingredients.length === 10) {
       setAlert(true);
       return;
     }
+    // See if were editing or making a recipe
+    if (!editingRecipe) {
     // Make a copy of the formValues
     const formCopy = {...formValues};
     // Add an empty string to the end of the ingredients array
     formCopy.ingredients.push({ name: '', amount: '', unit: '', });
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
+    } else {
+       // Make a copy of the currRecipe
+    const recipeCopy = {...currRecipe};
+    // Add an empty string to the end of the ingredients array
+    recipeCopy.ingredients.push({ name: '', amount: '', unit: '', });
+    // Set currRecipe in state to the formCopy
+    setCurrRecipe(recipeCopy);
+    }
   }
     // Function to handle state changes for name, serves, time, and notes
     const handleFormChange = (element) => {
@@ -104,13 +114,31 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
     // Close the dialog boxes
     const closeDialog = () => {
       if (editingRecipe) {
+        console.log('Editing recipe was true: ', currRecipe);
+        console.log('Editing recipe was true: Recipe', recipe);
+        const recipeCopy = { ...recipe }
+        setCurrRecipe(recipeCopy);
         setEditingRecipe(false);
-        setMakingRecipe(false);
       } else {
         setMakingRecipe(false);
       }
     }
-    console.log('currRecipe: ', currRecipe)
+    // Function to edit recipe in the database
+    const patchRecipe = () => {
+      // Grab the id from the recipe
+      const { _id } = currRecipe;
+      // Build the config
+      const config = {
+        recipe: currRecipe,
+      }
+      console.log('PATCH Invoked: ', _id, config);
+      // Make axios PATCH req with the id
+      axios.patch(`/user/recipes/${_id}`, config)
+      .then(getRecipes)
+      .catch((err) => {
+        console.error('Error PATCHing recipe with axios: ', err);
+      })
+    }
   return (
       <Dialog
         open={editingRecipe || makingRecipe}
@@ -174,7 +202,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
                   setFormValues={setFormValues}
                   />
               })
-              : recipe.ingredients.map((ingredient, index) => {
+              : currRecipe.ingredients.map((ingredient, index) => {
                 return <IngredientInput
                   key={ingredient._id}
                   value={ingredient.name}
@@ -197,7 +225,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
         <DialogActions>
           <Button onClick={closeDialog}>Cancel</Button>
           <Button
-            onClick={handleSaveClick}
+            onClick={!editingRecipe ? handleSaveClick : patchRecipe}
           >Save</Button>
         </DialogActions>
         <Snackbar
