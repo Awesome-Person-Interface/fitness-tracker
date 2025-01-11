@@ -83,7 +83,11 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
         <Typography variant="subtitle1">{`Category: ${category}`}</Typography>
         <br></br>
         <Typography variant="subtitle1">Description:</Typography>
-        <Typography variant="subtitle2">{desc}</Typography>
+        {
+          desc.split('\n').map((line) => (
+            <Typography variant="subtitle2">{line}</Typography>
+          ))
+        }
         <br></br>
         <Grid container spacing={2}>
           <Grid size={6}>

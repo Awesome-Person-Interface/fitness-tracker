@@ -154,6 +154,14 @@ function EventForm({
     patchEvent();
   };
 
+  const changeTitle = (title) => {
+    setTitle(title);
+  };
+
+  const changeDesc = (desc) => {
+    setDesc(desc);
+  }
+
   useEffect(() => {
     if (new Date(eventDetails.end) - new Date(eventDetails.start) >= 86400000) {
       setAllDay(true);
@@ -286,7 +294,10 @@ function EventForm({
       </Grid>
       {
         category === 'Workout'
-          ? <WorkoutOptions />
+          ? <WorkoutOptions
+            changeTitle={changeTitle}
+            changeDesc={changeDesc}
+          />
           : null
       }
 
