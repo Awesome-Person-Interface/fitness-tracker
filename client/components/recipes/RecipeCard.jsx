@@ -77,7 +77,7 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
           >Delete
           </Button>
           <Button
-            onClick={() => { setEditingRecipe(true); }}
+            onClick={() => { setMakingRecipe(true); }}
             sx={{ background: '#bdbdbd', color: '#212121' }}
           >Edit
           </Button>
@@ -105,7 +105,7 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={editingRecipe}>
+      <Dialog open={makingRecipe}>
         <DialogContent>
           <RecipeForm
             makingRecipe={makingRecipe}

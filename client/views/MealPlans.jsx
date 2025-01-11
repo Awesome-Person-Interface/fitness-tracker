@@ -52,7 +52,7 @@ function MealPlans({ handleThemeChange }) {
         recipes={recipes}
         getRecipes={getRecipes}
         makingRecipe={makingRecipe}
-        setMakingRecipes={setMakingRecipe}
+        setMakingRecipe={setMakingRecipe}
       />
     </div>
   );

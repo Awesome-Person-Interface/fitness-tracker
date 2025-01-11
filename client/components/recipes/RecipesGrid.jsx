@@ -27,7 +27,7 @@ function RecipesGrid({ recipes, getRecipes, makingRecipe, setMakingRecipe }) {
               recipe={recipe}
               getRecipes={getRecipes}
               makingRecipe={makingRecipe}
-              setMakingRecipes={setMakingRecipe}
+              setMakingRecipe={setMakingRecipe}
             />
           </Grid>
           )
