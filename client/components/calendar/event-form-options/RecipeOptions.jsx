@@ -34,6 +34,12 @@ function RecipeOptions({
     target.value.ingredients.forEach((ingredient) => {
       description += `\n- ${ingredient.amount} ${ingredient.unit} ${ingredient.name} `;
     });
+
+    
+    const calories = target.value.nutrition.filter((nut) => nut.name === 'calories')[0];
+    console.log('Total Cal:', calories.amount);
+    console.log('Serving:', +target.value.serves);
+    description += `\n\nCalories per Serving: ${Math.ceil(calories.amount / (+target.value.serves))}`;
     description += `\n\nNotes:\n${target.value.notes}`;
     changeDesc(description);
   };
