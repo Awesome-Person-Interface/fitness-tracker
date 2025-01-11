@@ -41,7 +41,7 @@ export default function FoodSearch(props){
     .then((foodInfo)=>{
 
       setResults(foodInfo.data)
-  
+
       let inPantry = false
 
       for (let i = 0; i < props.user.nutrition.length; i++){
@@ -75,11 +75,11 @@ export default function FoodSearch(props){
 ///////////////////////////////////////////////////////
   return(
     <SearchBox >
-      
+
       <TextField value={searchField} sx={{margin: 'auto'}} variant="outlined" label="Search Foods" type="text" id='food-search' onChange={handleChange}/>
 
       <CustomButt sx={{ "&:hover": { background: 'linear-gradient(45deg, #FF6B6B 30%, #556270 90%)'} }} variant="contained" type="submit" onClick={handleClick}>Add Food</CustomButt>
-      
+
     </SearchBox>
   )
 }
