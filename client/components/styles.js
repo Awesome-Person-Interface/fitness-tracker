@@ -108,7 +108,7 @@ const useStyles = makeStyles(() => ({
     }
   },
   navBar: {
-    background: 'linear-gradient(45deg, #556270 30%, #FF6B6B 90%)',
+    background: '#2e3067',
   },
   navButtons: {
     whiteSpace: 'wrap',
@@ -162,7 +162,7 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: '#FAF0E6',
+      default: '#34acfb',
       paper: '#FAF0E6',
     },
     primary: {
