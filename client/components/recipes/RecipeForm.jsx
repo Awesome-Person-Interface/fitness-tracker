@@ -16,7 +16,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
-function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
+function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe, setEditingRecipe, recipe }) {
   // Set state value for holding the forms values
   const [formValues, setFormValues] = useState(
     { name: '',
@@ -83,6 +83,15 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
         console.error('Recipe failed to POST: ', err);
       })
     };
+    // Close the dialog boxes
+    const closeDialog = () => {
+      if (editingRecipe) {
+        setEditingRecipe(false);
+        setMakingRecipe(false);
+      } else {
+        setMakingRecipe(false);
+      }
+    }
   return (
       <Dialog
         open={makingRecipe}
@@ -92,7 +101,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
         <DialogTitle
           sx={{ }}
         >
-          Build a Recipe
+        {editingRecipe ? `Edit ${recipe.name}` : 'Build a Recipe' }
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
@@ -103,21 +112,21 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
                   required
                   variant="standard"
                   label="Recipe name"
-                  value={formValues.name}
+                  value={editingRecipe ? recipe.name : formValues.name}
                   id="name"
                   onChange={handleFormChange}
                 />
                 <TextField
                   variant="standard"
                   label="Serves"
-                  value={formValues.serves}
+                  value={editingRecipe ? recipe.serves : formValues.serves}
                   id="serves"
                   onChange={handleFormChange}
                 />
                 <TextField
                   variant="standard"
                   label="Cook Time"
-                  value={formValues.time}
+                  value={editingRecipe ? recipe.time : formValues.time}
                   id="time"
                   onChange={handleFormChange}
                 />
@@ -127,7 +136,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
               <Typography>Notes:</Typography>
               <TextField
                 id="notes"
-                value={formValues.notes}
+                value={editingRecipe ? recipe.notes : formValues.notes}
                 placeholder="Leave any notes, instructions, or description of this recipe here!"
                 multiline
                 fullWidth
@@ -136,7 +145,8 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
                 />
             </Grid>
             <Grid container spacing={1.5}>
-              {formValues.ingredients.map((ingredient, index) => {
+              {!editingRecipe
+               ? formValues.ingredients.map((ingredient, index) => {
                 return <IngredientInput
                   key={index * 2}
                   value={ingredient.name}
@@ -144,7 +154,18 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
                   formValues={formValues}
                   setFormValues={setFormValues}
                   />
-              })}
+              })
+              : recipe.ingredients.map((ingredient, index) => {
+                return <IngredientInput
+                  key={ingredient._id}
+                  value={ingredient.name}
+                  index={index}
+                  formValues={recipe}
+                  setFormValues={setFormValues}
+                  editingRecipe={true}
+                  />
+              })
+            }
               <Button
                 variant="text"
                 onClick={addIngredient}
@@ -154,7 +175,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes }) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => { setMakingRecipe(false); }}>Cancel</Button>
+          <Button onClick={closeDialog}>Cancel</Button>
           <Button
             onClick={handleSaveClick}
           >Save</Button>

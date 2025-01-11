@@ -12,7 +12,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Grid from '@mui/material/Grid2';
 
 const measurements = ['tsp', 'tbsp', 'cups', 'qts', 'oz', 'lbs', 'fl oz' ]
-function IngredientInput({ value, index, formValues, setFormValues}) {
+function IngredientInput({ value, index, formValues, setFormValues, editingRecipe}) {
   // Function to handle changes in ingredient and amount fields
   const handleIngredientChange = (element) => {
     // Grab the value and the id from the element
@@ -57,6 +57,7 @@ function IngredientInput({ value, index, formValues, setFormValues}) {
         }}
         label="Amount"
         id="amount"
+        value={editingRecipe ? formValues.time : ''}
         onChange={handleIngredientChange}
         />
       <Select

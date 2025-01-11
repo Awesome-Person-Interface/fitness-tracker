@@ -21,7 +21,6 @@ import RecipeForm from './RecipeForm.jsx';
 function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   // State vale for tracking if a recipe is being deleted
   const [deletingRecipe, setDeletingRecipe] = useState(false);
-  // State value to track if we are editing the recipe
   const [editingRecipe, setEditingRecipe] = useState(false);
   // Function to delete the recipe from the database
   const deleteRecipe = () => {
@@ -36,6 +35,11 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
       .catch((err) => {
         console.error('Error deleting the recipe: ', err);
       })
+  }
+  // Toggle edit recipe and makingRecipe
+  const editRecipe = () => {
+    setMakingRecipe(true);
+    setEditingRecipe(true);
   }
   return (
     <>
@@ -71,15 +75,15 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
           </Grid>
         </CardContent>
         <CardActions sx={{ background: '#004d40'}}>
+        <Button
+            onClick={editRecipe}
+            sx={{ background: '#bdbdbd', color: '#212121' }}
+          >Edit
+          </Button>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
             sx={{ background: '#bdbdbd', color: '#212121' }}
           >Delete
-          </Button>
-          <Button
-            onClick={() => { setMakingRecipe(true); }}
-            sx={{ background: '#bdbdbd', color: '#212121' }}
-          >Edit
           </Button>
         </CardActions>
       </Card>
@@ -105,12 +109,15 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={makingRecipe}>
+      <Dialog open={editingRecipe}>
         <DialogContent>
           <RecipeForm
             makingRecipe={makingRecipe}
             setMakingRecipe={setMakingRecipe}
             getRecipes={getRecipes}
+            editingRecipe={editingRecipe}
+            setEditingRecipe={setEditingRecipe}
+            recipe={recipe}
           />
         </DialogContent>
       </Dialog>
