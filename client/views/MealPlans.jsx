@@ -51,6 +51,8 @@ function MealPlans({ handleThemeChange }) {
       <RecipesGrid
         recipes={recipes}
         getRecipes={getRecipes}
+        makingRecipe={makingRecipe}
+        setMakingRecipes={setMakingRecipe}
       />
     </div>
   );

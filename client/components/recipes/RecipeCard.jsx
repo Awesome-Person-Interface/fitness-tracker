@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   Button,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   Dialog,
@@ -11,15 +10,19 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import IngredientList from './IngredientList.jsx';
 import NutritionList from './NutritionList.jsx';
+import RecipeForm from './RecipeForm.jsx';
 
-function RecipeCard({ recipe, getRecipes }) {
+function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   // State vale for tracking if a recipe is being deleted
   const [deletingRecipe, setDeletingRecipe] = useState(false);
+  // State value to track if we are editing the recipe
+  const [editingRecipe, setEditingRecipe] = useState(false);
   // Function to delete the recipe from the database
   const deleteRecipe = () => {
     // Grab the recipe id
@@ -73,6 +76,11 @@ function RecipeCard({ recipe, getRecipes }) {
             sx={{ background: '#bdbdbd', color: '#212121' }}
           >Delete
           </Button>
+          <Button
+            onClick={() => { setEditingRecipe(true); }}
+            sx={{ background: '#bdbdbd', color: '#212121' }}
+          >Edit
+          </Button>
         </CardActions>
       </Card>
       <Dialog open={deletingRecipe}>
@@ -96,6 +104,15 @@ function RecipeCard({ recipe, getRecipes }) {
             Delete
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog open={editingRecipe}>
+        <DialogContent>
+          <RecipeForm
+            makingRecipe={makingRecipe}
+            setMakingRecipe={setMakingRecipe}
+            getRecipes={getRecipes}
+          />
+        </DialogContent>
       </Dialog>
       </>
   )
