@@ -90,9 +90,15 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
         <br></br>
         <Typography variant="subtitle1">Description:</Typography>
         {
-          desc.split('\n').map((line) => (
-            <Typography variant="subtitle2">{line}</Typography>
-          ))
+          desc.split('\n').map((line) => {
+            if (line === '') {
+              return (<br></br>);
+            } else {
+              return (
+                <Typography variant="subtitle2">{line}</Typography>
+              );
+            }
+          })
         }
         <br></br>
         <Grid container spacing={2}>
