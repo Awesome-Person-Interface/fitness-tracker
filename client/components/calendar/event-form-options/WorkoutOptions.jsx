@@ -36,10 +36,6 @@ function WorkoutOptions({
     getWorkouts();
   }, []);
 
-  console.log('State:', {
-    selectedWorkout,
-  });
-
   return (
     <Select
       value={selectedWorkout}

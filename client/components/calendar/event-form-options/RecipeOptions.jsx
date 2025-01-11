@@ -42,10 +42,6 @@ function RecipeOptions({
     getRecipes();
   }, []);
 
-  console.log('State:', {
-    selectedRecipe,
-  });
-
   return (
     <Select
       value={selectedRecipe}
