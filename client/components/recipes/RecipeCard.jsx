@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   Button,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   Dialog,
@@ -11,15 +10,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import IngredientList from './IngredientList.jsx';
 import NutritionList from './NutritionList.jsx';
+import RecipeForm from './RecipeForm.jsx';
 
-function RecipeCard({ recipe, getRecipes }) {
+function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   // State vale for tracking if a recipe is being deleted
   const [deletingRecipe, setDeletingRecipe] = useState(false);
+  const [editingRecipe, setEditingRecipe] = useState(false);
   // Function to delete the recipe from the database
   const deleteRecipe = () => {
     // Grab the recipe id
@@ -34,10 +36,14 @@ function RecipeCard({ recipe, getRecipes }) {
         console.error('Error deleting the recipe: ', err);
       })
   }
+  // Toggle edit recipe and makingRecipe
+  const editRecipe = () => {
+    setEditingRecipe(true);
+  }
   return (
     <>
       <Card
-        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
+        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto', background: '#004d40' }}
       >
         <CardContent>
           <Typography
@@ -67,9 +73,15 @@ function RecipeCard({ recipe, getRecipes }) {
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ background: '#004d40'}}>
+        <Button
+            onClick={editRecipe}
+            sx={{ background: '#bdbdbd', color: '#212121' }}
+          >Edit
+          </Button>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
+            sx={{ background: '#bdbdbd', color: '#212121' }}
           >Delete
           </Button>
         </CardActions>
@@ -95,6 +107,18 @@ function RecipeCard({ recipe, getRecipes }) {
             Delete
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog open={editingRecipe}>
+        <DialogContent>
+          <RecipeForm
+            makingRecipe={makingRecipe}
+            setMakingRecipe={setMakingRecipe}
+            getRecipes={getRecipes}
+            editingRecipe={editingRecipe}
+            setEditingRecipe={setEditingRecipe}
+            recipe={recipe}
+          />
+        </DialogContent>
       </Dialog>
       </>
   )
