@@ -6,22 +6,6 @@ import { getIngredientIds, getIngredientInfo } from '../spoonacular-helpers/help
 // Create a new instance of express router
 const recipes = express.Router();
 
-recipes.post('/test', (req, res) => {
-  // Grab the ingredients list from req.body
-  const { ingredients } = req.body.recipe.formValues;
-  // Pass the ingredients into the helper
-  getIngredientIds(ingredients)
-  .then((ids) => {
-    // Get the ingredient info for the returned ids
-    getIngredientInfo(ids, ingredients)
-    .then((nutritionObj) => {
-      res.status(200).send(nutritionObj);
-    })
-  }).catch((err) => {
-    console.error('Error in the helper function: ', err);
-    res.sendStatus(500);
-  })
-})
 // For GET requests to /user/recipes
 recipes.get('/', (req, res) => {
   // Get al the recipes from the database
