@@ -19,7 +19,7 @@ function RecipeOptions({
       setRecipes(data);
     })
     .catch((err) => {
-      console.log('Failed to getRecipes:', err);
+      console.error('Failed to getRecipes:', err);
     });
   };
 

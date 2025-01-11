@@ -44,7 +44,7 @@ function GoalOptions({
       setGoals(goalsData);
     })
     .catch((err) => {
-      console.log('Failed to getGoals:', err);
+      console.error('Failed to getGoals:', err);
     });
   };
 
@@ -58,11 +58,6 @@ function GoalOptions({
   useEffect(() => {
     getGoals();
   }, []);
-
-  console.log('State:', {
-    goals,
-    selectedGoal,
-  });
 
   return (
     <Select

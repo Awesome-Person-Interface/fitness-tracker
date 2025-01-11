@@ -18,7 +18,7 @@ function WorkoutOptions({
       setWorkouts(data);
     })
     .catch((err) => {
-      console.log('Failed to getWorkouts:', err);
+      console.error('Failed to getWorkouts:', err);
     });
   };
 
