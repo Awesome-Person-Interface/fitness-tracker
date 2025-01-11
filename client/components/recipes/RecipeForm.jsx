@@ -116,11 +116,8 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
     // Close the dialog boxes
     const closeDialog = () => {
       if (editingRecipe) {
-        console.log('Editing recipe was true: ', currRecipe);
-        console.log('Editing recipe was true: Recipe', recipe);
-        const recipeCopy = { ...recipe }
-        setCurrRecipe(recipeCopy);
-        setEditingRecipe(false);
+          getRecipes();
+          setEditingRecipe(false);
       } else {
         setMakingRecipe(false);
       }
