@@ -24,6 +24,7 @@ import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
 import RecipeOptions from './event-form-options/RecipeOptions.jsx';
 
 import MissingCatSnackbar from './event-form-snackbars/MissingCatSnackbar.jsx';
+import MissingTitleSnackbar from './event-form-snackbars/MissingTitleSnackbar.jsx';
 
 function EventForm({
   update,
@@ -57,9 +58,14 @@ function EventForm({
 
   // Snack Bar States:
   const [catMissing, setCatMissing] = useState(false);
+  const [titleMissing, setTitleMissing] = useState(false);
 
   const handleCatMissingClose = () => {
     setCatMissing(false);
+  };
+
+  const handleTitleMissingClose = () => {
+    setTitleMissing(false);
   };
 
   const { multiDay } = useMemo(() => ({
@@ -102,12 +108,16 @@ function EventForm({
   // Sends a POST request to create an Event object in the Database
   const postEvent = () => {
     // Check if the category has been selected
-    if (category === 'Category?') {
-      setCatMissing(true);
-    }
-    // Check if the Title has been set
-    if (title === '') {
-      return;
+    if (category === 'Category?' || title === '') {
+      if (category === 'Category?') {
+        setCatMissing(true);
+      }
+      // Check if the Title has been set
+      if (title === '') {
+        category === 'Category?'
+          ? setTimeout(() => { setTitleMissing(true); }, 1500)
+          : setTitleMissing(true);
+      }
     }
 
     else {
@@ -352,6 +362,10 @@ function EventForm({
       <MissingCatSnackbar
         catMissing={catMissing}
         handleCatMissingClose={handleCatMissingClose}
+      />
+      <MissingTitleSnackbar
+        titleMissing={titleMissing}
+        handleTitleMissingClose={handleTitleMissingClose}
       />
     </>
   );

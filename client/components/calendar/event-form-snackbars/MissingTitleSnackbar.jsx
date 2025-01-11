@@ -4,14 +4,14 @@ import {
   Alert,
 } from '@mui/material';
 
-function MissingCatSnackbar({
-  catMissing,
-  handleCatMissingClose,
+function MissingTitleSnackbar({
+  titleMissing,
+  handleTitleMissingClose,
 }) {
   return (
     <Snackbar
-      open={catMissing}
-      onClose={handleCatMissingClose}
+      open={titleMissing}
+      onClose={handleTitleMissingClose}
       autoHideDuration={1500}
       anchorOrigin={{
         vertical: 'top',
@@ -19,13 +19,13 @@ function MissingCatSnackbar({
       }}
     >
       <Alert
-        onClose={handleCatMissingClose}
+        onClose={handleTitleMissingClose}
         severity="error"
       >
-        Please select a category.
+        Please fill in the title.
       </Alert>
     </Snackbar>
   );
 }
 
-export default MissingCatSnackbar;
+export default MissingTitleSnackbar;
