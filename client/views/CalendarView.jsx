@@ -12,6 +12,10 @@ import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
+import SuccessCreateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessCreateEventSnackbar.jsx';
+import SuccessUpdateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessUpdateEventSnackbar.jsx';
+import DeleteEventSnackbar from '../components/calendar/DeleteEventSnackbar.jsx';
+
 const djLocalizer = dayjsLocalizer(dayjs);
 
 /* EXAMPLE EVENT DATA:
@@ -32,6 +36,37 @@ function CalendarView({ handleThemeChange }) {
   const [events, setEvents] = useState([]);
   const [dateSlot, setDateSlot] = useState({});
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // Snackbar States for Success:
+  const [successCreateEvent, setSuccessCreateEvent] = useState(false);
+  const [successUpdateEvent, setSuccessUpdateEvent] = useState(false);
+
+  const handleSuccessCreateEventClose = () => {
+    setSuccessCreateEvent(false);
+  };
+
+  const handleSuccessCreateEventSnackbarOpen = () => {
+    setSuccessCreateEvent(true);
+  };
+
+  const handleSuccessUpdateEventClose = () => {
+    setSuccessUpdateEvent(false);
+  };
+
+  const handleSuccessUpdateEventSnackbarOpen = () => {
+    setSuccessUpdateEvent(true);
+  };
+
+  // Snackbar state for delete event:
+  const [successDeleteEvent, setSuccessDeleteEvent] = useState(false);
+
+  const handleSuccessDeleteEventClose = () => {
+    setSuccessDeleteEvent(false);
+  };
+
+  const handleSuccessDeleteEventSnackbarOpen = () => {
+    setSuccessDeleteEvent(true);
+  };
 
   // Triggers the "Create Event" dialog and passes the date slot event object to the dialog
   const handleSelectSlot = useCallback((event) => {
@@ -116,6 +151,8 @@ function CalendarView({ handleThemeChange }) {
                   handleSelectEventClose={handleSelectEventClose}
                   getEvents={getEvents}
                   changeSelectedEvent={changeSelectedEvent}
+                  handleSuccessUpdateEventSnackbarOpen={handleSuccessUpdateEventSnackbarOpen}
+                  handleSuccessDeleteEventSnackbarOpen={handleSuccessDeleteEventSnackbarOpen}
                 />
               ) : (
                 <div>No event selected</div>
@@ -174,6 +211,19 @@ function CalendarView({ handleThemeChange }) {
         dateSlot={dateSlot}
         handleCloseDialog={handleCloseDialog}
         getEvents={getEvents}
+        handleSuccessCreateEventSnackbarOpen={handleSuccessCreateEventSnackbarOpen}
+      />
+      <SuccessCreateEventSnackbar
+        successCreateEvent={successCreateEvent}
+        handleSuccessCreateEventClose={handleSuccessCreateEventClose}
+      />
+      <SuccessUpdateEventSnackbar
+        successUpdateEvent={successUpdateEvent}
+        handleSuccessUpdateEventClose={handleSuccessUpdateEventClose}
+      />
+      <DeleteEventSnackbar
+        successDeleteEvent={successDeleteEvent}
+        handleSuccessDeleteEventClose={handleSuccessDeleteEventClose}
       />
     </div>
   );

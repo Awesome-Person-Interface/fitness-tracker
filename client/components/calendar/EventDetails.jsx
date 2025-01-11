@@ -15,7 +15,14 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteEventDialog from './DeleteEventDialog.jsx';
 import UpdateEventDialog from './UpdateEventDialog.jsx';
 
-function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, changeSelectedEvent }) {
+function EventDetails({
+  selectedEvent,
+  handleSelectEventClose,
+  getEvents,
+  changeSelectedEvent,
+  handleSuccessUpdateEventSnackbarOpen,
+  handleSuccessDeleteEventSnackbarOpen,
+}) {
   const {
     _id,
     title,
@@ -32,6 +39,7 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
   const deleteEvent = () => {
     axios.delete(`/user/events/${_id}`)
       .then(handleSelectEventClose)
+      .then(handleSuccessDeleteEventSnackbarOpen)
       .then(getEvents)
       .catch((err) => {
         console.error('Failed to deleteEvent:', err);
@@ -79,14 +87,26 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
           </Grid>
         </Grid>
         <Typography variant="subtitle1">{`Date: ${dayjs(start).format('MMMM D[,] YYYY')}`}</Typography>
-        <Typography variant="subtitle1">{`Time: ${dayjs(start).format('h:mm A')} - ${dayjs(end).format('h:mm A')}`}</Typography>
+        {
+          allDay
+            ? null
+            : (
+              <Typography variant="subtitle1">{`Time: ${dayjs(start).format('h:mm A')} - ${dayjs(end).format('h:mm A')}`}</Typography>
+            )
+        }
         <Typography variant="subtitle1">{`Category: ${category}`}</Typography>
         <br></br>
         <Typography variant="subtitle1">Description:</Typography>
         {
-          desc.split('\n').map((line) => (
-            <Typography variant="subtitle2">{line}</Typography>
-          ))
+          desc.split('\n').map((line) => {
+            if (line === '') {
+              return (<br></br>);
+            } else {
+              return (
+                <Typography variant="subtitle2">{line}</Typography>
+              );
+            }
+          })
         }
         <br></br>
         <Grid container spacing={2}>
@@ -118,6 +138,7 @@ function EventDetails({ selectedEvent, handleSelectEventClose, getEvents, change
         eventDetails={selectedEvent}
         getEvents={getEvents}
         changeSelectedEvent={changeSelectedEvent}
+        handleSuccessUpdateEventSnackbarOpen={handleSuccessUpdateEventSnackbarOpen}
       />
     </Container>
   );
