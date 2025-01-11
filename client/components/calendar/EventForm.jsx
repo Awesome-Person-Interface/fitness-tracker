@@ -169,6 +169,7 @@ function EventForm({
     axios.patch(`/user/events/${eventDetails._id}`, updateEvent)
       // Success, fetch all events for the user & close the dialog menu
       .then(() => {
+        updateEvent.event._id = eventDetails._id;
         changeSelectedEvent(updateEvent.event);
       })
       .then(handleSuccessUpdateEventSnackbarOpen)
