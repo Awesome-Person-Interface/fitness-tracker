@@ -21,6 +21,7 @@ function EventDetails({
   getEvents,
   changeSelectedEvent,
   handleSuccessUpdateEventSnackbarOpen,
+  handleSuccessDeleteEventSnackbarOpen,
 }) {
   const {
     _id,
@@ -38,6 +39,7 @@ function EventDetails({
   const deleteEvent = () => {
     axios.delete(`/user/events/${_id}`)
       .then(handleSelectEventClose)
+      .then(handleSuccessDeleteEventSnackbarOpen)
       .then(getEvents)
       .catch((err) => {
         console.error('Failed to deleteEvent:', err);
