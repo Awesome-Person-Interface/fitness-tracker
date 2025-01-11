@@ -26,7 +26,7 @@ import GoalOptions from './event-form-options/GoalOptions.jsx';
 
 import MissingCatSnackbar from './event-form-snackbars/MissingCatSnackbar.jsx';
 import MissingTitleSnackbar from './event-form-snackbars/MissingTitleSnackbar.jsx';
-import SuccessCreateEventSnackbar from './event-form-snackbars/SuccessCreateEventSnackbar.jsx';
+import AlertSnackbar from './AlertSnackbar.jsx';
 
 function EventForm({
   update,
@@ -60,7 +60,10 @@ function EventForm({
 
   const [disableAllDaySwitch, setDisableAllDaySwitch] = useState(false);
 
-  // Snack Bar States:
+  /*
+    Snack Bar Missing States:
+      - Determine whether the 
+  */
   const [catMissing, setCatMissing] = useState(false);
   const [titleMissing, setTitleMissing] = useState(false);
 
@@ -375,13 +378,19 @@ function EventForm({
           ) : null
         }
       </Stack>
-      <MissingCatSnackbar
-        catMissing={catMissing}
-        handleCatMissingClose={handleCatMissingClose}
+
+      <AlertSnackbar
+        open={catMissing}
+        handleClose={handleCatMissingClose}
+        message="Please select a category."
+        severity="error"
       />
-      <MissingTitleSnackbar
-        titleMissing={titleMissing}
-        handleTitleMissingClose={handleTitleMissingClose}
+      
+      <AlertSnackbar
+        open={titleMissing}
+        handleClose={handleTitleMissingClose}
+        message="Please fill in the title."
+        severity="error"
       />
     </>
   );
