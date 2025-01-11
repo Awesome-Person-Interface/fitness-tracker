@@ -11,11 +11,15 @@ const UserSchema = new Schema({
   phone_num: { type: String, required: false },
   recov_email: { type: String, required: false },
   weight: { type: Number, required: false, default: null },
-  liftWeight: { type: Number, required: false, default: null },
-  speed: { type: Number, required: false, default: null },
   goalWeight: { type: Number, required: false, default: null },
+  weightProgress: [{type: Number}],
+  liftWeight: { type: Number, required: false, default: null },
   goalLiftWeight: { type: Number, required: false, default: null },
+  liftWeightProgress: [{type: Number}],
+  speed: { type: Number, required: false, default: null },
   goalSpeed: { type: Number, required: false, default: null },
+  speedProgress: [{type: Number}],
+
 });
 // Attach findOrCreate plugin to the UserSchema
 UserSchema.plugin(findOrCreate);
