@@ -57,4 +57,18 @@ recipes.delete('/:id', (req, res) => {
     });
 });
 
+// PATCH requests to user/recipes/:ids
+recipes.use('/:id', (req, res) => {
+  // Grab the id from path parameters and config from the body
+  const { id } = req.params;
+  const { recipe } = req.body;
+  // Use mongoose to update the database
+  Recipes.findByIdAndUpdate(id, recipe)
+  .then(() => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    console.error('Error updating recipe: ', err);
+  })
+})
+
 export default recipes;

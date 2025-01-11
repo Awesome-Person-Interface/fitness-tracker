@@ -16,12 +16,14 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
-/***
+/*** THIS FORM HAS LOTS OF CONDITIONALS BECAUSE IT IS USED FOR EDITING AND MAKING RECIPES
  * This form will render conditionally based on if a new recipe is being created or if a recipe is being edited
  * When editing a form, this component renders from the recipe RecipeCard component
  * When making a form, this component renders from the MealsPlan view /client/views/MealPlans.jsx
  * When editing, input fields will render with values
  * When making, input fields will render empty
+ * Event will be conditional to whether you are in editing or creating mode
+ * Pay close attention to any ternaries, there are plenty on this component and in the IngredientInput component
  */
 function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe, setEditingRecipe, recipe }) {
   // Set state value for holding the forms values
@@ -131,10 +133,12 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
       const config = {
         recipe: currRecipe,
       }
-      console.log('PATCH Invoked: ', _id, config);
       // Make axios PATCH req with the id
       axios.patch(`/user/recipes/${_id}`, config)
       .then(getRecipes)
+      .then(() => {
+        setEditingRecipe(false);
+      })
       .catch((err) => {
         console.error('Error PATCHing recipe with axios: ', err);
       })
