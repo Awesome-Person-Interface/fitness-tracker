@@ -49,6 +49,8 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
   const [error, setError] = useState(false);
   // Set state value for opening the Snackbar alert
   const [alert, setAlert] = useState(false);
+  // Set state value to hold the recipe
+  const [currRecipe, setCurrRecipe] = useState(recipe);
   const addIngredient = () => {
     if (formValues.ingredients.length === 10) {
       setAlert(true);
@@ -61,13 +63,22 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
     // Set formValues in state to the formCopy
     setFormValues(formCopy);
   }
-    // Function to handle state changes for name, serves, and time
+    // Function to handle state changes for name, serves, time, and notes
     const handleFormChange = (element) => {
       // Grab the value and the id
       const { value, id } = element.target;
       const formCopy = { ...formValues };
       formCopy[id] = value;
       setFormValues(formCopy);
+    }
+    // Function to handle recipe editing for name, serves, time, and notes
+    const handleRecipeChange = (element) => {
+      // Grab the value and the id
+      const { value, id } = element.target;
+      // Make a copy of recipe in state
+      const recipeCopy = { ...currRecipe };
+      recipeCopy[id] = value;
+      setCurrRecipe(recipeCopy)
     }
     // Function to save the user's recipe to the database
     const handleSaveClick = () => {
@@ -99,6 +110,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
         setMakingRecipe(false);
       }
     }
+    console.log('currRecipe: ', currRecipe)
   return (
       <Dialog
         open={editingRecipe || makingRecipe}
@@ -108,7 +120,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
         <DialogTitle
           sx={{ }}
         >
-        {editingRecipe ? `Edit ${recipe.name}` : 'Build a Recipe' }
+        {editingRecipe ? `Edit ${currRecipe.name}` : 'Build a Recipe' }
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
@@ -119,23 +131,23 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
                   required
                   variant="standard"
                   label="Recipe name"
-                  value={editingRecipe ? recipe.name : formValues.name}
+                  value={editingRecipe ? currRecipe.name : formValues.name}
                   id="name"
-                  onChange={handleFormChange}
+                  onChange={makingRecipe ? handleFormChange : handleRecipeChange}
                 />
                 <TextField
                   variant="standard"
                   label="Serves"
-                  value={editingRecipe ? recipe.serves : formValues.serves}
+                  value={editingRecipe ? currRecipe.serves : formValues.serves}
                   id="serves"
-                  onChange={handleFormChange}
+                  onChange={makingRecipe ? handleFormChange : handleRecipeChange}
                 />
                 <TextField
                   variant="standard"
                   label="Cook Time"
-                  value={editingRecipe ? recipe.time : formValues.time}
+                  value={editingRecipe ? currRecipe.time : formValues.time}
                   id="time"
-                  onChange={handleFormChange}
+                  onChange={makingRecipe ? handleFormChange : handleRecipeChange}
                 />
               </Stack>
             </Grid>
@@ -143,12 +155,12 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
               <Typography>Notes:</Typography>
               <TextField
                 id="notes"
-                value={editingRecipe ? recipe.notes : formValues.notes}
+                value={editingRecipe ? currRecipe.notes : formValues.notes}
                 placeholder="Leave any notes, instructions, or description of this recipe here!"
                 multiline
                 fullWidth
                 minRows={2}
-                onChange={handleFormChange}
+                onChange={makingRecipe ? handleFormChange : handleRecipeChange}
                 />
             </Grid>
             <Grid container spacing={1.5}>
@@ -167,8 +179,9 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
                   key={ingredient._id}
                   value={ingredient.name}
                   index={index}
-                  formValues={recipe}
+                  formValues={currRecipe}
                   setFormValues={setFormValues}
+                  setCurrRecipe={setCurrRecipe}
                   editingRecipe={true}
                   />
               })
