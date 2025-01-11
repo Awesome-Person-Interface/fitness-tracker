@@ -32,10 +32,6 @@ function WorkoutOptions({
     changeDesc(description);
   };
 
-  const setWorkoutTitleAndDesc = () => {
-    
-  };
-
   useEffect(() => {
     getWorkouts();
   }, []);
