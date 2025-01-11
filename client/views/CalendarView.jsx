@@ -15,6 +15,7 @@ import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 import SuccessCreateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessCreateEventSnackbar.jsx';
 import SuccessUpdateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessUpdateEventSnackbar.jsx';
 import DeleteEventSnackbar from '../components/calendar/DeleteEventSnackbar.jsx';
+import AlertSnackbar from '../components/calendar/AlertSnackbar.jsx';
 
 const djLocalizer = dayjsLocalizer(dayjs);
 
@@ -213,17 +214,26 @@ function CalendarView({ handleThemeChange }) {
         getEvents={getEvents}
         handleSuccessCreateEventSnackbarOpen={handleSuccessCreateEventSnackbarOpen}
       />
-      <SuccessCreateEventSnackbar
-        successCreateEvent={successCreateEvent}
-        handleSuccessCreateEventClose={handleSuccessCreateEventClose}
+
+      <AlertSnackbar
+        open={successCreateEvent}
+        handleClose={handleSuccessCreateEventClose}
+        message="Event added to your calendar."
+        severity="success"
       />
-      <SuccessUpdateEventSnackbar
-        successUpdateEvent={successUpdateEvent}
-        handleSuccessUpdateEventClose={handleSuccessUpdateEventClose}
+
+      <AlertSnackbar
+        open={successUpdateEvent}
+        handleClose={handleSuccessUpdateEventClose}
+        message="Event updated in your calendar."
+        severity="success"
       />
-      <DeleteEventSnackbar
-        successDeleteEvent={successDeleteEvent}
-        handleSuccessDeleteEventClose={handleSuccessDeleteEventClose}
+
+      <AlertSnackbar
+        open={successDeleteEvent}
+        handleClose={handleSuccessDeleteEventClose}
+        message="Event removed from your calendar."
+        severity="success"
       />
     </div>
   );
