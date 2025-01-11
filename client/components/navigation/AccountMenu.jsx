@@ -76,7 +76,7 @@ export default function AccountMenu(props) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem href="/account" >
-          <Avatar><AccountCircleIcon sx={{fontSize: '36px'}} /></Avatar> Profile
+          <AccountCircleIcon sx={{fontSize: '36px'}} />Profile
         </MenuItem>
         <Divider />
         <MenuItem>
