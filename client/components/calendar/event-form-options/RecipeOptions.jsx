@@ -8,12 +8,13 @@ import {
 function RecipeOptions({
   changeTitle,
   changeDesc,
+  category,
 }) {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState({ name: 'Recipe Name?'});
 
   const getRecipes = () => {
-    axios.get('/user/routines/all')
+    axios.get('/user/recipes')
     .then(({ data }) => {
       setRecipes(data);
     })
@@ -26,13 +27,14 @@ function RecipeOptions({
     setSelectedRecipe(target.value);
 
     // Title:
-    changeTitle(target.value.name);
+    changeTitle(`${category}: ${target.value.name}`);
 
     // Description:
-    let description = 'Exercises in your workout:';
-    target.value.exercises.forEach((exercise) => {
-      description += `\n- ${exercise.name}`;
+    let description = 'Ingredients in your recipe:';
+    target.value.ingredients.forEach((ingredient) => {
+      description += `\n- ${ingredient.amount} ${ingredient.unit} ${ingredient.name} `;
     });
+    description += `\n\nNotes:\n${target.value.notes}`;
     changeDesc(description);
   };
 
