@@ -6,22 +6,6 @@ import { getIngredientIds, getIngredientInfo } from '../spoonacular-helpers/help
 // Create a new instance of express router
 const recipes = express.Router();
 
-recipes.post('/test', (req, res) => {
-  // Grab the ingredients list from req.body
-  const { ingredients } = req.body.recipe.formValues;
-  // Pass the ingredients into the helper
-  getIngredientIds(ingredients)
-  .then((ids) => {
-    // Get the ingredient info for the returned ids
-    getIngredientInfo(ids, ingredients)
-    .then((nutritionObj) => {
-      res.status(200).send(nutritionObj);
-    })
-  }).catch((err) => {
-    console.error('Error in the helper function: ', err);
-    res.sendStatus(500);
-  })
-})
 // For GET requests to /user/recipes
 recipes.get('/', (req, res) => {
   // Get al the recipes from the database
@@ -71,6 +55,33 @@ recipes.delete('/:id', (req, res) => {
       console.error('Error deleting recipe from database: ', err);
       res.sendStatus(500);
     });
+});
+
+// PATCH requests to user/recipes/:ids
+recipes.patch('/:id', (req, res) => {
+  // Grab the id from path parameters and config from the body
+  const { id } = req.params;
+  const { recipe } = req.body;
+  // Grab the ingredients list from recipe
+  const { ingredients } = recipe
+  // Pass the ingredients into the helper
+  getIngredientIds(ingredients)
+  .then((ids) => {
+    // Get the ingredient info for the returned ids
+    getIngredientInfo(ids, ingredients)
+      .then((nutritionObj) => {
+      // Add the nutrition object onto the recipe
+      recipe.nutrition = nutritionObj;
+      }).then(() => {
+         // Use mongoose to update the database
+        Recipes.findByIdAndUpdate(id, recipe)
+        .then(() => {
+          res.sendStatus(200);
+        })
+      })
+  }).catch((err) => {
+    console.error('Error updating recipe: ', err);
+})
 });
 
 export default recipes;

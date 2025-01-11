@@ -10,7 +10,7 @@ function WorkoutOptions({
   changeDesc,
 }) {
   const [workouts, setWorkouts] = useState([]);
-  const [selectedWorkout, setSelectedWorkout] = useState({ routine_name: ''});
+  const [selectedWorkout, setSelectedWorkout] = useState({ routine_name: 'Workout Name?'});
 
   const getWorkouts = () => {
     axios.get('/user/routines/all')

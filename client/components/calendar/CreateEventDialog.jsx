@@ -14,7 +14,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import EventForm from './EventForm.jsx';
 
-function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
+function CreateEventDialog({
+  dateSlot,
+  handleCloseDialog,
+  getEvents,
+  handleSuccessCreateEventSnackbarOpen,
+}) {
   /*
     start: The date at the start of the dateSlot selected
       - Using this key to determine if a date has been selected to open the dialog
@@ -52,6 +57,7 @@ function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
                 create={true}
                 getEvents={getEvents}
                 handleCloseDialog={handleCloseDialog}
+                handleSuccessCreateEventSnackbarOpen={handleSuccessCreateEventSnackbarOpen}
               />
             </DialogContent>
           )

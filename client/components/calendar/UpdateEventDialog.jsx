@@ -19,6 +19,7 @@ function UpdateEventDialog({
   eventDetails,
   getEvents,
   changeSelectedEvent,
+  handleSuccessUpdateEventSnackbarOpen,
 }) {
   return (
     <Dialog
@@ -50,6 +51,7 @@ function UpdateEventDialog({
           getEvents={getEvents}
           handleCloseDialog={handleUpdateEventDialogClose}
           changeSelectedEvent={changeSelectedEvent}
+          handleSuccessUpdateEventSnackbarOpen={handleSuccessUpdateEventSnackbarOpen}
         />
       </DialogContent>
     </Dialog>

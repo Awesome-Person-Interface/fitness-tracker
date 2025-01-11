@@ -11,7 +11,7 @@ function Nutrient({ name, amount, unit }) {
   const capitalName = name[0].toUpperCase() + name.slice(1);
   return (
     <ListItem disableGutters disablePadding>
-      <Typography>{`${capitalName}: ${amount} ${unit}`}</Typography>
+      <Typography>{`${capitalName}: ${Math.ceil(amount)} ${unit}`}</Typography>
     </ListItem>
   )
 };
