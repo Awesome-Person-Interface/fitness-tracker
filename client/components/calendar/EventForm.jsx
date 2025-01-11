@@ -35,6 +35,7 @@ function EventForm({
   handleCloseDialog,
   changeSelectedEvent,
   handleSuccessCreateEventSnackbarOpen,
+  handleSuccessUpdateEventSnackbarOpen,
 }) {
   // State 
   const [catMenuAnchorEl, setCatMenuAnchorEl] = useState(null);
@@ -168,6 +169,7 @@ function EventForm({
       .then(() => {
         changeSelectedEvent(updateEvent.event);
       })
+      .then(handleSuccessUpdateEventSnackbarOpen)
       .then(getEvents)
       .then(handleCloseDialog)
       // Failure, log the error

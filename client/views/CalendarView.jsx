@@ -13,6 +13,7 @@ import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
 import SuccessCreateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessCreateEventSnackbar.jsx';
+import SuccessUpdateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessUpdateEventSnackbar.jsx';
 
 const djLocalizer = dayjsLocalizer(dayjs);
 
@@ -37,6 +38,7 @@ function CalendarView({ handleThemeChange }) {
 
   // Snackbar States for Success:
   const [successCreateEvent, setSuccessCreateEvent] = useState(false);
+  const [successUpdateEvent, setSuccessUpdateEvent] = useState(false);
 
   const handleSuccessCreateEventClose = () => {
     setSuccessCreateEvent(false);
@@ -44,6 +46,14 @@ function CalendarView({ handleThemeChange }) {
 
   const handleSuccessCreateEventSnackbarOpen = () => {
     setSuccessCreateEvent(true);
+  };
+
+  const handleSuccessUpdateEventClose = () => {
+    setSuccessUpdateEvent(false);
+  };
+
+  const handleSuccessUpdateEventSnackbarOpen = () => {
+    setSuccessUpdateEvent(true);
   };
 
   // Triggers the "Create Event" dialog and passes the date slot event object to the dialog
@@ -129,6 +139,7 @@ function CalendarView({ handleThemeChange }) {
                   handleSelectEventClose={handleSelectEventClose}
                   getEvents={getEvents}
                   changeSelectedEvent={changeSelectedEvent}
+                  handleSuccessUpdateEventSnackbarOpen={handleSuccessUpdateEventSnackbarOpen}
                 />
               ) : (
                 <div>No event selected</div>
@@ -189,10 +200,14 @@ function CalendarView({ handleThemeChange }) {
         getEvents={getEvents}
         handleSuccessCreateEventSnackbarOpen={handleSuccessCreateEventSnackbarOpen}
       />
-    <SuccessCreateEventSnackbar
-      successCreateEvent={successCreateEvent}
-      handleSuccessCreateEventClose={handleSuccessCreateEventClose}
-    />
+      <SuccessCreateEventSnackbar
+        successCreateEvent={successCreateEvent}
+        handleSuccessCreateEventClose={handleSuccessCreateEventClose}
+      />
+      <SuccessUpdateEventSnackbar
+        successUpdateEvent={successUpdateEvent}
+        handleSuccessUpdateEventClose={handleSuccessUpdateEventClose}
+      />
     </div>
   );
 }
