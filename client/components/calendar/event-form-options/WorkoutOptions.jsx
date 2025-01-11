@@ -18,7 +18,7 @@ function WorkoutOptions({
       setWorkouts(data);
     })
     .catch((err) => {
-      console.log('Failed to getWorkouts:', err);
+      console.error('Failed to getWorkouts:', err);
     });
   };
 
@@ -32,17 +32,9 @@ function WorkoutOptions({
     changeDesc(description);
   };
 
-  const setWorkoutTitleAndDesc = () => {
-    
-  };
-
   useEffect(() => {
     getWorkouts();
   }, []);
-
-  console.log('State:', {
-    selectedWorkout,
-  });
 
   return (
     <Select
