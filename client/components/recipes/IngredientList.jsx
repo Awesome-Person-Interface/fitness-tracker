@@ -1,10 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import {
-  Stack,
-  List,
-  ListItem,
-  IconButton,
   Box,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -12,7 +8,7 @@ import Ingredient from './Ingredient.jsx';
 
 function IngredientList({ ingredients }) {
   return (
-    <Grid container spacing={0}>
+    <Box>
       {ingredients.map((ingredient) => {
         return (
           <Ingredient
@@ -23,7 +19,7 @@ function IngredientList({ ingredients }) {
           />
         )
       })}
-    </Grid>
+    </Box>
   )
 };
 

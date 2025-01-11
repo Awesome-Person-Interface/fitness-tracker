@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import IngredientList from './IngredientList.jsx';
+import NutritionList from './NutritionList.jsx';
 
 function RecipeCard({ recipe, getRecipes }) {
   // State vale for tracking if a recipe is being deleted
@@ -34,9 +35,7 @@ function RecipeCard({ recipe, getRecipes }) {
       })
   }
   return (
-    <Grid
-      size={4}
-    >
+    <>
       <Card
         sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto' }}
       >
@@ -49,17 +48,29 @@ function RecipeCard({ recipe, getRecipes }) {
           <Typography variant="body">
             {recipe.notes ? recipe.notes : 'No notes for this recipe'}
           </Typography>
-          <Typography
-            variant="subtitle1"
-          >Ingredients
-          </Typography>
-          <IngredientList ingredients={recipe.ingredients}/>
+          <Grid container spacing={1}>
+            <Grid
+              size={6}
+            >
+              <Typography
+                variant="subtitle1"
+              >Ingredients
+              </Typography>
+              <IngredientList ingredients={recipe.ingredients}/>
+            </Grid>
+            <Grid size={6}>
+              <Typography
+                variant="subtitle1"
+                >Nutrition
+              </Typography>
+              <NutritionList nutrition={recipe.nutrition}/>
+            </Grid>
+          </Grid>
         </CardContent>
         <CardActions>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
-          >
-            Delete
+          >Delete
           </Button>
         </CardActions>
       </Card>
@@ -85,7 +96,7 @@ function RecipeCard({ recipe, getRecipes }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Grid>
+      </>
   )
 };
 

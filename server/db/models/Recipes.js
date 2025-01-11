@@ -7,23 +7,15 @@ const IngredientSchema = new Schema({
   amount: {type: String },
   unit: { type: String },
 });
-// Initialize nutritient schema to hold nutrition name and unit
+// Initialize nutrient schema to hold nutrition name and unit
 const NutrientSchema = new Schema({
+  name: { type: String, required: true },
   amount: { type: Number, required: true, },
   unit: { type: String, required: true },
 })
-// Initialize nutrition schema to go on the RecipeSchema 
-const NutritionSchema = new Schema({
-  calories: NutrientSchema,
-  fat: NutrientSchema,
-  unsaturated: NutrientSchema,
-  sodium: NutrientSchema,
-  carbohydrates: NutrientSchema,
-  sugar: NutrientSchema,
-  protein: NutrientSchema,
-});
+
 // Initialize the recipes schema
-  // Use the iIngredientSchema for the ingredients field in recipes
+  // Use the IngredientSchema for the ingredients field in recipes
   // Declaring an array of objects that follow the IngredientSchema
 const RecipeSchema = new Schema({
   name: { type: String, required: true},
@@ -32,7 +24,7 @@ const RecipeSchema = new Schema({
   ingredients: [IngredientSchema],
   image: { type: String, default: null},
   notes: { type: String },
-  nutrition: NutritionSchema,
+  nutrition: [NutrientSchema],
 });
 // Create the recipes model using RecipeSchema
 const Recipes = mongoose.model('Recipe', RecipeSchema);
