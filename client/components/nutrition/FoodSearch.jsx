@@ -83,7 +83,7 @@ export default function FoodSearch(props){
         label="Search Foods"
         type="text" id='food-search'
         onChange={handleChange}
-        autofocus
+        autoFocus
         />
 
       <CustomButt sx={{ "&:hover": { background: 'linear-gradient(45deg, #FF6B6B 30%, #556270 90%)'} }} variant="contained" type="submit" onClick={handleClick}>Add Food</CustomButt>
