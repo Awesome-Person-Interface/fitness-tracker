@@ -7,7 +7,10 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  IconButton,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import CloseIcon from '@mui/icons-material/Close';
 
 import EventForm from './EventForm.jsx';
 
@@ -24,7 +27,20 @@ function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
       fullWidth={true}
       maxWidth="sm"
     >
-      <DialogTitle>Create Event</DialogTitle>
+      <DialogTitle>
+        <Grid container spacing={2}>
+          <Grid size={11}>
+            Create Event
+          </Grid>
+          <Grid size={1}>
+            <IconButton
+              onClick={handleCloseDialog}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </DialogTitle>
       {
         start
           ? (
@@ -45,14 +61,6 @@ function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
             </DialogContent>
           )
       }
-
-      <DialogActions>
-        <Button
-          onClick={handleCloseDialog}
-        >
-          Close
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

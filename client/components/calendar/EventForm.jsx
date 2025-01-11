@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@mui/material/Grid2';
 import {
@@ -13,9 +13,12 @@ import {
 import {
   LocalizationProvider,
   TimePicker,
+  DatePicker,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+
+import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
 
 function EventForm({
   update,
@@ -44,6 +47,12 @@ function EventForm({
   const [allDay, setAllDay] = useState(eventDetails.allDay ? eventDetails.allDay : false);
   const [title, setTitle] = useState(eventDetails.title ? eventDetails.title : '');
   const [desc, setDesc] = useState(eventDetails.desc ? eventDetails.desc : '');
+
+  const [disableAllDaySwitch, setDisableAllDaySwitch] = useState(false);
+
+  const { multiDay } = useMemo(() => ({
+    multiDay: eventDetails.end - eventDetails.start > 86400000
+  }), []);
 
   // Categories used in the dropdown menu
   const { categories } = useMemo(() => ({
@@ -145,34 +154,83 @@ function EventForm({
     patchEvent();
   };
 
+  const changeTitle = (title) => {
+    setTitle(title);
+  };
+
+  const changeDesc = (desc) => {
+    setDesc(desc);
+  }
+
+  useEffect(() => {
+    if (new Date(eventDetails.end) - new Date(eventDetails.start) >= 86400000) {
+      setAllDay(true);
+      setDisableAllDaySwitch(true);
+      setEnd(dayjs(new Date(eventDetails.end) - 1));
+    }
+  }, []);
+
   return (
     <Stack spacing={2}>
-      <Grid container spacing={2}>
-        <Grid size={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <TimePicker
-              label="Start Time"
-              value={start}
-              onChange={(newTime) => setStart(newTime)}
-              disabled={allDay}
-            />
-          </LocalizationProvider>
-        </Grid>
-        <Grid size={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <TimePicker
-              label="End Time"
-              value={end}
-              onChange={(newTime) => setEnd(newTime)}
-              disabled={allDay}
-            />
-          </LocalizationProvider>
-        </Grid>
-      </Grid>
+        {
+          allDay
+            ? (
+              <Grid container spacing={2}>
+                <Grid size={6}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label={multiDay ? 'Start Date' : 'Date'}
+                      value={start}
+                      onChange={(newTime) => setStart(newTime)}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                {
+                  multiDay
+                    ? (
+                      <Grid size={6}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label="End Date"
+                            value={end}
+                            onChange={(newTime) => setEnd(newTime)}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
+                    ) : null
+                }
+              </Grid>
+            )
+            : (
+              <Grid container spacing={2}>
+                <Grid size={6}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimePicker
+                      label="Start Time"
+                      value={start}
+                      onChange={(newTime) => setStart(newTime)}
+                      disabled={allDay}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid size={6}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimePicker
+                      label="End Time"
+                      value={end}
+                      onChange={(newTime) => setEnd(newTime)}
+                      disabled={allDay}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+              </Grid>
+            )
+        }
       <Grid container spacing={2}>
         <Grid size={6}>
           <Button
             variant="contained"
+            color={category === 'Category?' ? 'secondary' : 'primary'}
             onClick={handleCatMenuOpenClick}
           >
             {category}
@@ -206,6 +264,7 @@ function EventForm({
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
             <Switch
               checked={allDay}
+              disabled={disableAllDaySwitch}
               onChange={handleAllDayToggle}
             />
             <Typography>All Day?</Typography>
@@ -222,7 +281,7 @@ function EventForm({
             onChange={({ target }) => setTitle(target.value)}
           />
         </Grid>
-        <Grid size={6}>
+        <Grid size={8}>
           <TextField
             label="Description"
             helperText="More details about the event go here."
@@ -232,27 +291,36 @@ function EventForm({
             onChange={({ target }) => setDesc(target.value)}
           />
         </Grid>
-        <Grid size={2}>
-            {create
-              ? (
-                <Button
-                  onClick={handleCreateClick}
-                >
-                  Create
-                </Button>
-              ) : null
-            }
-            {update
-              ? (
-                <Button
-                  onClick={handleUpdateClick}
-                >
-                  Update
-                </Button>
-              ) : null
-            }
-        </Grid>
       </Grid>
+      {
+        category === 'Workout'
+          ? <WorkoutOptions
+            changeTitle={changeTitle}
+            changeDesc={changeDesc}
+          />
+          : null
+      }
+
+      {create
+        ? (
+          <Button
+            variant="contained"
+            onClick={handleCreateClick}
+          >
+            Create
+          </Button>
+        ) : null
+      }
+      {update
+        ? (
+          <Button
+            variant="contained"
+            onClick={handleUpdateClick}
+          >
+            Update
+          </Button>
+        ) : null
+      }
     </Stack>
   );
 }
