@@ -8,11 +8,8 @@ import nutrition from './nutrition.js';             // nutrition router
 import routines from './routines.js';
 import account from './account.js';
 import events from './events.js';
-<<<<<<< HEAD
 import goals from './goals.js';
-=======
 import recipes from './recipes.js';
->>>>>>> b39560f5693caba751bc584997bff538c1707bf2
 import verify from '../security/verify.js';
 import { User, Workouts, Meals } from '../db/index.js'
 

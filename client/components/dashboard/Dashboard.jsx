@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DashboardWorkouts from './DashboardWorkouts.jsx';
 import DashboardMeals from './DashboardMeals.jsx';
@@ -7,7 +7,7 @@ import { DateCalendar,
   DemoContainer,
   DatePicker,
 
-  } from '@mui/x-date-pickers';
+ } from '@mui/x-date-pickers';
 import { Divider,
    Grid2,
    Container,
@@ -53,10 +53,10 @@ const getUserGoals = () => {
     console.error('Could not GET goals', err)
   });
 }
-const updateWeight = () => {
-  
-}
-const handleClick = () => {
+useEffect(() => {
+  getUserGoals
+}, []);
+const updateGoals = () => {
   // set an object with groups as the property and an object as its value
   let req = {
     goals: {}
@@ -75,16 +75,15 @@ const handleClick = () => {
   // .then Take the values from the database and populate the goals section.
   // set a value to hold the necessary form for entering info into the database
   axios.patch('/user/goals', req)
-  .then((user) => {
+  .then(() => {
     // if after the patch, the weight (& l8r goalWeight) is(are) populated in the Schema,
     // tie each value to its corresponding db state
-    // getUserGoals 
-    // console.log('.then')
     getUserGoals();
   }).catch((err) =>
   console.log('Could not patch goals', err)
-  );
+);
 }
+
   return (
     <div id="dash_main">
       <h1 style={{textAlign: "center"}}>Dashboard</h1>
@@ -108,7 +107,16 @@ const handleClick = () => {
       <Grid>
         <Container>
           <Box>
-            <Typography variant="h4">Yo weight: {dbWeight}lbs  Yo goal: {dbGoalWeight}lbs </Typography>
+            {dbWeight ?
+            <Typography variant="h5">Yo weight: {dbWeight}lbs</Typography>
+          :
+          null
+          }
+          {dbGoalWeight ?
+              <Typography variant="h5">Yo goal: {dbGoalWeight}lbs </Typography>
+            :
+            null
+            }
           </Box>
         </Container>
       </Grid>
@@ -131,7 +139,7 @@ const handleClick = () => {
           {/* <Button variant="contained"
            type="submit"
             name="submit-weight"
-            onClick={handleClick}
+            onClick={updateGoals}
             >Set Current Weight</Button> */}
           </FormControl>
             
@@ -146,7 +154,7 @@ const handleClick = () => {
           <Button variant="contained"
           type="submit"
            name="submit-goal"
-           onClick={handleClick}
+           onClick={updateGoals}
            >Set User Info</Button>
         </FormControl>
         {/* </Container> */}
