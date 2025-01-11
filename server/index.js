@@ -26,7 +26,8 @@ import verify from './security/verify.js';
 dotenv.config();
 
 const app = express();              // create Express instance named 'app'
-const port = 8080;                  // random port, can change as necessary
+const baseUrl = process.env.BASE_URL || 'http://localhost'
+const port = process.env.PORT || 8080;                  // random port, can change as necessary
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
@@ -116,7 +117,7 @@ app.get('*', verify, (req, res) => {
 db.on('open', () => {
   app.listen( port, () => {
     console.log(`>> Connection to database fitness-tracker established <<`)
-    console.log(`Express is listening on port ${port}...`)
+    console.log(`Express is listening at ${baseUrl}:${port}...`)
   })
 })
 
