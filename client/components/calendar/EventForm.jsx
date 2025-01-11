@@ -51,7 +51,7 @@ function EventForm({
   const [disableAllDaySwitch, setDisableAllDaySwitch] = useState(false);
 
   const { multiDay } = useMemo(() => ({
-    multiDay: eventDetails.end - eventDetails.start > 86400000
+    multiDay: (new Date(eventDetails.end)) - (new Date(eventDetails.start)) > 86400000
   }), []);
 
   // Categories used in the dropdown menu
