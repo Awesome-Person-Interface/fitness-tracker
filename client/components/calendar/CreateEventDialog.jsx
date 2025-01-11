@@ -11,27 +11,32 @@ import {
 
 import EventForm from './EventForm.jsx';
 
-function CreateEventDialog({ dateSlot, handleCloseDialog }) {
+function CreateEventDialog({ dateSlot, handleCloseDialog, getEvents }) {
   /*
     start: The date at the start of the dateSlot selected
-    end: The date at the end of the dateSlot selected
-      - (Exclusive) Not included in the range shown on the calendar.
+      - Using this key to determine if a date has been selected to open the dialog
   */
-  const { start, end } = dateSlot;
+  const { start } = dateSlot;
   return (
     <Dialog
-      open={!!dateSlot.start}
+      open={!!start}
       onClose={handleCloseDialog}
       fullWidth={true}
       maxWidth="sm"
     >
       <DialogTitle>Create Event</DialogTitle>
       {
-        dateSlot.start
+        start
           ? (
             <DialogContent>
               <DialogContentText>Fill out the form below to create an event:</DialogContentText>
-              <EventForm />
+              <br></br>
+              <EventForm
+                eventDetails={dateSlot}
+                create={true}
+                getEvents={getEvents}
+                handleCloseDialog={handleCloseDialog}
+              />
             </DialogContent>
           )
           : (
