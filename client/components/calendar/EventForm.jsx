@@ -25,6 +25,7 @@ import RecipeOptions from './event-form-options/RecipeOptions.jsx';
 
 import MissingCatSnackbar from './event-form-snackbars/MissingCatSnackbar.jsx';
 import MissingTitleSnackbar from './event-form-snackbars/MissingTitleSnackbar.jsx';
+import SuccessCreateEventSnackbar from './event-form-snackbars/SuccessCreateEventSnackbar.jsx';
 
 function EventForm({
   update,
@@ -33,6 +34,7 @@ function EventForm({
   getEvents,
   handleCloseDialog,
   changeSelectedEvent,
+  handleSuccessCreateEventSnackbarOpen,
 }) {
   // State 
   const [catMenuAnchorEl, setCatMenuAnchorEl] = useState(null);
@@ -135,6 +137,7 @@ function EventForm({
       axios.post('/user/events', newEvent)
         // Success, fetch all events for the user & close the dialog menu
         .then(getEvents)
+        .then(handleSuccessCreateEventSnackbarOpen)
         .then(handleCloseDialog)
         // Failure, log the error
         .catch((err) => {

@@ -12,6 +12,8 @@ import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
+import SuccessCreateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessCreateEventSnackbar.jsx';
+
 const djLocalizer = dayjsLocalizer(dayjs);
 
 /* EXAMPLE EVENT DATA:
@@ -32,6 +34,17 @@ function CalendarView({ handleThemeChange }) {
   const [events, setEvents] = useState([]);
   const [dateSlot, setDateSlot] = useState({});
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // Snackbar States for Success:
+  const [successCreateEvent, setSuccessCreateEvent] = useState(false);
+
+  const handleSuccessCreateEventClose = () => {
+    setSuccessCreateEvent(false);
+  };
+
+  const handleSuccessCreateEventSnackbarOpen = () => {
+    setSuccessCreateEvent(true);
+  };
 
   // Triggers the "Create Event" dialog and passes the date slot event object to the dialog
   const handleSelectSlot = useCallback((event) => {
@@ -174,7 +187,12 @@ function CalendarView({ handleThemeChange }) {
         dateSlot={dateSlot}
         handleCloseDialog={handleCloseDialog}
         getEvents={getEvents}
+        handleSuccessCreateEventSnackbarOpen={handleSuccessCreateEventSnackbarOpen}
       />
+    <SuccessCreateEventSnackbar
+      successCreateEvent={successCreateEvent}
+      handleSuccessCreateEventClose={handleSuccessCreateEventClose}
+    />
     </div>
   );
 }
