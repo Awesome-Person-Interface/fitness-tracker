@@ -23,6 +23,8 @@ import dayjs from 'dayjs';
 import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
 import RecipeOptions from './event-form-options/RecipeOptions.jsx';
 
+import MissingCatSnackbar from './event-form-snackbars/MissingCatSnackbar.jsx';
+
 function EventForm({
   update,
   create,
@@ -347,18 +349,10 @@ function EventForm({
           ) : null
         }
       </Stack>
-      <Snackbar
-        open={catMissing}
-        onClose={handleCatMissingClose}
-        autoHideDuration={1500}
-      >
-        <Alert
-          onClose={handleCatMissingClose}
-          severity="error"
-        >
-          Please select a category.
-        </Alert>
-      </Snackbar>
+      <MissingCatSnackbar
+        catMissing={catMissing}
+        handleCatMissingClose={handleCatMissingClose}
+      />
     </>
   );
 }
