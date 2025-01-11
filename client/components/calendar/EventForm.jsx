@@ -9,6 +9,8 @@ import {
   Menu,
   MenuItem,
   TextField,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import {
   LocalizationProvider,
@@ -51,6 +53,13 @@ function EventForm({
 
   const [disableAllDaySwitch, setDisableAllDaySwitch] = useState(false);
 
+  // Snack Bar States:
+  const [catMissing, setCatMissing] = useState(false);
+
+  const handleCatMissingClose = () => {
+    setCatMissing(false);
+  };
+
   const { multiDay } = useMemo(() => ({
     multiDay: (new Date(eventDetails.end)) - (new Date(eventDetails.start)) > 86400000
   }), []);
@@ -92,10 +101,10 @@ function EventForm({
   const postEvent = () => {
     // Check if the category has been selected
     if (category === 'Category?') {
-      return;
+      setCatMissing(true);
     }
     // Check if the Title has been set
-    else if (title === '') {
+    if (title === '') {
       return;
     }
 
@@ -173,170 +182,184 @@ function EventForm({
   }, []);
 
   return (
-    <Stack spacing={2}>
+    <>
+      <Stack spacing={2}>
+          {
+            allDay
+              ? (
+                <Grid container spacing={2}>
+                  <Grid size={6}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={multiDay ? 'Start Date' : 'Date'}
+                        value={start}
+                        onChange={(newTime) => setStart(newTime)}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  {
+                    multiDay
+                      ? (
+                        <Grid size={6}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="End Date"
+                              value={end}
+                              onChange={(newTime) => setEnd(newTime)}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+                      ) : null
+                  }
+                </Grid>
+              )
+              : (
+                <Grid container spacing={2}>
+                  <Grid size={6}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <TimePicker
+                        label="Start Time"
+                        value={start}
+                        onChange={(newTime) => setStart(newTime)}
+                        disabled={allDay}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid size={6}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <TimePicker
+                        label="End Time"
+                        value={end}
+                        onChange={(newTime) => setEnd(newTime)}
+                        disabled={allDay}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                </Grid>
+              )
+          }
+        <Grid container spacing={2}>
+          <Grid size={6}>
+            <Button
+              variant="contained"
+              color={category === 'Category?' ? 'secondary' : 'primary'}
+              onClick={handleCatMenuOpenClick}
+            >
+              {category}
+            </Button>
+            <Menu
+              anchorEl={catMenuAnchorEl}
+              open={catMenuOpen}
+              onClose={handleCatMenuClose}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              {
+                categories.map((category) => (
+                  <MenuItem
+                    key={category}
+                    onClick={handleCategoryChange}
+                  >
+                    {category}
+                  </MenuItem>
+                ))
+              }
+            </Menu>
+          </Grid>
+          <Grid size={6}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+              <Switch
+                checked={allDay}
+                disabled={disableAllDaySwitch}
+                onChange={handleAllDayToggle}
+              />
+              <Typography>All Day?</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid size={4}>
+            <TextField
+              required
+              label="Title"
+              helperText="Short Calendar Tag"
+              value={title}
+              onChange={({ target }) => setTitle(target.value)}
+            />
+          </Grid>
+          <Grid size={8}>
+            <TextField
+              label="Description"
+              helperText="More details about the event go here."
+              multiline
+              fullWidth
+              value={desc}
+              onChange={({ target }) => setDesc(target.value)}
+            />
+          </Grid>
+        </Grid>
         {
-          allDay
+          category === 'Workout'
             ? (
-              <Grid container spacing={2}>
-                <Grid size={6}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label={multiDay ? 'Start Date' : 'Date'}
-                      value={start}
-                      onChange={(newTime) => setStart(newTime)}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                {
-                  multiDay
-                    ? (
-                      <Grid size={6}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            label="End Date"
-                            value={end}
-                            onChange={(newTime) => setEnd(newTime)}
-                          />
-                        </LocalizationProvider>
-                      </Grid>
-                    ) : null
-                }
-              </Grid>
-            )
-            : (
-              <Grid container spacing={2}>
-                <Grid size={6}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <TimePicker
-                      label="Start Time"
-                      value={start}
-                      onChange={(newTime) => setStart(newTime)}
-                      disabled={allDay}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid size={6}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <TimePicker
-                      label="End Time"
-                      value={end}
-                      onChange={(newTime) => setEnd(newTime)}
-                      disabled={allDay}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-              </Grid>
-            )
+              <WorkoutOptions
+                changeTitle={changeTitle}
+                changeDesc={changeDesc}
+              />
+            ) : null
         }
-      <Grid container spacing={2}>
-        <Grid size={6}>
-          <Button
-            variant="contained"
-            color={category === 'Category?' ? 'secondary' : 'primary'}
-            onClick={handleCatMenuOpenClick}
-          >
-            {category}
-          </Button>
-          <Menu
-            anchorEl={catMenuAnchorEl}
-            open={catMenuOpen}
-            onClose={handleCatMenuClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            {
-              categories.map((category) => (
-                <MenuItem
-                  key={category}
-                  onClick={handleCategoryChange}
-                >
-                  {category}
-                </MenuItem>
-              ))
-            }
-          </Menu>
-        </Grid>
-        <Grid size={6}>
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-            <Switch
-              checked={allDay}
-              disabled={disableAllDaySwitch}
-              onChange={handleAllDayToggle}
-            />
-            <Typography>All Day?</Typography>
-          </Stack>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid size={4}>
-          <TextField
-            required
-            label="Title"
-            helperText="Short Calendar Tag"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
-        </Grid>
-        <Grid size={8}>
-          <TextField
-            label="Description"
-            helperText="More details about the event go here."
-            multiline
-            fullWidth
-            value={desc}
-            onChange={({ target }) => setDesc(target.value)}
-          />
-        </Grid>
-      </Grid>
-      {
-        category === 'Workout'
+
+        {
+          category === 'Breakfast' || category === 'Lunch' || category === 'Dinner'
+            ? (
+              <RecipeOptions
+                changeTitle={changeTitle}
+                changeDesc={changeDesc}
+                category={category}
+              />
+            ) : null
+        }
+
+        {create
           ? (
-            <WorkoutOptions
-              changeTitle={changeTitle}
-              changeDesc={changeDesc}
-            />
+            <Button
+              variant="contained"
+              onClick={handleCreateClick}
+            >
+              Create
+            </Button>
           ) : null
-      }
+        }
 
-      {
-        category === 'Breakfast' || category === 'Lunch' || category === 'Dinner'
+        {update
           ? (
-            <RecipeOptions
-              changeTitle={changeTitle}
-              changeDesc={changeDesc}
-              category={category}
-            />
+            <Button
+              variant="contained"
+              onClick={handleUpdateClick}
+            >
+              Update
+            </Button>
           ) : null
-      }
-
-      {create
-        ? (
-          <Button
-            variant="contained"
-            onClick={handleCreateClick}
-          >
-            Create
-          </Button>
-        ) : null
-      }
-
-      {update
-        ? (
-          <Button
-            variant="contained"
-            onClick={handleUpdateClick}
-          >
-            Update
-          </Button>
-        ) : null
-      }
-    </Stack>
+        }
+      </Stack>
+      <Snackbar
+        open={catMissing}
+        onClose={handleCatMissingClose}
+        autoHideDuration={1500}
+      >
+        <Alert
+          onClose={handleCatMissingClose}
+          severity="error"
+        >
+          Please select a category.
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 
