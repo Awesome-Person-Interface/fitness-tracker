@@ -13,7 +13,7 @@ import { Divider,
    Container,
    Box,
    FormControl,
-   InputLabel,
+   TextField,
    Input,
    FormHelperText,
    Button,
@@ -54,7 +54,7 @@ const getUserGoals = () => {
   });
 }
 useEffect(() => {
-  getUserGoals
+  getUserGoals()
 }, []);
 const updateGoals = () => {
   // set an object with groups as the property and an object as its value
@@ -116,11 +116,12 @@ const updateGoals = () => {
         </div>
       </div>
       <Grid size={5} justifyContent="space-between" alignItems="flex">
-        <FormControl variant="outlined" size="small">
+        <FormControl size="small">
           <label htmlFor="current-weight">Current Weight:
-            <Input type="text"
+            <TextField type="text"
              name="current-weight"
              value={weight}
+             variant="outlined"
              onChange={() => setWeight(event.target.value)}
              />
           </label>
@@ -128,9 +129,10 @@ const updateGoals = () => {
             
           <FormControl>
           <label type="text" htmlFor="goal-weight">Goal Weight:
-            <Input type="text"
+            <TextField type="text"
              name="goal-weight"
              value={goalWeight}
+             variant="outlined"
              onChange={() => setGoalWeight(event.target.value)}
              />
           </label>
