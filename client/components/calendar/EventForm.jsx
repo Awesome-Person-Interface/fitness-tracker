@@ -24,8 +24,6 @@ import WorkoutOptions from './event-form-options/WorkoutOptions.jsx';
 import RecipeOptions from './event-form-options/RecipeOptions.jsx';
 import GoalOptions from './event-form-options/GoalOptions.jsx';
 
-import MissingCatSnackbar from './event-form-snackbars/MissingCatSnackbar.jsx';
-import MissingTitleSnackbar from './event-form-snackbars/MissingTitleSnackbar.jsx';
 import AlertSnackbar from './AlertSnackbar.jsx';
 
 function EventForm({

@@ -12,9 +12,6 @@ import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
-import SuccessCreateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessCreateEventSnackbar.jsx';
-import SuccessUpdateEventSnackbar from '../components/calendar/event-form-snackbars/SuccessUpdateEventSnackbar.jsx';
-import DeleteEventSnackbar from '../components/calendar/DeleteEventSnackbar.jsx';
 import AlertSnackbar from '../components/calendar/AlertSnackbar.jsx';
 
 const djLocalizer = dayjsLocalizer(dayjs);
