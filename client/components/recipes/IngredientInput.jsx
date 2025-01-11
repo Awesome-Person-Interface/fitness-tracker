@@ -57,7 +57,7 @@ function IngredientInput({ value, index, formValues, setFormValues, editingRecip
         }}
         label="Amount"
         id="amount"
-        value={editingRecipe ? formValues.time : ''}
+        value={formValues.amount}
         onChange={handleIngredientChange}
         />
       <Select

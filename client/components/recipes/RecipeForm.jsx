@@ -16,6 +16,13 @@ import {
 import Grid from '@mui/material/Grid2';
 import IngredientInput from './IngredientInput.jsx';
 
+/***
+ * This form will render conditionally based on if a new recipe is being created or if a recipe is being edited
+ * When editing a form, this component renders from the recipe RecipeCard component
+ * When making a form, this component renders from the MealsPlan view /client/views/MealPlans.jsx
+ * When editing, input fields will render with values
+ * When making, input fields will render empty
+ */
 function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe, setEditingRecipe, recipe }) {
   // Set state value for holding the forms values
   const [formValues, setFormValues] = useState(
@@ -94,7 +101,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
     }
   return (
       <Dialog
-        open={makingRecipe}
+        open={editingRecipe || makingRecipe}
         maxWidth='sm'
         fullWidth
         >

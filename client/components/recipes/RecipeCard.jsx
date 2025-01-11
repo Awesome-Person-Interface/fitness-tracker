@@ -38,7 +38,6 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   }
   // Toggle edit recipe and makingRecipe
   const editRecipe = () => {
-    setMakingRecipe(true);
     setEditingRecipe(true);
   }
   return (
