@@ -156,6 +156,8 @@ const removeProgress = () => {
         ?
         <Grid size={6}>
       <LineChart
+      // I think I can do new Date(`2025-${dbWeightX}`)
+      // or straight up  use the data picker  and parse the info that shows
         xAxis={[{ data: dbWeightX }]}
         series={[
           {
