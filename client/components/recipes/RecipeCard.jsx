@@ -61,7 +61,15 @@ let cardTheme = createTheme({
         fullWidth: {
           backgroundColor: 'white'
         },
-        
+      }
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+        '&.Mui-checked': {
+          color: 'white'
+        }
+        }
       }
     }
   }

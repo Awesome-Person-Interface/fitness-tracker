@@ -13,7 +13,7 @@ function Ingredient({ amount, unit, name }) {
   return (
     <>
       <ListItem disableGutters disablePadding>
-        <Checkbox />
+        <Checkbox sx={{ color: 'black'}}/>
         <Typography
         >{`${amount} ${unit} ${name}`}
         </Typography>
