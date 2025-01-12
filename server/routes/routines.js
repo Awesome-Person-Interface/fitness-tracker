@@ -6,7 +6,7 @@ import axios from 'axios';             // must be imported for external requests
 import dotenv from 'dotenv';
 import verify from '../security/verify.js';
 dotenv.config();
-import { Workouts } from '../db/index.js'  // must be imported for database connection
+import { Workouts, User } from '../db/index.js'  // must be imported for database connection
 
 const routines = express.Router();
 // ----------------------------------------------------------------------------------- //
@@ -37,7 +37,10 @@ routines.post('/create', verify, (req, res) => {
   )
   .then((newRoutine) => {
     if (newRoutine) {
-      res.status(201).send(newRoutine);
+      User.findOneAndUpdate({ _id: req.user._id }, { workouts: [] })
+        .then(() => {
+          res.status(201).send(newRoutine);
+        })
     } else {
       res.sendStatus(404);
     }
