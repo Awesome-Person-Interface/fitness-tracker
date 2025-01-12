@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
   IconButton,
   InputLabel,
+  FormControl,
   Select,
   MenuItem,
   TextField,
   Stack,
 } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
 import Grid from '@mui/material/Grid2';
 
 const measurements = ['tsp', 'tbsp', 'cups', 'qts', 'oz', 'lbs', 'fl oz' ]
+
+const selectTheme = createTheme({
+  components: {
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          height: 50
+        }
+      }
+    }
+  }
+})
 function IngredientInput({ value, index, formValues, setFormValues, editingRecipe, currRecipe, setCurrRecipe}) {
   // Function to handle changes in ingredient and amount fields
   const handleIngredientChange = (element) => {
@@ -82,28 +95,33 @@ function IngredientInput({ value, index, formValues, setFormValues, editingRecip
         value={formValues.ingredients[index].amount}
         onChange={!editingRecipe ? handleIngredientChange : editIngredients}
         />
+      <FormControl>
+        <InputLabel>unit</InputLabel>
+        <ThemeProvider theme={selectTheme}>
       <Select
         sx={{
           width: 80,
+          minHeight: '1.0em',
           "& .MuiSelect-root": {
-            height: 10
+            height: '1.0em'
           }
         }}
         value={formValues.ingredients[index].unit}
-        placeholder="Unit"
         >
         {measurements.map((measurement) => {
           return (
             <MenuItem
-              onClick={!editingRecipe ? handleUnitClick : handleUnitChange}
-              key={measurement}
-              value={measurement}
-              >
+            onClick={!editingRecipe ? handleUnitClick : handleUnitChange}
+            key={measurement}
+            value={measurement}
+            >
                 {measurement}
             </MenuItem>
           )
         })}
       </Select>
+      </ThemeProvider>
+      </FormControl>
       <TextField
         sx={{
           width: 150,

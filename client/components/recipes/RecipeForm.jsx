@@ -149,7 +149,7 @@ function RecipesForm({ makingRecipe, setMakingRecipe, getRecipes, editingRecipe,
         <DialogTitle
           sx={{ }}
         >
-        {editingRecipe ? `Edit ${currRecipe.name}` : 'Build a Recipe' }
+        {editingRecipe ? `Your Recipe: ${currRecipe.name}` : 'Build a Recipe' }
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
