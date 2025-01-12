@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import Navigation from '../components/navigation/Navigation.jsx';
 import EventDetails from '../components/calendar/EventDetails.jsx';
+import CalendarInstructions from '../components/calendar/CalendarInstructions.jsx';
 import CreateEventDialog from '../components/calendar/CreateEventDialog.jsx';
 
 import AlertSnackbar from '../components/calendar/AlertSnackbar.jsx';
@@ -153,7 +154,7 @@ function CalendarView({ handleThemeChange }) {
                   handleSuccessDeleteEventSnackbarOpen={handleSuccessDeleteEventSnackbarOpen}
                 />
               ) : (
-                <div>No event selected</div>
+                <CalendarInstructions />
               )
           }
         </Grid>
