@@ -4,7 +4,6 @@ import {
   Checkbox,
   ListItem,
   Divider,
-  Stack,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -13,7 +12,7 @@ function Ingredient({ amount, unit, name }) {
   return (
     <>
       <ListItem disableGutters disablePadding>
-        <Checkbox />
+        <Checkbox sx={{ color: 'black'}}/>
         <Typography
         >{`${amount} ${unit} ${name}`}
         </Typography>

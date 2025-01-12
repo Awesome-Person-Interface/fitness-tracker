@@ -96,7 +96,7 @@ export default function CurrentMealPlans(props) {
           }
         </div>
         :
-        'You have not generated any meals, please visit the Nutrition tab.'
+        'You have not generated any meals, please visit the Pantry tab.'
       }
     </div>
   );

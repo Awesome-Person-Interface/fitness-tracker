@@ -10,14 +10,71 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
+  Divider,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import '@fontsource/merriweather';
+// Supports weights 100-900
+import '@fontsource-variable/noto-serif';
+import "@fontsource/noto-sans-georgian";
 import IngredientList from './IngredientList.jsx';
 import NutritionList from './NutritionList.jsx';
 import RecipeForm from './RecipeForm.jsx';
 
+// Create a custom theme
+let cardTheme = createTheme({
+  palette: {
+      primary: {
+          main: '#722211',
+      },
+      secondary: {
+        main: '#415664'
+      },
+  },
+  typography: {
+      // fontFamily: "Alkatra",
+   h5: {
+    fontFamily: 'Merriweather'
+   },
+   subtitle1: {
+    fontSize: 16,
+   },
+   subtitle2: {
+    fontWeight: 400,
+    fontSize: 18,
+    fontFamily: 'Noto-Sans-Georgian'
+   }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          background: '#bdbdbd',
+          fontWeight: 400,
+        }
+      }
+    },
+    MuiDivider: {
+      styleOverrides: {
+        fullWidth: {
+          backgroundColor: 'white'
+        },
+      }
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+        '&.Mui-checked': {
+          color: 'white'
+        }
+        }
+      }
+    }
+  }
+});
+cardTheme = responsiveFontSizes(cardTheme);
 function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   // State vale for tracking if a recipe is being deleted
   const [deletingRecipe, setDeletingRecipe] = useState(false);
@@ -42,16 +99,23 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
   }
   return (
     <>
+      <ThemeProvider theme={cardTheme}>
       <Card
-        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto', background: '#004d40' }}
+        sx={{ minHeight: 300, maxHeight: 300, overflow: 'auto', color: 'white', backgroundColor: 'primary.main'}}
       >
         <CardContent>
           <Typography
-            variant="h6"
+            variant="h5"
           >
             {recipe.name}
           </Typography>
-          <Typography variant="body">
+          <Divider variant="fullWidth" sx={{ borderBottomWidth: 5 }}/>
+          <Typography
+            variant="subtitle1"
+          >
+            {recipe.time}
+          </Typography>
+          <Typography variant="subtitle1">
             {recipe.notes ? recipe.notes : 'No notes for this recipe'}
           </Typography>
           <Grid container spacing={1}>
@@ -59,33 +123,34 @@ function RecipeCard({ recipe, getRecipes, makingRecipe, setMakingRecipe }) {
               size={6}
             >
               <Typography
-                variant="subtitle1"
+                variant="subtitle2"
               >Ingredients
               </Typography>
               <IngredientList ingredients={recipe.ingredients}/>
             </Grid>
             <Grid size={6}>
               <Typography
-                variant="subtitle1"
+                variant="subtitle2"
                 >Nutrition
               </Typography>
               <NutritionList nutrition={recipe.nutrition}/>
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions sx={{ background: '#004d40'}}>
+        <Divider variant="fullWidth" sx={{ borderBottomWidth: 5, color: 'black',  }}/>
+        <CardActions>
         <Button
             onClick={editRecipe}
-            sx={{ background: '#bdbdbd', color: '#212121' }}
           >Edit
           </Button>
           <Button
             onClick={() => { setDeletingRecipe(true) }}
-            sx={{ background: '#bdbdbd', color: '#212121' }}
+            sx={{ background: '#bdbdbd' }}
           >Delete
           </Button>
         </CardActions>
       </Card>
+      </ThemeProvider>
       <Dialog open={deletingRecipe}>
         <DialogTitle>
           {`Delete ${recipe.name}`}
