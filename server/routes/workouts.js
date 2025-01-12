@@ -24,6 +24,7 @@ const workouts = express.Router();
  *  GET     /search/:query            => performs external GET requests
  *  PUT     /create                   => enables user to add a workout to account
  *  PUT     /delete                   => enables user to remove workout from account
+ *  PATCH   /delete/all               => enables user to remove all workouts from account
  * ----------------------------------------------------------------------------------- */
 
 workouts.get('/', verify, (req, res) => {
@@ -90,6 +91,7 @@ workouts.patch('/delete', verify, (req, res) => {
     res.sendStatus(500);
   })
 });
+
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
