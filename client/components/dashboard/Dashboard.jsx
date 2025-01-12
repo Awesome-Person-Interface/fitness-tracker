@@ -114,7 +114,13 @@ const updateGoals = () => {
   console.error('Could not patch goals', err)
 );
 }
-
+/**Removing elements from a mongo array
+ * Users.updateMany ({}, {$pull: weightProgress: {$in: [ [233, 05-15] ]}})
+ * Almost.. Take the x and series values, turn them back into tuples and do this:
+ * const req = {
+ * value: [Add tuple here]
+ * }
+ */
   return (
     <div id="dash_main">
       <h1 style={{textAlign: "center"}}>Dashboard</h1>
@@ -138,6 +144,7 @@ const updateGoals = () => {
 
       {dbWeightX.length !== 0 && dbWeightSeries.length !== 0 
         ?
+        <Grid size={6}>
       <LineChart
         xAxis={[{ data: dbWeightX }]}
         series={[
@@ -148,6 +155,7 @@ const updateGoals = () => {
         width={500}
         height={300}
         />
+        </Grid>
         :
         <Typography>No goal info found</Typography>
       }

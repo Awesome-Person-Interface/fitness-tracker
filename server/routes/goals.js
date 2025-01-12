@@ -37,4 +37,16 @@ goals.patch('/', (req, res) => {
     res.sendStatus(500);
   });
 });
+goals.delete('/', (req, res) => {
+  const { value } = req.user;
+  //--------------------------------------------------vvvv possibly just value w/o []
+  Users.findByIdAndUpdate(req.user._id, {$pull: {$in: [value]}})
+  .then(() => {
+    res.status(200).send('Successful deletion')
+  })
+  .catch((err) => {
+    console.error('Could not DELETE value', err);
+    res.sendStatus(500);
+  });
+})
 export default goals
