@@ -10,8 +10,15 @@ import { DateCalendar,
   DatePicker,
  } from '@mui/x-date-pickers';
  import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+/**
+ * import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+ */
 import { Divider,
    Grid2,
    Container,
@@ -42,6 +49,7 @@ export default function Dashboard(props) {
   // separate the tuples in db progress array into dbWeightX and dbWeightSeries
   const [ dbWeightX, setDbWeightX ] = useState([]);
   const [ dbWeightSeries, setDbWeightSeries ] = useState([]);
+  const [ pickDate, setPickDate ] = useState('');
 /**
  * Adding FormControl must be separate per each input field to avoid visual errors.
  * But I'm currently working on getting the form to the part of the grid I'm specifying.
@@ -146,21 +154,60 @@ const removeProgress = () => {
       >
         <Container>
           <Box>
-            This is the space for Calendar/Goals
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               {/* <DemoContainer> */}
                 <DemoItem label="Date Picker">
-                  <StaticDatePicker defaultValue={dayjs('2025-01-12')} />
+                  {/* <StaticDatePicker defaultValue={dayjs('2025-01-12')} /> */}
+                  <DesktopDatePicker />
                 </DemoItem>
               {/* </DemoContainer> */}
             </LocalizationProvider>
           </Box>
         </Container>
       </Grid>
+          <Grid size={7}>
+          
+                <div id="dash_container" style={{display: "flex", flexDirection: "column", paddingTop: "35px", justifyContent: "center"}}>
+                  <div id="dash_workouts" style={{paddingRight:"20px"}}>
+                    <DashboardWorkouts workouts={props.user.workouts}/>
+                  </div>
+                  <div id="dash_meals">
+                    <DashboardMeals nutrition={props.user.nutrition}/>
+                  </div>
+                </div>
+          </Grid>
+          <Grid size={5} justifyContent="space-between" alignItems="flex">
+            <FormControl size="small">
+              <label htmlFor="current-weight">Weight Today:
+                <TextField type="text"
+                 name="current-weight"
+                 value={weight}
+                 variant="outlined"
+                 onChange={() => setWeight(event.target.value)}
+                 />
+              </label>
+              </FormControl>
+                
+              <FormControl>
+              <label type="text" htmlFor="goal-weight">Weight Goal:
+                <TextField type="text"
+                 name="goal-weight"
+                 value={goalWeight}
+                 variant="outlined"
+                 onChange={() => setGoalWeight(event.target.value)}
+                 />
+              </label>
+              <Button variant="contained"
+              type="submit"
+               name="submit-goal"
+               onClick={updateGoals}
+               >Set User Info</Button>
+            </FormControl>
+          </Grid>
 
       {dbWeightX.length !== 0 && dbWeightSeries.length !== 0 
         ?
-        <Grid size={6}>
+        <Grid size={7}>
       <LineChart
       // I think I can do new Date(`2025-${dbWeightX}`)
       // or straight up  use the data picker  and parse the info that shows
@@ -178,53 +225,16 @@ const removeProgress = () => {
         <Typography>No goal info found</Typography>
       }
 
-
-      <div id="dash_container" style={{display: "flex", flexDirection: "column", paddingTop: "35px", justifyContent: "center"}}>
-        <div id="dash_workouts" style={{paddingRight:"20px"}}>
-          <DashboardWorkouts workouts={props.user.workouts}/>
-        </div>
-        <div id="dash_meals">
-          <DashboardMeals nutrition={props.user.nutrition}/>
-        </div>
-      </div>
-      <Grid size={5} justifyContent="space-between" alignItems="flex">
-        <FormControl size="small">
-          <label htmlFor="current-weight">Weight Today:
-            <TextField type="text"
-             name="current-weight"
-             value={weight}
-             variant="outlined"
-             onChange={() => setWeight(event.target.value)}
-             />
-          </label>
-          </FormControl>
-            
-          <FormControl>
-          <label type="text" htmlFor="goal-weight">Weight Goals:
-            <TextField type="text"
-             name="goal-weight"
-             value={goalWeight}
-             variant="outlined"
-             onChange={() => setGoalWeight(event.target.value)}
-             />
-          </label>
-          <Button variant="contained"
-          type="submit"
-           name="submit-goal"
-           onClick={updateGoals}
-           >Set User Info</Button>
-        </FormControl>
-      </Grid>
       <Grid>
         <Container>
           <Box>
             {dbWeight ?
-            <Typography variant="h5">Yo weight: {dbWeight}lbs</Typography>
+            <Typography variant="h5">Current weight: {dbWeight}lbs</Typography>
           :
           null
           }
           {dbGoalWeight ?
-              <Typography variant="h5">Yo goal: {dbGoalWeight}lbs </Typography>
+              <Typography variant="h5">goal: {dbGoalWeight}lbs </Typography>
             :
             null
             }
