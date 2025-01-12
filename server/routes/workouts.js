@@ -24,6 +24,7 @@ const workouts = express.Router();
  *  GET     /search/:query            => performs external GET requests
  *  PUT     /create                   => enables user to add a workout to account
  *  PUT     /delete                   => enables user to remove workout from account
+ *  PATCH   /delete/all               => enables user to remove all workouts from account
  * ----------------------------------------------------------------------------------- */
 
 workouts.get('/', verify, (req, res) => {
@@ -89,6 +90,28 @@ workouts.patch('/delete', verify, (req, res) => {
   .catch((err) => {
     res.sendStatus(500);
   })
+});
+
+workouts.patch('/delete/all', (req, res) => {
+  // Grab _id from the req.user
+  const { _id } = req.user;
+  // Query database for a user by id and replace the workouts field with an empty array
+  User.findByIdAndUpdate(_id, { workouts: [] })
+    // Success:
+    .then((updatedUser) => {
+      // If no user was found, send Status: 404
+      if (!updatedUser) {
+        res.sendStatus(404);
+      } else {
+        // Otherwise, send Status: 200
+        res.sendStatus(200);
+      }
+    })
+    // Failure: log error & send Status: 500
+    .catch((err) => {
+      console.error(`PATCH :: INTERNAL :: Clear workouts for #${req.user._id}:`, err);
+      res.sendStatus(500);
+    });
 });
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
