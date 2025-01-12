@@ -4,10 +4,14 @@ import DashboardWorkouts from './DashboardWorkouts.jsx';
 import DashboardMeals from './DashboardMeals.jsx';
 import { DateCalendar,
    LocalizationProvider,
-  DemoContainer,
+   StaticDatePicker,
+  // DemoContainer,
+  // DemoItem,
   DatePicker,
-
  } from '@mui/x-date-pickers';
+ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Divider,
    Grid2,
    Container,
@@ -144,9 +148,11 @@ const removeProgress = () => {
           <Box>
             This is the space for Calendar/Goals
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar>
-              
-            </DateCalendar>
+              {/* <DemoContainer> */}
+                <DemoItem label="Date Picker">
+                  <StaticDatePicker defaultValue={dayjs('2025-01-12')} />
+                </DemoItem>
+              {/* </DemoContainer> */}
             </LocalizationProvider>
           </Box>
         </Container>
