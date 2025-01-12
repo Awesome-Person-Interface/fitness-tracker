@@ -81,9 +81,7 @@ useEffect(() => {
 const updateGoals = () => {
   // set an object with groups as the property and an object as its value
   let req = {
-    goals: {
-      // weightProgress: [[1, 2], [2, 5.5], [3, 2], [5, 8.5], [8, 1.5], [10, 5]]
-    }
+    goals: {}
   }
   // if there are changes entered in state for weight
   if (weight !== '') {
@@ -121,6 +119,18 @@ const updateGoals = () => {
  * value: [Add tuple here]
  * }
  */
+const removeProgress = () => {
+  const req = {
+    value: []
+  }
+  axios.delete('/user/goals', req).then(() => {
+    getUserGoals()
+  }).catch(
+    console.error('Could not DELETE value', err)
+  );
+}
+
+
   return (
     <div id="dash_main">
       <h1 style={{textAlign: "center"}}>Dashboard</h1>
