@@ -4,6 +4,8 @@ import {
   Button,
   Typography,
 } from '@mui/material';
+// Supports weights 300-700
+import '@fontsource-variable/akshar';
 import Navigation from '../components/navigation/Navigation.jsx';
 import CurrentMealPlans from '../components/nutrition/CurrentMealPlans.jsx';
 import RecipesForm from '../components/recipes/RecipeForm.jsx';
@@ -47,7 +49,7 @@ function MealPlans({ handleThemeChange }) {
           getRecipes={getRecipes}
           />)
       : <CurrentMealPlans />}
-      <Typography variant="h5">Your Recipes</Typography>
+      <Typography variant="h4" sx={{ fontFamily: "Akshar", fontWeight: 600}}>Your Recipes</Typography>
       <RecipesGrid
         recipes={recipes}
         getRecipes={getRecipes}

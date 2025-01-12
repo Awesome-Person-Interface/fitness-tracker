@@ -34,7 +34,7 @@ export default function AccountMenu(props) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}><AccountCircleIcon sx={{fontSize: '36px'}}/></Avatar>
+            <AccountCircleIcon sx={{fontSize: '36px', color: 'white'}}/>
           </IconButton>
         </Tooltip>
       </Box>
@@ -76,7 +76,7 @@ export default function AccountMenu(props) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem href="/account" >
-          <Avatar><AccountCircleIcon sx={{fontSize: '36px'}} /></Avatar> Profile
+          <AccountCircleIcon sx={{fontSize: '36px'}} />Profile
         </MenuItem>
         <Divider />
         <MenuItem>
