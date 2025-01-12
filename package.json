@@ -17,6 +17,10 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@fontsource-variable/akshar": "^5.1.1",
+    "@fontsource-variable/noto-serif": "^5.1.1",
+    "@fontsource/merriweather": "^5.1.1",
+    "@fontsource/noto-sans-georgian": "^5.1.1",
     "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.1.5",
     "@mui/styles": "^6.1.5",
