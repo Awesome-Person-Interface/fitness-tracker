@@ -92,7 +92,7 @@ const Routines = ({fetchUser, routines, user}) => {
     <div style={{padding: '10px', justifyItems: 'center'}}>
       <Snackbar open={open} autoHideDuration={3000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={() => setOpen(false)}>
         <Alert onClose={() => setOpen(false)} severity="success" sx={{ width: '100%', transform: 'scale(2.0)' }}>
-          Routine added successfully!
+          Routine removed successfully!
         </Alert>
       </Snackbar>
       <h2>Saved Routines</h2>
