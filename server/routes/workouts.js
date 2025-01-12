@@ -92,27 +92,6 @@ workouts.patch('/delete', verify, (req, res) => {
   })
 });
 
-workouts.patch('/delete/all', (req, res) => {
-  // Grab _id from the req.user
-  const { _id } = req.user;
-  // Query database for a user by id and replace the workouts field with an empty array
-  User.findByIdAndUpdate(_id, { workouts: [] })
-    // Success:
-    .then((updatedUser) => {
-      // If no user was found, send Status: 404
-      if (!updatedUser) {
-        res.sendStatus(404);
-      } else {
-        // Otherwise, send Status: 200
-        res.sendStatus(200);
-      }
-    })
-    // Failure: log error & send Status: 500
-    .catch((err) => {
-      console.error(`PATCH :: INTERNAL :: Clear workouts for #${req.user._id}:`, err);
-      res.sendStatus(500);
-    });
-});
 // ----------------------------------------------------------------------------------- //
 // =================================================================================== //
 
