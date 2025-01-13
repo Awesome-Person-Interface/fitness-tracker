@@ -255,7 +255,7 @@ const handleDev = (e) => {
                 // type="button"
                 //  name="display-goals"
                 //  onClick={setIsDisplay(!IsDisplay)}
-                 >See User Info</Button>
+                 >See goal progress</Button>
                  {/* <Button onClick={setIsDisplay(!isDisplay)}>Display Progress</Button> */}
               </label>
               
