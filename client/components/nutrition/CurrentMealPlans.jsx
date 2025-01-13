@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
+import '@fontsource-variable/akshar';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -41,19 +42,23 @@ export default function CurrentMealPlans(props) {
 
   return (
     <div>
+      <br></br>
+      <Typography variant="h4" sx={{ fontFamily: 'Akshar' }}>
+          Your Meals
+        </Typography>
       { meals.length > 0 ?
         <div id="mealsContainer">
           {
             meals.map((meal) => {
               return (
                 <div style={{paddingTop:"35px" }} key={meal._id}>
-                  <TableContainer component={Paper} key={meal._id * 2}>
+                  <TableContainer component={Paper} key={meal._id * 2} sx={{ m: 0 }}>
                     <Table sx={{ minWidth: 650}} aria-label="simple table">
                       <TableHead>
                         <TableRow>
                           { meal.routine_name.length > 0 ?
                             <TableCell sx={{display: 'flex', alignItems: 'center'}}>
-                              "{meal.routine_name}" - Meal Items      
+                              "{meal.routine_name}" - Meal Items
                               <DeleteIcon onClick={() => deleteMeal(meal._id)} sx={{transform: 'scale(.75)', "&:hover": { color: 'rgba(0, 0, 0, 0.4)'}}}/>
                             </TableCell>
                             :
@@ -96,7 +101,9 @@ export default function CurrentMealPlans(props) {
           }
         </div>
         :
-        'You have not generated any meals, please visit the Pantry tab.'
+        <Typography variant="h6" sx={{ fontFamily: 'Akshar' }}>
+          Visit the Pantry tab to generate meals
+        </Typography>
       }
     </div>
   );
