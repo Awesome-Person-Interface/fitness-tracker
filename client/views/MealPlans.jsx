@@ -42,13 +42,6 @@ function MealPlans({ handleThemeChange }) {
       >
         Create Recipe
       </Button>
-      {makingRecipe
-      ? (<RecipesForm
-          makingRecipe={makingRecipe}
-          setMakingRecipe={setMakingRecipe}
-          getRecipes={getRecipes}
-          />)
-      : <CurrentMealPlans />}
       <Typography variant="h4" sx={{ fontFamily: "Akshar", fontWeight: 600}}>Your Recipes</Typography>
       <RecipesGrid
         recipes={recipes}
@@ -56,6 +49,13 @@ function MealPlans({ handleThemeChange }) {
         makingRecipe={makingRecipe}
         setMakingRecipe={setMakingRecipe}
       />
+      {makingRecipe
+      ? (<RecipesForm
+          makingRecipe={makingRecipe}
+          setMakingRecipe={setMakingRecipe}
+          getRecipes={getRecipes}
+          />)
+      : <CurrentMealPlans />}
     </div>
   );
 }
