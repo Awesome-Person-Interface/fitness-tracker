@@ -20,10 +20,20 @@ export default function AccountPage(props){
   const [username, setUsername] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [recEmail, setRecEmail] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+  const [isEditingPhoneNum, setIsEditingPhoneNum] = useState(false);
+  const [isEditingRecEmail, setIsEditingRecEmail] = useState(false);
 
-  const handleEditClick = () => {
-    setIsEditing(true);
+  const handleEditUsernameClick = () => {
+    setIsEditingUsername(true);
+  };
+
+  const handleEditPhoneNumClick = () => {
+    setIsEditingPhoneNum(true);
+  };
+
+  const handleEditRecEmailClick = () => {
+    setIsEditingRecEmail(true);
   };
 
   const handleSaveClick = (type) => {
@@ -35,12 +45,15 @@ export default function AccountPage(props){
     switch(type){
       case 'username':
         update.data = username;
+        setIsEditingUsername(false);
         break;
       case 'phone':
         update.data = phoneNum;
+        setIsEditingPhoneNum(false);
         break;
       case 'email':
         update.data = recEmail;
+        setIsEditingRecEmail(false);
         break;
     }
     
@@ -51,8 +64,6 @@ export default function AccountPage(props){
       .catch((error) => {
         console.error(`Error on update account information.`)
       })
-
-    setIsEditing(false);
   };
 
   return (
@@ -70,7 +81,7 @@ export default function AccountPage(props){
                   Username
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {isEditing ?
+                  {isEditingUsername ?
                     <div>
                       <TextField
                       value={username}
@@ -89,15 +100,15 @@ export default function AccountPage(props){
                         color: 'black',
                       }}
                       />
-                      <IconButton onClick={isEditing ? () =>{handleSaveClick('username')} : handleEditClick}>
-                        {isEditing ? <SaveIcon /> : <EditIcon />}
+                      <IconButton onClick={isEditingUsername ? () =>{handleSaveClick('username')} : handleEditUsernameClick}>
+                        {isEditingUsername ? <SaveIcon /> : <EditIcon />}
                       </IconButton>  
                     </div>
                     :(
                       <div>
                         {props.user.username} 
-                        <IconButton onClick={isEditing ? () =>{handleSaveClick('username')} : handleEditClick}>
-                          {isEditing ? <SaveIcon /> : <EditIcon />}
+                        <IconButton onClick={isEditingUsername ? () =>{handleSaveClick('username')} : handleEditUsernameClick}>
+                          {isEditingUsername ? <SaveIcon /> : <EditIcon />}
                         </IconButton>  
                       </div>                
                     )
@@ -109,7 +120,7 @@ export default function AccountPage(props){
                   Phone Number
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {isEditing ?
+                  {isEditingPhoneNum ?
                     <div>
                       <TextField
                       value={phoneNum}
@@ -128,15 +139,15 @@ export default function AccountPage(props){
                         color: 'black',
                       }}
                       />
-                      <IconButton onClick={isEditing ? () =>{handleSaveClick('phone')} : handleEditClick}>
-                        {isEditing ? <SaveIcon /> : <EditIcon />}
+                      <IconButton onClick={isEditingPhoneNum ? () =>{handleSaveClick('phone')} : handleEditPhoneNumClick}>
+                        {isEditingPhoneNum ? <SaveIcon /> : <EditIcon />}
                       </IconButton>  
                     </div>
                     :(
                       <div>
                         {props.user.phone_num} 
-                        <IconButton onClick={isEditing ? () =>{handleSaveClick('phone')} : handleEditClick}>
-                          {isEditing ? <SaveIcon /> : <EditIcon />}
+                        <IconButton onClick={isEditingPhoneNum ? () =>{handleSaveClick('phone')} : handleEditPhoneNumClick}>
+                          {isEditingPhoneNum ? <SaveIcon /> : <EditIcon />}
                         </IconButton>  
                       </div>                
                     )
@@ -148,7 +159,7 @@ export default function AccountPage(props){
                   Recovery Email
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {isEditing ?
+                  {isEditingRecEmail ?
                     <div>
                       <TextField
                       value={recEmail}
@@ -167,15 +178,15 @@ export default function AccountPage(props){
                         color: 'black',
                       }}
                       />
-                      <IconButton onClick={isEditing ? () =>{handleSaveClick('email')} : handleEditClick}>
-                        {isEditing ? <SaveIcon /> : <EditIcon />}
+                      <IconButton onClick={isEditingRecEmail ? () =>{handleSaveClick('email')} : handleEditRecEmailClick}>
+                        {isEditingRecEmail ? <SaveIcon /> : <EditIcon />}
                       </IconButton>  
                     </div>
                     :(
                       <div>
                         {props.user.recov_email} 
-                        <IconButton onClick={isEditing ? () =>{handleSaveClick('email')} : handleEditClick}>
-                          {isEditing ? <SaveIcon /> : <EditIcon />}
+                        <IconButton onClick={isEditingRecEmail ? () =>{handleSaveClick('email')} : handleEditRecEmailClick}>
+                          {isEditingRecEmail ? <SaveIcon /> : <EditIcon />}
                         </IconButton>
                       </div>
                     )
@@ -185,9 +196,9 @@ export default function AccountPage(props){
           </TableBody>
         </Table>
       </TableContainer>
-      <Divider sx={{paddingTop: "10px"}}/>
+      {/* <Divider sx={{paddingTop: "10px"}}/>
       <br></br>
-      <Button className={classes.deleteAccButton} type="button" name="Delete Account" sx={{color: 'white'}}>Delete Account</Button>
+      <Button className={classes.deleteAccButton} type="button" name="Delete Account" sx={{color: 'white'}}>Delete Account</Button> */}
     </div>
   )
 
