@@ -24,8 +24,10 @@ goals.get('/', (req, res) => {
 
 goals.patch('/', (req, res) => {
   const { goals } = req.body
+  const { _id } = req.user
+  console.log('in the then')
   // console.log(req.user._id)
-  Users.findByIdAndUpdate(req.user._id, goals)
+  Users.findOneAndUpdate({_id: _id}, goals)
   .then((newGoals) => {
     if (newGoals) {
       res.status(200).send(newGoals);
@@ -38,9 +40,10 @@ goals.patch('/', (req, res) => {
   });
 });
 goals.delete('/', (req, res) => {
-  const { value } = req.user;
+  const { value } = req.body;
+  const { _id } = req.user;
   //--------------------------------------------------vvvv possibly just value w/o []
-  Users.findByIdAndUpdate(req.user._id, {$pull: {$in: [value]}})
+  Users.updateMany({_id: _id}, {$pull: {weightProgress: {value}}})
   .then(() => {
     res.status(200).send('Successful deletion')
   })
