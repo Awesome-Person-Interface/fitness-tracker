@@ -8,8 +8,10 @@ const recipes = express.Router();
 
 // For GET requests to /user/recipes
 recipes.get('/', (req, res) => {
+  // Grab the user id and use it to find the recipes we want
+  const { _id } = req.user;
   // Get al the recipes from the database
-  Recipes.find({})
+  Recipes.find({ userId: _id })
     .then((recipes) => {
       res.status(200).send(recipes);
     }).catch((err) => {
@@ -21,6 +23,9 @@ recipes.get('/', (req, res) => {
 recipes.post('/', (req, res) => {
   // Grab the config from the req body
   const { recipe } = req.body;
+  // Grab the user id and add it to the recipe we are posting
+  const { _id } = req.user;
+  recipe.userId = _id;
   // Grab the ingredients list from recipe
   const { ingredients } = recipe
   // Pass the ingredients into the helper
