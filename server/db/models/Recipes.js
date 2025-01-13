@@ -18,6 +18,7 @@ const NutrientSchema = new Schema({
   // Use the IngredientSchema for the ingredients field in recipes
   // Declaring an array of objects that follow the IngredientSchema
 const RecipeSchema = new Schema({
+  userId: { type: String, ref: 'User' },
   name: { type: String, required: true},
   serves: { type: String, },
   time: { type: String, },
