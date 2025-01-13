@@ -15,14 +15,19 @@
   
 3. Acquire a Google Client ID, Google Client Secret, and setup Google OAuth within Google Cloud Console. If you aren't familiar with this process, here is relevant [documentation](https://developers.google.com/identity/protocols/oauth2). Ensure that you store this information in your `env` file.
     - GOOGLE_CLIENT_ID: From Google Cloud Console.
-    - Google_CLIENT_SECRET: From Google Cloud Console.
+    - GOOGLE_CLIENT_SECRET: From Google Cloud Console.
     - SERVER_SESSION_SECRET: Whatever secret you would like Express to use.
 
-4. Under the `OAuth Consent Screen` register your email, as well as other team member emails, as test users. If this isn't done, then you will be refused at the entry point to the application.
+4. Additional OPTIONAL Information to include in your .env:
+    - BASE_URL: If you're using something different than `http://localhost`
+    - PORT: If you want to use a different port then `8080`
+    - MONGO_URI: If you're using a different URI for MongoDB than your local Mongo storage
 
-5. Once you have registered an `OAuth Consent Screen`, ensure that the `OAuth 2.0 Client IDs` is setup correctly. Ensure that the website is declared as an Authorized Javascript Origin and that you specify Authorized Redirect URIs as necessary.
+5. Under the `OAuth Consent Screen` register your email, as well as other team member emails, as test users. If this isn't done, then you will be refused at the entry point to the application.
 
-6. If necessary, update the `auth.js` Passport strategy as necessary. You shouldn't need to update many parts of this if your `env` file has been setup correctly. An example of how your strategy should be setup is provided [here](https://www.passportjs.org/packages/passport-google-oauth20/).
+6. Once you have registered an `OAuth Consent Screen`, ensure that the `OAuth 2.0 Client IDs` is setup correctly. Ensure that the website is declared as an Authorized Javascript Origin and that you specify Authorized Redirect URIs as necessary.
+
+7. If necessary, update the `auth.js` Passport strategy as necessary. You shouldn't need to update many parts of this if your `env` file has been setup correctly. An example of how your strategy should be setup is provided [here](https://www.passportjs.org/packages/passport-google-oauth20/).
 
 # Startup
 
@@ -51,8 +56,8 @@ There are two other additional scripts that are particularly useful if you have 
 | MaterialUI       | Express          | Mongoose         | Babel & Babel Loader             |
 | Axios            | Passport         |                  | Express / express-session        |
 | Webpack          | Google OAuth 2.0 |                  | dotenv                           |
-|                  | Webpack          |                  | eslint                           |
-|                  | Nodemon          |                  | MaterialUI                       |
+| React-Router     | Webpack          |                  | eslint                           |
+| Day.js           | Nodemon          |                  | MaterialUI                       |
 
 ### Client
 
@@ -100,3 +105,20 @@ A critical import is our connection to MongoDB / Mongoose from the `server/db/in
     - R - Read any routine associated with the current user.
     - U - Update any routine's name for the current user.
     - D - Delete any routine of specified name for the user.
+
+5. **Goal Tracking**
+    - 
+
+5. **Recipe Management**
+    - 
+
+5. **Calendar Assistant**
+    - C - Create new events using previously stored data or custom data.
+    - R - Populate the calendar with previously created events
+    - U - Update any field in any event previously created
+    - D - Delete any event previously created
+    - Calendar displays details on any event when clicked.
+    - User can drag across multiple dates for multi-day events.
+    - User can choose between an all-day event or specific time event when creating an event for a day
+    - Choosing a category populates the title and description of an event for the user.
+
