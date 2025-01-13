@@ -12,6 +12,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
 
 export default function AccountMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,7 +76,10 @@ export default function AccountMenu(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem href="/account" >
+        <MenuItem
+          component={Link}
+          to="/account"
+        >
           <AccountCircleIcon sx={{fontSize: '36px'}} />Profile
         </MenuItem>
         <Divider />
