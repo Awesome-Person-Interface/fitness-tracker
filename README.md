@@ -50,14 +50,15 @@ There are two other additional scripts that are particularly useful if you have 
 
 ## Frameworks, Libraries, Packages, & Plugins
 
-|      Client      |      Server      |     Database     |           Miscellaneous          |
-| ---------------- | ---------------- | ---------------- | -------------------------------- |
-| React & React-DOM| Node.js          | MongoDB          | Mongoose / find-or-create plugin |
-| MaterialUI       | Express          | Mongoose         | Babel & Babel Loader             |
-| Axios            | Passport         |                  | Express / express-session        |
-| Webpack          | Google OAuth 2.0 |                  | dotenv                           |
-| React-Router     | Webpack          |                  | eslint                           |
-| Day.js           | Nodemon          |                  | MaterialUI                       |
+|      Client       |      Server      |     Database     |           Miscellaneous          |
+| ----------------  | ---------------- | ---------------- | -------------------------------- |
+| React & React-DOM | Node.js          | MongoDB          | Mongoose / find-or-create plugin |
+| MaterialUI        | Express          | Mongoose         | Babel & Babel Loader             |
+| Axios             | Passport         |                  | Express / express-session        |
+| Webpack           | Google OAuth 2.0 |                  | dotenv                           |
+| React-Router      | Webpack          |                  | eslint                           |
+| Day.js            | Nodemon          |                  | MaterialUI                       |
+| React-Big-Calendar|                  |                  |                                  |
 
 ### Client
 
@@ -72,6 +73,7 @@ The `server/index.js` expects for all sensitive information to be stored in the 
 ### Database
 
 A critical import is our connection to MongoDB / Mongoose from the `server/db/index.js` file. This file initializes a `UserSchema`, registers this schema to use the methods provided by the `find-or-create` plugin, and exports this alongside a connection to the server. Additionally a `RoutineSchema` is initialized that is used within workout components; this schema is associated with a `user_id` property which acts as a foreign key (indicates which user the saved routine belongs to).
+- All the models can be found inside the models folder on the server side.
 
 ## Entry to Application & Authentication
 1. The entry point to our application is a Google Sign-in; this is handled by Passport with the Google OAuth 2.0 strategy. Navigation to routes within our server are prohibited if you have not or cannot be authenticated with this strategy.
@@ -107,10 +109,20 @@ A critical import is our connection to MongoDB / Mongoose from the `server/db/in
     - D - Delete any routine of specified name for the user.
 
 5. **Goal Tracking**
-    - 
+    - C/U - Allow a user to set a goal weight and goal weight
+    - We did not make as much progress with this feature as we would have liked
+        - There is a lot of opportunity for expansion or improvement within the feature
 
-5. **Recipe Management**
-    - 
+6. **Recipe Management**
+    - C - Create a custom recipe with a custom name, amount of people it serves, cook time, notes, and ingredients.
+    - R - View the custom recipes along with the nutrition facts of the recipe
+    - U - Update a recipe's information, including changing the ingredient measurements (Change will be reflected in nutrition facts upon saving)
+    - D - Delete a custom recipe
+    - Users are given a form to create a recipe upon hitting the create recipe button
+    - Max number of ingredient fields is 10 (User is given an alert when trying to insert an 11th ingredient field)
+    - Editing a recipe uses the same form as creating but the fields will render with the values of the recipes being added
+        - The logic for this is is handled in the RecipeForm component, it can be confusing because of the amount of conditional logic used.
+        - Quick breakdown: When the Recipe Card edit button is clicked it opens a dialog box with the RecipeForm component. The value state value of editingRecipe is set to true, which is the main value used in the conditional rendering of the form inside of the RecipeForm component.
 
 5. **Calendar Assistant**
     - C - Create new events using previously stored data or custom data.
@@ -122,3 +134,37 @@ A critical import is our connection to MongoDB / Mongoose from the `server/db/in
     - User can choose between an all-day event or specific time event when creating an event for a day
     - Choosing a category populates the title and description of an event for the user.
 
+## Future Development
+> What we would have done given the time
+- Be able to set multiple calendar events at the same time
+    - ie: Set multiple breakfast events for every day of the week with only one event creation
+- Consolidate search exercises view and user's exercises view into one view
+    - Have the exercises render once the muscle group is clicked, rather than requiring the search button click
+- Set a fail safe for ingredients that are inserted into a recipe that Spoonacular API does not recognize
+    - WARNING: A misspelled or completely empty ingredient field will cause the site to break (I believe)
+- Set up a prettier dashboard view that is more user friendly and pleasing to look at
+
+## Current Bugs
+- Attempting to add an empty field to the pantry will insert HTML into the users nutrition document, effectively breaking the site and causing the need for the users table to be dropped before the site will work again
+- There is no fail safe for an unknown / empty ingredient field being inserted into a custom recipe form
+    - An unknown ingredient will break the site, an empty one will show as empty on the recipe card
+    - You will probably be best served setting this up in the Spoonacular helpers
+- Logout button has no functionality
+- Delete account feature is incomplete
+    - This is commented out in the AccountPage component (199-201)
+## Spoonacular Helpers
+- Helpers needed to be set up to retrieve ingredient nutrition because of the how the Spoonacular API works
+- The ingredient id must be retrieved from the API before a request can be made for the ingredients nutrition facts
+- server/spoonacular-helpers/helpers.js has a decent amount of pseudocode that attempts to explain how the process works
+- A single recipe's nutrition is calculated at once using these helpers
+- Pay attention to the Recipe model and how nutrition facts are stored
+
+## Contributors
+- [Code-Blooded](https://github.com/os-ims-Code-Blooded)
+  - Benjamin Long ([benlongcp](https://github.com/benlongcp))
+  - Justin Sandrock ([sandrockjustin](https://github.com/sandrockjustin))
+  - Jeremy Hernandez ([jhernandez504](https://github.com/jhernandez504))
+- [Awesome Person Interface](https://github.com/Awesome-Person-Interface)
+  - Tyler Meyer ([tymey](https://github.com/tymey))
+  - Evan Loria ([evanloria4](https://github.com/evanloria4))
+  - Stefan Poole ([steviepee](https://github.com/steviepee))
